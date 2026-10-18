@@ -262,7 +262,7 @@ export function saveArticle(input) {
   return { relativePath: written.relativePath, title: String(input.title).trim() }
 }
 
-export async function pickPaper({ repoRoot, categories, arxiv, fetchImpl, lookbackDays = DEFAULT_LOOKBACK_DAYS, baseUrl = DEFAULT_BASE_URL, now = new Date() }) {
+export async function pickPaper({ repoRoot, categories, arxiv, fetchImpl, lookbackDays = DEFAULT_LOOKBACK_DAYS, baseUrl = DEFAULT_BASE_URL, now = new Date(), peek = false }) {
   const root = realpathSync(repoRoot)
   const seen = findArxivIds(root)
   const id = normalizeArxivId(arxiv)
@@ -299,6 +299,23 @@ export async function pickPaper({ repoRoot, categories, arxiv, fetchImpl, lookba
       }
     }
   }
+  const rootUrl = normalizeBaseUrl(baseUrl)
+  if (peek) {
+    return {
+      text: [
+        '只取摘要，没有下载全文。这是用来判方向的，确认要写再用它的编号取全文。',
+        '',
+        `arxiv: ${paper.arxiv}`,
+        `title: ${paper.title}`,
+        `authors: ${paper.authors.join(', ')}`,
+        `published: ${paper.published}`,
+        `abs: ${rootUrl}/abs/${paper.arxiv}`,
+        '',
+        'summary:',
+        paper.summary,
+      ].join('\n'),
+    }
+  }
   let files = {}
   try {
     const downloaded = await fetchPaperFiles({ arxiv: paper.arxiv, fetchImpl, baseUrl })
@@ -306,7 +323,6 @@ export async function pickPaper({ repoRoot, categories, arxiv, fetchImpl, lookba
   } catch {
     files = {}
   }
-  const rootUrl = normalizeBaseUrl(baseUrl)
   return {
     text: formatPaper({ ...paper, abs: `${rootUrl}/abs/${paper.arxiv}` }, files),
   }

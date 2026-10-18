@@ -132,6 +132,29 @@ test('未写过的列表取投稿最早的一篇', async () => {
   rmSync(dir, { recursive: true, force: true })
 })
 
+test('peek 只要摘要，不下载全文', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'dsh-paper-peek-'))
+  writeFileSync(join(dir, 'topics.json'), '["其他"]\n')
+  const urls = []
+  const picked = await pickPaper({
+    repoRoot: dir,
+    categories: ['cs.RO'],
+    lookbackDays: 2,
+    baseUrl: 'https://export.arxiv.org',
+    now: new Date('2026-06-20T00:00:00Z'),
+    peek: true,
+    fetchImpl: async (url) => {
+      urls.push(String(url))
+      return { ok: true, text: async () => atom, arrayBuffer: async () => Buffer.from('') }
+    },
+  })
+  assert.match(picked.text, /只取摘要/)
+  assert.match(picked.text, /summary:/)
+  assert.match(picked.text, /arxiv: 1706\.03762/)
+  assert.equal(urls.some((href) => href.includes('/html/') || href.includes('/pdf/')), false)
+  rmSync(dir, { recursive: true, force: true })
+})
+
 test('写过的较早论文会翻到下一页', async () => {
   const dir = mkdtempSync(join(tmpdir(), 'dsh-paper-page-'))
   saveArticle({
