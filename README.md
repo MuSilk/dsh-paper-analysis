@@ -33,7 +33,7 @@ dsh web --patch plugin/cordis.local.yml
 在这个会话里直接说「写今天的论文解读」。模型会：
 
 1. 调用 `fetch_paper`。回溯天数里的论文都写过就停，并说明停了。
-2. 用 `fetch_paper` 的 `peek` 模式取摘要（不下载全文），按 skill 里的选题门槛判断方向。不是具身的记进 `papers/_skip/skipped.md`，再 peek 下一篇，跳到合方向的为止；一轮取满 20 篇或窗口翻完才停，跳过记录留着下次接着翻。过了门槛的再用它的编号取一次全文。
+2. 用 `fetch_paper` 的 `peek` 模式取摘要（不下载全文），按 skill 里的选题门槛判断方向。不是具身的记进 `papers/_skip/skipped.md`，再 peek 下一篇，跳到合方向的为止；窗口翻完才停。过了门槛的再用它的编号取一次全文。
 3. 用 skill 工具加载 `paper-analysis`，再读取 `fetch_paper` 返回的 HTML。不要再用网页获取去打开 arXiv。按技能里的结构写成一篇。
 4. 调用 `paper_save`，写入 `papers/YYYYMM/YYYYMMDD_短名.md`。
 5. 用它自己的 git 工具提交并推送当前分支。提交说明：`docs: 新增论文解读 <标题>`。
