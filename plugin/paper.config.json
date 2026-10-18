@@ -1,0 +1,12 @@
+{
+  "repoRoot": "",
+  "categories": [
+    "cs.RO",
+    "cs.CV",
+    "cs.LG",
+    "cs.AI",
+    "cs.HC"
+  ],
+  "lookbackDays": 7,
+  "baseUrl": "https://export.arxiv.org"
+}
