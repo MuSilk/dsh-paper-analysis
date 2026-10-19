@@ -155,7 +155,7 @@ def main() -> None:
         "site_dir": "site",
         "theme": {
             "name": "readthedocs",
-            "highlightjs": True,
+            "highlightjs": False,
             "navigation_depth": 2,
             "collapse_navigation": True,
             "titles_only": True,
