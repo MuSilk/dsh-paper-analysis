@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { after, test } from 'node:test'
-import { PAGE_SIZE, formatPaper, htmlToText, parseAtom, selectPaper } from './arxiv.js'
+import { PAGE_SIZE, fetchArxivEntries, formatPaper, htmlToText, parseAtom, resetApiPacer, selectPaper } from './arxiv.js'
 import { findArxivIds, loadConfig, pickPaper, saveArticle, writeSettings } from './publish.js'
 import { handleSettingsRequest } from './settings-server.js'
 
@@ -135,6 +135,7 @@ test('未写过的列表取投稿最早的一篇', async () => {
   const picked = await pickPaper({
     repoRoot: dir,
     categories: ['cs.AI'],
+    minIntervalMs: 0,
     fetchImpl: async () => ({ ok: true, text: async () => atom }),
   })
   assert.match(picked.text, /arxiv: 1706.03762/)
@@ -153,6 +154,7 @@ test('peek 只要摘要，不下载全文', async () => {
     baseUrl: 'https://export.arxiv.org',
     now: new Date('2026-06-20T00:00:00Z'),
     peek: true,
+    minIntervalMs: 0,
     fetchImpl: async (url) => {
       urls.push(String(url))
       return { ok: true, text: async () => atom, arrayBuffer: async () => Buffer.from('') }
@@ -197,6 +199,7 @@ test('写过的较早论文会翻到下一页', async () => {
     categories: ['cs.AI', 'cs.CL'],
     lookbackDays: 1,
     now: new Date('2026-10-18T00:00:00Z'),
+    minIntervalMs: 0,
     fetchImpl: async (url) => {
       const href = String(url)
       if (!href.includes('/api/query')) {
@@ -225,6 +228,7 @@ test('全文写到 papers/_source，返回里只有路径', async () => {
     repoRoot: dir,
     categories: ['cs.AI'],
     arxiv: '2606.19926',
+    minIntervalMs: 0,
     fetchImpl: async (url) => {
       const href = String(url)
       if (href.includes('/pdf/')) {
@@ -239,6 +243,129 @@ test('全文写到 papers/_source，返回里只有路径', async () => {
   assert.match(readFileSync(join(dir, 'papers', '_source', '2606.19926.html'), 'utf8'), /实验部分的完整数字 42\.0/)
   assert.equal(readFileSync(join(dir, 'papers', '_source', '2606.19926.pdf')).subarray(0, 5).toString(), '%PDF-')
   rmSync(dir, { recursive: true, force: true })
+})
+
+test('429 会退避重试，成功后继续', async () => {
+  resetApiPacer()
+  const sleeps = []
+  let calls = 0
+  const entries = await fetchArxivEntries({
+    categories: ['cs.AI'],
+    fetchImpl: async () => {
+      calls += 1
+      if (calls < 3) return { ok: false, status: 429, headers: { get: () => null } }
+      return { ok: true, text: async () => atom }
+    },
+    attempts: 3,
+    retryBaseMs: 100,
+    minIntervalMs: 0,
+    sleepImpl: async (ms) => {
+      sleeps.push(ms)
+    },
+  })
+  assert.equal(calls, 3)
+  assert.equal(entries[0].arxiv, '2606.19926')
+  assert.equal(sleeps.length, 2)
+  assert.ok(sleeps[0] >= 100 && sleeps[0] < 200)
+  assert.ok(sleeps[1] >= 200 && sleeps[1] < 400)
+})
+
+test('429 优先按 Retry-After 等待', async () => {
+  resetApiPacer()
+  const sleeps = []
+  let calls = 0
+  await fetchArxivEntries({
+    categories: ['cs.AI'],
+    fetchImpl: async () => {
+      calls += 1
+      if (calls === 1) {
+        return { ok: false, status: 429, headers: { get: (name) => (name === 'retry-after' ? '7' : null) } }
+      }
+      return { ok: true, text: async () => atom }
+    },
+    attempts: 2,
+    retryBaseMs: 50,
+    minIntervalMs: 0,
+    sleepImpl: async (ms) => {
+      sleeps.push(ms)
+    },
+  })
+  assert.equal(calls, 2)
+  assert.ok(sleeps[0] >= 7000)
+})
+
+test('429 用尽后提示稍后再试或指定编号', async () => {
+  resetApiPacer()
+  let calls = 0
+  await assert.rejects(
+    fetchArxivEntries({
+      categories: ['cs.AI'],
+      fetchImpl: async () => {
+        calls += 1
+        return { ok: false, status: 429, headers: { get: () => null } }
+      },
+      attempts: 2,
+      retryBaseMs: 1,
+      minIntervalMs: 0,
+      sleepImpl: async () => {},
+    }),
+    /限流[\s\S]*arXiv 编号/,
+  )
+  assert.equal(calls, 2)
+})
+
+test('404 不重试', async () => {
+  resetApiPacer()
+  let calls = 0
+  await assert.rejects(
+    fetchArxivEntries({
+      categories: ['cs.AI'],
+      fetchImpl: async () => {
+        calls += 1
+        return { ok: false, status: 404 }
+      },
+      attempts: 3,
+      retryBaseMs: 1,
+      minIntervalMs: 0,
+      sleepImpl: async () => {},
+    }),
+    /404/,
+  )
+  assert.equal(calls, 1)
+})
+
+test('超时会重试', async () => {
+  resetApiPacer()
+  let calls = 0
+  const entries = await fetchArxivEntries({
+    categories: ['cs.AI'],
+    fetchImpl: async () => {
+      calls += 1
+      if (calls === 1) throw Object.assign(new Error('timed out'), { name: 'TimeoutError' })
+      return { ok: true, text: async () => atom }
+    },
+    attempts: 2,
+    retryBaseMs: 1,
+    minIntervalMs: 0,
+    sleepImpl: async () => {},
+  })
+  assert.equal(calls, 2)
+  assert.equal(entries[1].arxiv, '1706.03762')
+})
+
+test('两次 API 请求之间至少隔三秒', async () => {
+  resetApiPacer()
+  let clock = 1_000_000
+  const sleeps = []
+  const now = () => clock
+  const sleepImpl = async (ms) => {
+    sleeps.push(ms)
+    clock += ms
+  }
+  const fetchImpl = async () => ({ ok: true, text: async () => atom })
+  await fetchArxivEntries({ categories: ['cs.AI'], fetchImpl, minIntervalMs: 3000, now, sleepImpl })
+  await fetchArxivEntries({ categories: ['cs.AI'], fetchImpl, minIntervalMs: 3000, now, sleepImpl })
+  assert.deepEqual(sleeps, [3000])
 })
 
 test('跳过的论文记在 _skip 里也算已经写过', () => {

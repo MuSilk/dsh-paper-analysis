@@ -46,7 +46,8 @@ export function apply(ctx) {
               })
               return picked.text
             } catch (error) {
-              return `拒绝：${error instanceof Error ? error.message : String(error)}`
+              const message = error instanceof Error ? error.message : String(error)
+              return message.startsWith('arXiv ') ? `失败：${message}` : `拒绝：${message}`
             }
           },
         }),

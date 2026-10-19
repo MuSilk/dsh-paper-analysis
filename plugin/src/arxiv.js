@@ -111,24 +111,107 @@ export function arxivQueryUrl({ categories, arxiv, start = 0, maxResults = PAGE_
   return `${root}/api/query?${params}`
 }
 
-const API_TIMEOUT_MS = 20_000
+export const API_TIMEOUT_MS = 30_000
+export const API_ATTEMPTS = 3
+export const API_MIN_INTERVAL_MS = 3_000
+export const API_RETRY_BASE_MS = 5_000
 const HTML_TIMEOUT_MS = 30_000
 const PDF_TIMEOUT_MS = 15_000
+const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504])
+const USER_AGENT = 'dsh-paper/0.1.0 (+https://github.com/MuSilk/dsh-paper-analysis)'
+
+let lastApiRequestAt = Number.NEGATIVE_INFINITY
+
+export function resetApiPacer() {
+  lastApiRequestAt = Number.NEGATIVE_INFINITY
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 
 function arxivOptions(timeoutMs) {
   return {
-    headers: { 'User-Agent': 'dsh-paper' },
+    headers: { 'User-Agent': USER_AGENT },
     signal: AbortSignal.timeout(timeoutMs),
   }
 }
 
-export async function fetchArxivEntries({ categories, arxiv, fetchImpl = fetch, start = 0, maxResults = PAGE_SIZE, submittedFrom, submittedTo, baseUrl = DEFAULT_BASE_URL }) {
-  const response = await fetchImpl(
-    arxivQueryUrl({ categories, arxiv, start, maxResults, submittedFrom, submittedTo, baseUrl }),
-    arxivOptions(API_TIMEOUT_MS),
-  )
-  if (!response.ok) throw new Error(`arXiv 请求失败：${response.status}`)
-  return parseAtom(await response.text())
+function retryAfterMs(response) {
+  const raw = response?.headers?.get?.('retry-after')
+  if (!raw) return 0
+  const seconds = Number(raw)
+  if (Number.isFinite(seconds)) return Math.max(0, seconds * 1000)
+  const date = Date.parse(raw)
+  return Number.isFinite(date) ? Math.max(0, date - Date.now()) : 0
+}
+
+function backoffMs(attempt, baseMs) {
+  const base = baseMs * 2 ** (attempt - 1)
+  return Math.round(base + Math.random() * base * 0.25)
+}
+
+function isRetryableNetworkError(error) {
+  const name = error?.name
+  return name === 'TimeoutError' || name === 'AbortError' || error instanceof TypeError
+}
+
+function requestFailure(status, attempts) {
+  if (status === 429) {
+    return new Error(`arXiv 接口限流（HTTP 429），已尝试 ${attempts} 次。请等几分钟再试，或直接传入 arXiv 编号。`)
+  }
+  if (status >= 500) {
+    return new Error(`arXiv 接口暂时不可用（HTTP ${status}），已尝试 ${attempts} 次。请稍后再试，或直接传入 arXiv 编号。`)
+  }
+  return new Error(`arXiv 请求失败：${status}`)
+}
+
+async function paceRequest({ minIntervalMs, sleepImpl, now }) {
+  if (!(minIntervalMs > 0)) return
+  const wait = lastApiRequestAt + minIntervalMs - now()
+  if (wait > 0) await sleepImpl(wait)
+  lastApiRequestAt = now()
+}
+
+export async function fetchArxivEntries({
+  categories,
+  arxiv,
+  fetchImpl = fetch,
+  start = 0,
+  maxResults = PAGE_SIZE,
+  submittedFrom,
+  submittedTo,
+  baseUrl = DEFAULT_BASE_URL,
+  attempts = API_ATTEMPTS,
+  timeoutMs = API_TIMEOUT_MS,
+  minIntervalMs = API_MIN_INTERVAL_MS,
+  retryBaseMs = API_RETRY_BASE_MS,
+  sleepImpl = sleep,
+  now = () => Date.now(),
+}) {
+  const url = arxivQueryUrl({ categories, arxiv, start, maxResults, submittedFrom, submittedTo, baseUrl })
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    await paceRequest({ minIntervalMs, sleepImpl, now })
+    let response
+    try {
+      response = await fetchImpl(url, arxivOptions(timeoutMs))
+    } catch (error) {
+      if (attempt === attempts || !isRetryableNetworkError(error)) {
+        if (error?.name === 'TimeoutError' || error?.name === 'AbortError') {
+          throw new Error(`arXiv 接口超时（${Math.round(timeoutMs / 1000)} s，已尝试 ${attempt} 次）。请稍后再试，或直接传入 arXiv 编号。`)
+        }
+        throw new Error(`arXiv 请求失败（已尝试 ${attempt} 次）：${error instanceof Error ? error.message : String(error)}`)
+      }
+      await sleepImpl(backoffMs(attempt, retryBaseMs))
+      continue
+    }
+    if (response.ok) return parseAtom(await response.text())
+    if (!RETRYABLE_STATUS.has(response.status) || attempt === attempts) {
+      throw requestFailure(response.status, attempt)
+    }
+    await sleepImpl(Math.max(retryAfterMs(response), backoffMs(attempt, retryBaseMs)))
+  }
+  throw new Error('arXiv 请求失败')
 }
 
 export function htmlToText(html) {

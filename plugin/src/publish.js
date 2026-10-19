@@ -255,14 +255,14 @@ export function saveArticle(input) {
   return { relativePath: written.relativePath, title: String(input.title).trim() }
 }
 
-export async function pickPaper({ repoRoot, categories, arxiv, fetchImpl, lookbackDays = DEFAULT_LOOKBACK_DAYS, baseUrl = DEFAULT_BASE_URL, now = new Date(), peek = false }) {
+export async function pickPaper({ repoRoot, categories, arxiv, fetchImpl, lookbackDays = DEFAULT_LOOKBACK_DAYS, baseUrl = DEFAULT_BASE_URL, now = new Date(), peek = false, minIntervalMs }) {
   const root = realpathSync(repoRoot)
   const seen = findArxivIds(root)
   const id = normalizeArxivId(arxiv)
   if (id && seen.has(id)) return { text: `已经写过 ${id}` }
   let paper = null
   if (id) {
-    const entries = await fetchArxivEntries({ categories, arxiv: id, fetchImpl, baseUrl })
+    const entries = await fetchArxivEntries({ categories, arxiv: id, fetchImpl, baseUrl, minIntervalMs })
     paper = entries.find((entry) => entry.arxiv === id) ?? null
     if (!paper) return { text: `arXiv 上没有找到 ${id}` }
   } else {
@@ -279,6 +279,7 @@ export async function pickPaper({ repoRoot, categories, arxiv, fetchImpl, lookba
         submittedFrom,
         submittedTo,
         baseUrl,
+        minIntervalMs,
       })
       paper = selectPaper(entries, seen)
       covered = entries.length < PAGE_SIZE

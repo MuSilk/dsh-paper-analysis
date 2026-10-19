@@ -95,6 +95,8 @@ GitHub 仓库的 Pages 源选 `gh-pages` 分支。把解读推到 `main` 且 `pa
 - arXiv 网站根地址
 - 主题列表。顺序同时用于站点导航，`paper_save` 的 `topic` 必须是其中一项
 
+arXiv 的检索接口会限流。插件在两次请求之间至少隔 3 秒；遇到 429、5xx 或超时会按 5 秒、10 秒退避重试，最多 3 次，有 `Retry-After` 时优先按它等。仍然失败时 `fetch_paper` 返回「失败：arXiv 接口限流…」，这时等几分钟再试，或者直接传一个 arXiv 编号绕过列表查询。
+
 `plugin/paper.config.json`：
 
 ```json
