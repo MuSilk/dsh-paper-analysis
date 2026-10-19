@@ -92,6 +92,16 @@ test('写入 frontmatter，并拒绝重复的 arXiv 号和路径', () => {
     body: '路径撞了。',
   })
   assert.match(duplicatePath.error, /同名文件已存在/)
+
+  const missingDate = saveArticle({
+    repoRoot: root,
+    title: '缺日期',
+    slug: 'missing_date',
+    arxiv: '2606.19926',
+    topic: '其他',
+    body: '不该按今天下载日期落盘。',
+  })
+  assert.match(missingDate.error, /挂载日期/)
 })
 
 test('指定编号时，写过的论文不再拉取', async () => {

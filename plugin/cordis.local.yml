@@ -1,0 +1,6 @@
+# 本地试跑。name 必须是插件入口的绝对路径。
+# dsh web --patch E:/program/dsh/ai-paper-analysis/plugin/cordis.local.yml
+
+- insert:
+    - id: dsh-paper
+      name: 'E:/program/dsh/ai-paper-analysis/plugin/src/index.js'

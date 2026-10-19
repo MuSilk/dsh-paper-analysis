@@ -2,7 +2,7 @@
 title: 一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型
 arxiv: 2606.28276
 topic: 仿真与 Sim2Real
-date: 2026-10-17
+date: 2026-06-26
 ---
 
 # 一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型

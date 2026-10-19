@@ -35,7 +35,7 @@ dsh web --patch plugin/cordis.local.yml
 1. 调用 `fetch_paper`。回溯天数里的论文都写过就停，并说明停了。
 2. 用 `fetch_paper` 的 `peek` 模式取摘要（不下载全文），按 skill 里的选题门槛判断方向。不是具身的记进 `papers/_skip/skipped.md`，再 peek 下一篇，跳到合方向的为止；窗口翻完才停。过了门槛的再用它的编号取一次全文。
 3. 用 skill 工具加载 `paper-analysis`，再读取 `fetch_paper` 返回的 HTML。不要再用网页获取去打开 arXiv。按技能里的结构写成一篇。
-4. 调用 `paper_save`，写入 `papers/YYYYMM/YYYYMMDD_短名.md`。
+4. 调用 `paper_save`，写入 `papers/YYYYMM/YYYYMMDD_短名.md`。`YYYYMMDD` 用 `fetch_paper` 返回的 `published`，也就是 arXiv 第一版挂载日期。
 5. 用它自己的 git 工具提交并推送当前分支。提交说明：`docs: 新增论文解读 <标题>`。
 6. 回复相对路径和 arXiv 号。
 
@@ -43,14 +43,14 @@ dsh web --patch plugin/cordis.local.yml
 
 每天一篇。同一 arXiv 号或同一路径已存在时，`paper_save` 会拒绝覆盖。
 
-### 4. 每天 09:00 自动跑
+### 4. 每天 06:00 自动跑
 
 先在网页侧栏的插件管理里，启用「官方」分组中带闹钟图标的「自动化任务」。然后新建一个专用会话，不要和日常聊天混用。任务绑在创建它的会话上，到点后提醒发回这个会话。
 
 把下面这段发给模型：
 
 ```text
-用 schedule_create 建一条每天 09:00 的任务。标题：每日论文解读。时间只用 daily，时区 Asia/Shanghai，不要用 every_seconds。prompt 用下面这段：
+用 schedule_create 建一条每天 06:00 的任务。标题：每日论文解读。时间只用 daily，时区 Asia/Shanghai，不要用 every_seconds。prompt 用下面这段：
 
 1. 调用 fetch_paper。没有新论文就停，并说明停了。
 2. 用 skill 工具加载 paper-analysis，再读取 fetch_paper 返回的 HTML。不要再用网页获取去打开 arXiv。按技能里的结构写成一篇。
@@ -86,7 +86,7 @@ GitHub 仓库的 Pages 源选 `gh-pages` 分支。把解读推到 `main` 且 `pa
 | 工具 | 作用 |
 |---|---|
 | `fetch_paper` | 从配置的 arXiv 分组里，取回溯天数内最早一篇还没写过的论文，把 HTML 和 PDF 下载到 `papers/_source/`。传入 `arxiv` 则改取这一篇 |
-| `paper_save` | 写入 `papers/YYYYMM/YYYYMMDD_短名.md`，带上 frontmatter。同号或同路径已存在就拒绝 |
+| `paper_save` | 写入 `papers/YYYYMM/YYYYMMDD_短名.md`。月份按 arXiv 第一版挂载日期分，带上 frontmatter。同号或同路径已存在就拒绝 |
 
 在 DSH 里打开设置，左侧有「论文设置」。保存后下一次 `fetch_paper` 就会用上：
 
@@ -125,11 +125,11 @@ GitHub 仓库的 Pages 源选 `gh-pages` 分支。把解读推到 `main` 且 `pa
 title: 格式示例：一篇解读在站点里长什么样
 arxiv: 1706.03762
 topic: 视觉语言动作模型
-date: 2026-10-17
+date: 2017-06-12
 ---
 ```
 
-`topic` 必须是 `topics.json` 里的一项。结构和句式在 `.dsh/skills/paper-analysis/SKILL.md`，DSH 会把它登记成名为 `paper-analysis` 的技能。
+`date` 是这篇论文在 arXiv 上的第一版挂载日期，站点按它分到 `papers/201706/`。`topic` 必须是 `topics.json` 里的一项。结构和句式在 `.dsh/skills/paper-analysis/SKILL.md`，DSH 会把它登记成名为 `paper-analysis` 的技能。
 
 ## 测试
 

@@ -86,7 +86,7 @@ def write_index(entries: list[dict]) -> None:
     lines = [
         "# AI Paper Analysis",
         "",
-        "具身智能方向的论文中文解读。新文章放进 `papers/YYYYMM/` 后，由构建脚本生成这一页。",
+        "具身智能方向的论文中文解读。新文章放进 `papers/YYYYMM/`，月份是论文在 arXiv 的第一版挂载日期。",
         "",
         "| 日期 | 主题 | 文章 |",
         "|---|---|---|",

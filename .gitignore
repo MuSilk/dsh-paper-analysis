@@ -1,0 +1,8 @@
+node_modules/
+papers/_source/
+.venv/
+site/
+docs/
+mkdocs.yml
+__pycache__/
+*.pyc

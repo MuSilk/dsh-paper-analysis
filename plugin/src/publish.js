@@ -121,13 +121,6 @@ function parseTopics(value) {
   return topics
 }
 
-export function formatLocalDate(date) {
-  const y = date.getFullYear()
-  const m = String(date.getMonth() + 1).padStart(2, '0')
-  const d = String(date.getDate()).padStart(2, '0')
-  return `${y}-${m}-${d}`
-}
-
 function parseDate(iso) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso)
   if (!match) return null
@@ -216,7 +209,7 @@ function collectIds(dir, seen) {
   }
 }
 
-export function planArticle({ repoRoot, title, slug, arxiv, topic, date, body, now = new Date() }) {
+export function planArticle({ repoRoot, title, slug, arxiv, topic, date, body }) {
   const root = realpathSync(repoRoot)
   const name = String(slug ?? '').trim()
   if (!SLUG_RE.test(name)) return { error: '短名只允许字母、数字、中文、下划线和连字符，最长 80 字' }
@@ -225,9 +218,9 @@ export function planArticle({ repoRoot, title, slug, arxiv, topic, date, body, n
   const topics = loadTopics(root)
   const topicName = String(topic ?? '').trim()
   if (!topics.includes(topicName)) return { error: `topic 必须是其中之一：${topics.join('、')}` }
-  const iso = date === undefined || date === '' ? formatLocalDate(now) : String(date).trim()
+  const iso = String(date ?? '').trim()
   const parsed = parseDate(iso)
-  if (!parsed) return { error: '日期必须是 YYYY-MM-DD' }
+  if (!parsed) return { error: 'date 必须是 arXiv 第一版挂载日期，格式 YYYY-MM-DD' }
   if (findArxivIds(root).has(id)) return { error: `已经写过 ${id}` }
 
   const composed = composeMarkdown({ title, arxiv: id, topic: topicName, date: iso, body })

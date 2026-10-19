@@ -60,14 +60,14 @@ export function apply(ctx) {
         defineTool({
           name: 'paper_save',
           description:
-            '把一篇论文解读写入 papers/YYYYMM/YYYYMMDD_短名.md，并写上 frontmatter。同 arXiv 号或同路径已存在则拒绝。不操作 git。',
+            '把一篇论文解读写入 papers/YYYYMM/YYYYMMDD_短名.md。月份和文件名前缀用 arXiv 第一版挂载日期，不用今天下载或写作的日期。同 arXiv 号或同路径已存在则拒绝。不操作 git。',
           parameters: {
             title: { type: 'string', required: true, description: '文章一级标题，不含 # 号' },
             body: { type: 'string', required: true, description: '标题以下的 Markdown，不要自带 frontmatter' },
             slug: { type: 'string', required: true, description: '文件名短名，例如 Attention_论文解读_格式示例' },
             arxiv: { type: 'string', required: true, description: 'arXiv 编号，例如 1706.03762' },
             topic: { type: 'string', required: true, description: '主题，必须是设置页主题列表里的一项' },
-            date: { type: 'string', description: '写作日期 YYYY-MM-DD，省略则用本机当天' },
+            date: { type: 'string', required: true, description: 'arXiv 第一版挂载日期 YYYY-MM-DD，用 fetch_paper 返回的 published。不要填今天下载或写作的日期。' },
           },
           output: {
             schema: { type: 'string' },

@@ -1,0 +1,6 @@
+# 安装为 npm 包后，DSH 用包名解析 src/index.js。
+# id 这一行不能写行尾注释，商城预检要求值后面直接换行。
+
+- insert:
+    - id: dsh-paper
+      name: 'dsh-paper'
