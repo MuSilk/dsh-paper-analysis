@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u8bfb\u5f97\u61c2\u624b\u518c\uff0c\u62fc\u4e0d\u6210\u7ed3\u6784\uff1aJARVIS \u7684 50 \u9053\u7269\u7406\u88c5\u914d\u8003\u9898";
+        var mkdocs_page_input_path = "papers/202610/20261020_JARVIS_\u8bfb\u5f97\u61c2\u624b\u518c\u62fc\u4e0d\u6210\u7ed3\u6784.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/" class="btn btn-neutral float-left" title="头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/" class="btn btn-neutral float-right" title="Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="jarvis-50">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</h1>
+<h2 id="_1">引子</h2>
+<p>桌面上是一座拼到一半的乐高结构，74 块砖已经就位，旁边散着这一步要用的零件。手册画面上只有零件图、箭头和凸点标记，没有语言指令。机械臂要从散砖里挑出形状和颜色都对的那一块，抓起，对准凸点，压到位，再翻下一步。</p>
+<p>这是 JARVIS 里刻意留下的长程样例：初始 74 块，要再放 29 块，最终 103 块，<span class="arithmatex">\(S_{\mathrm{scene}}=0.244\)</span>、<span class="arithmatex">\(S_{\mathrm{act}}=1.000\)</span>，难度 <span class="arithmatex">\(D=0.773\)</span>，在 1,067 个候选任务里归一化难度为 1.00，归入 Hard 档。整段装配只给手册图像和一张顶视 RGB 观察，没有语言指令，也没有参考动作轨迹。</p>
+<p>单步动作本身不难。附录在任务 000003 上对比三个模型，它们都生成了完整的接近、抓取、转移、放置序列，软分数分别是 66.67、63.94 和 67.39，差距只在最后几毫米的位姿。难的是越往后：每次落砖都改变工作台，早期偏差把后面的凸点挡住，机械臂还会蹭到已拼好的邻砖。</p>
+<p>论文记录的两类失败都发生在这里。Claude Opus-4.5 和 GPT-5.1 在非反思设置下都抓起目标砖，却在转移和放置时撞上周围结构，邻砖移位、翻倒、散落，工作台状态与程序开头假设的逐步分离，没有新观察可以重规划，误差沿剩余动作传下去，最终得分 0.43 和 0.00。另一类更早：抓取没夹牢，后面所有放置都建立在错误状态上，非反思下整段得 0.00，换成结构化反思后回到 17.05。</p>
+<h2 id="_2">论文信息</h2>
+<ul>
+<li>原标题：JARVIS: From Visual Manuals to Autonomous Robotic Assembly</li>
+<li>作者：Fan Ding、Fucai Ke、Kevin Yuchen Ma、Xuewen Luo、Wenyu Liang、Vishnu Monn Baskaran、Hamid Rezatofighi、Yan Wu</li>
+<li>机构：A*STAR Institute of Advanced Intelligence and Computing、Monash University、National University of Singapore、University of Utah</li>
+<li>链接：https://arxiv.org/abs/2610.27618</li>
+<li>日期：2026 年 10 月 20 日（v1）</li>
+<li>项目页与代码：未标注，HTML 中没有项目页或代码仓库链接</li>
+</ul>
+<p>第一作者同时挂 A<em>STAR 与 Monash，致谢写明工作主要在其于 A</em>STAR 实习期间完成，部分支持来自 ONR Global X-Challenge Grant N62909-25-1-2067。</p>
+<h2 id="_3">问题背景</h2>
+<p>这类任务被拆在四个层次上，每一层的输出是下一层的输入。</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>要回答的问题</th>
+<th>本文的术语</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手册理解</td>
+<td>每张步骤图对应哪些零件、装到哪里</td>
+<td>视觉手册 <span class="arithmatex">\(\mathcal{M}=\{I_0,\ldots,I_T\}\)</span></td>
+<td>只解出步骤与零件的对应，不涉及机器人</td>
+</tr>
+<tr>
+<td>装配规划</td>
+<td>先装哪块、目标位姿在哪、能不能装上</td>
+<td>目标结构 <span class="arithmatex">\(s_T\)</span>、动作砖</td>
+<td>输出结构化表示，不含运动</td>
+</tr>
+<tr>
+<td>物理执行</td>
+<td>在当前工作台上抓取、搬运、落位</td>
+<td>状态转移 <span class="arithmatex">\(s_{t+1}=\mathcal{T}(s_t,a_t)\)</span></td>
+<td>需要运动规划、碰撞处理与状态估计</td>
+</tr>
+<tr>
+<td>评测</td>
+<td>完成多少、偏了多少、结构是否合法</td>
+<td>软分数 <span class="arithmatex">\(S_i\)</span></td>
+<td>从最终物理结构算分</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线大致分三派。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表工作</th>
+<th>做法</th>
+<th>卡住的地方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视觉装配规划</td>
+<td>MEPNet、Manual-PA、Neural Assembler、AssemLM</td>
+<td>从手册图、多视角或点云预测零件位姿与装配顺序</td>
+<td>输出是表示，不落到机器人</td>
+</tr>
+<tr>
+<td>手册驱动的执行系统</td>
+<td>Manual2Skill、Manual2Skill++、BrickCraft、ManualVLA</td>
+<td>把手册转成装配图或子目标，再接运动规划或学到的操作技能</td>
+<td>各自绑定表示与控制栈，横向不可比</td>
+</tr>
+<tr>
+<td>执行基准与反馈</td>
+<td>AssemblyBench、WorkBenchMark、CaP-X、ENPIRE</td>
+<td>评装配顺序、目标结构搭建，或不同工具抽象和反馈下的编码智能体</td>
+<td>少见只给手册、全流程闭环、按最终结构打分的设定</td>
+</tr>
+</tbody>
+</table>
+<p>三派各自把一段做扎实，合起来缺一个共同底座：视觉规划停在执行之前，执行系统各绑自己的控制栈，基准又把手册绕了过去。没被回答的问题是，把手册原样交给通用多模态模型，让它决定下一步、写程序、执行、看结果、纠错，最后拼出来的结构能打多少分。这既需要可比的任务，也需要不偏向任何具体方法的评分口径。</p>
+<h2 id="_4">核心思想</h2>
+<p>这套方法借的是工具接地的编码智能体（code-as-policy）框架：模型不预测关节轨迹，而是写一段调用机器人原语的程序，环境执行后把观察和异常还回来。</p>
+<p>它把原来的问题换掉了。模型能不能读懂手册很难直接测，因为没有标准答案的动作序列；换成「模型写的程序在工作台上跑完之后，最终结构能不能通过结构感知评分」，可测的东西就挪到结果端。手册从必须被完整解析的输入变成可反复回查的说明书；动作从必须与参考轨迹对齐，变成只要最终砖块落在容差内。</p>
+<h2 id="_5">方法</h2>
+<h3 id="segment-decomposition-and-difficulty-stratification">机制一：分段任务与难度分层（Segment Decomposition and Difficulty Stratification）</h3>
+<p>它治的是把整本手册当成一条 episode 带来的问题：长度不可控，难度不可比，长尾任务把均值拖平。</p>
+<p>做法是把 8,987 个乐高场景的搭建过程切成连续片段，每段给定半成品初始状态、对应手册片段、所需零件和目标结构，共 236,679 个任务，每个任务操作 1 到 43 块砖。手册另渲染了多种视觉风格，测外观变化的鲁棒性。</p>
+<p>难度由两个因子合成：<span class="arithmatex">\(S_i^{\mathrm{scene}}\)</span> 与 <span class="arithmatex">\(S_i^{\mathrm{act}}\)</span> 分别是初始砖数与动作砖数的归一化值，按最小最大值缩放到 <span class="arithmatex">\([0,1]\)</span>：</p>
+<div class="arithmatex">\[D_i=\alpha S_i^{\mathrm{scene}}+(1-\alpha)S_i^{\mathrm{act}},\qquad \alpha=0.3\]</div>
+<p>动作砖拿 0.7 的权重，因为定位、抓取和状态估计误差会沿步骤累积。从 1,067 个校验任务按 <span class="arithmatex">\(D_i\)</span> 排序，底部 40% 为 Easy，中间 30% 为 Medium，顶部 30% 为 Hard，每层均匀取样并优先选不同源模型的任务，得到 50 个任务，20/15/15。</p>
+<h3 id="structure-aware-scoring">机制二：结构感知评分（Structure-Aware Scoring）</h3>
+<p>它治的是二值成功判据的粗糙：砖放上去但偏了几厘米，和砖完全没动，在成功或失败口径下都是 0 分。</p>
+<p>位姿分对每块必需砖算位置、垂直、朝向三个误差，各用高斯核转成软分</p>
+<div class="arithmatex">\[s_j^{k}=\exp\left[-\frac{1}{2}\left(\frac{e_j^{k}}{\sigma_k}\right)^{2}\right],\qquad k\in\{\mathrm{pos},z,\theta\}\]</div>
+<p>再按 <span class="arithmatex">\(\lambda_{\mathrm{pos}}+\lambda_z+\lambda_\theta=1\)</span> 加权平均。砖没被移动过或没出现，该项拿 0 分。</p>
+<p>完成分另立口径：砖被移动超过 5 mm、到目标不超 5 cm、结束时不被夹爪夹着，三条同时满足才计一块；合法性再看砖是否留在桌面区内。质量分把两者线性合成，一块必需砖都没动过则整题记 0。时间惩罚只在超预算后启动，预算 <span class="arithmatex">\(T_i=T_{\mathrm{base}}+N_iT_{\mathrm{brick}}\)</span>，因子为 <span class="arithmatex">\(\alpha+(1-\alpha)\exp(-\max(0,t_i-T_i)/T_i)\)</span>，有下界，慢一点不会清零。</p>
+<h3 id="grounded-program-generation">机制三：接地程序生成（Grounded Program Generation）</h3>
+<p>它治的是每来一种新任务就要重采机器人轨迹的成本，低层轨迹绑死在具体运动学和夹爪接口上。</p>
+<p>agent 拿到手册和当前观察后，先调感知接口定位候选砖、判断装配到哪一步，再把手册的一步落成工作台里的目标位姿，然后生成 Python 代码，从技能库选择和参数化抓取、搬运、放置技能。技能内部负责位姿校验、抓取确认、避障运动和失败处理，异常作为结构化结果返回。</p>
+<p>接口是硬约束：程序不许重定义 API，不许直接给未经验证的抓取坐标、逆运动学目标或夹持力。模型只在选哪块砖、放到哪这一层做决策，低层可行性由共享技能保证，全程不训练任务专用策略，也不更新参数。</p>
+<h3 id="execution-memory-and-reflection">机制四：执行记忆与反思（Execution Memory and Reflection）</h3>
+<p>它治的是没有反馈时一次抓空、后面全错的传播问题。非反思模式下程序一次生成、一次执行，中途发生什么都不再回看。</p>
+<p>每轮执行后，系统把计划、代码、API 调用、物体状态以及抓放和运行结果记进结构化记忆，进下一轮前压缩成任务相关摘要；真值位姿与评分只留给外部评测器。</p>
+<p>反思有两种设置。标准反思只用当前任务的观察、代码和执行反馈诊断失败并改程序；反思加先验任务经验额外给一份从训练任务日志总结的通用教训，包含常见失败、有效策略和 API 用法。两者都不改参数。</p>
+<h2 id="_6">实验</h2>
+<p>评测集 50 个任务，Easy 20、Medium 15、Hard 15，平均需要 5.18 块动作砖，中位 3.5，最长 29；初始场景平均 74.96 块砖，中位 58.5，最多 236。九个模型跑在同一套 JARVIS-agentic 框架和同一份交互预算下，其中 GPT-OSS-120B 的手册理解由 GPT-5.1 代做。恢复实验用 25 个扰动任务，反思跑三轮，总分是三档难度的无权重平均。</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>通用 API 总分</th>
+<th>任务导向总分</th>
+<th>Easy</th>
+<th>Medium</th>
+<th>Hard</th>
+<th>程序有效率(%)</th>
+<th>每任务失败动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gemini-3-Pro</td>
+<td>8.19</td>
+<td>17.13</td>
+<td>22.16</td>
+<td>19.30</td>
+<td>9.94</td>
+<td>100.00</td>
+<td>4.96</td>
+</tr>
+<tr>
+<td>Claude-Opus-4.5</td>
+<td>13.83</td>
+<td>17.04</td>
+<td>22.20</td>
+<td>18.58</td>
+<td>10.35</td>
+<td>100.00</td>
+<td>5.31</td>
+</tr>
+<tr>
+<td>Claude-Haiku-4.5</td>
+<td>5.93</td>
+<td>11.68</td>
+<td>19.51</td>
+<td>9.41</td>
+<td>6.12</td>
+<td>96.00</td>
+<td>6.10</td>
+</tr>
+<tr>
+<td>DeepSeek-V4.1</td>
+<td>8.49</td>
+<td>17.39</td>
+<td>25.66</td>
+<td>18.52</td>
+<td>7.98</td>
+<td>96.00</td>
+<td>4.26</td>
+</tr>
+<tr>
+<td>Qwen3-VL-235B</td>
+<td>8.27</td>
+<td>15.54</td>
+<td>21.85</td>
+<td>15.75</td>
+<td>9.01</td>
+<td>94.00</td>
+<td>5.30</td>
+</tr>
+<tr>
+<td>Kimi-K2.5</td>
+<td>5.58</td>
+<td>11.21</td>
+<td>17.31</td>
+<td>10.31</td>
+<td>6.01</td>
+<td>94.00</td>
+<td>5.90</td>
+</tr>
+<tr>
+<td>GPT-4o</td>
+<td>4.62</td>
+<td>11.55</td>
+<td>16.21</td>
+<td>11.23</td>
+<td>7.21</td>
+<td>70.00</td>
+<td>3.50</td>
+</tr>
+<tr>
+<td>GPT-5.1</td>
+<td>7.63</td>
+<td>14.99</td>
+<td>20.04</td>
+<td>16.26</td>
+<td>8.66</td>
+<td>96.00</td>
+<td>14.84</td>
+</tr>
+<tr>
+<td>GPT-OSS-120B</td>
+<td>8.38</td>
+<td>15.90</td>
+<td>20.66</td>
+<td>17.20</td>
+<td>9.85</td>
+<td>96.00</td>
+<td>5.20</td>
+</tr>
+<tr>
+<td>九模型均值</td>
+<td>7.88</td>
+<td>14.71</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>换工具库是最干净的一次消融，其它条件不动，只把通用控制 API 换成任务导向原语。</p>
+<table>
+<thead>
+<tr>
+<th>设置</th>
+<th>Medium</th>
+<th>Hard</th>
+<th>Overall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通用机器人 API（九模型均值）</td>
+<td>6.29</td>
+<td>4.49</td>
+<td>7.88</td>
+</tr>
+<tr>
+<td>任务导向原语（九模型均值）</td>
+<td>15.17</td>
+<td>8.35</td>
+<td>14.71</td>
+</tr>
+</tbody>
+</table>
+<p>反馈设置的消融按轮次做，R1 到 R3 是三轮反思后的分数。</p>
+<table>
+<thead>
+<tr>
+<th>反馈设置</th>
+<th>Gemini-3-Pro</th>
+<th>Claude-Opus-4.5</th>
+<th>DeepSeek-V4.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无反思</td>
+<td>17.13</td>
+<td>17.04</td>
+<td>17.39</td>
+</tr>
+<tr>
+<td>标准反思 R1</td>
+<td>12.77</td>
+<td>13.83</td>
+<td>9.84</td>
+</tr>
+<tr>
+<td>标准反思 R2</td>
+<td>11.055</td>
+<td>13.85</td>
+<td>13.04</td>
+</tr>
+<tr>
+<td>标准反思 R3</td>
+<td>9.607</td>
+<td>13.68</td>
+<td>17.26</td>
+</tr>
+<tr>
+<td>先验任务经验 R1</td>
+<td>18.63</td>
+<td>18.22</td>
+<td>17.99</td>
+</tr>
+<tr>
+<td>先验任务经验 R2</td>
+<td>19.05</td>
+<td>14.49</td>
+<td>16.95</td>
+</tr>
+<tr>
+<td>先验任务经验 R3</td>
+<td>17.57</td>
+<td>14.64</td>
+<td>13.20</td>
+</tr>
+</tbody>
+</table>
+<p>最反常的一处是失败动作数与总分不同向。GPT-4o 每任务只有 3.50 次失败动作，九个模型里最少，总分却只有 11.55；DeepSeek-V4.1 每任务 4.26 次失败，总分 17.39 最高。少做无效操作和做出结构进展是两件事，前者可以靠保守策略拿到，后者要求每一步都真的推动装配。GPT-5.1 是另一个方向，程序有效率 96.00，每任务却有 14.84 次失败动作，总分仍到 14.99。</p>
+<p>反思的结论比预期悲观。标准反思第一轮低于无反思：Gemini-3-Pro 从 17.13 掉到 12.77，Claude-Opus-4.5 从 17.04 掉到 13.83，DeepSeek-V4.1 从 17.39 掉到 9.84；去掉时间惩罚后分别是 13.47、15.50、11.52，仍低于无反思。DeepSeek-V4.1 从 R1 的 9.84 升到 R2 的 13.04，还是没回到 17.39。先验任务经验把 R1 抬到 18.63、18.22、17.99，Gemini-3-Pro 到 R2 再涨 2.25%，R3 回落到 17.57，Claude-Opus-4.5 的 R1 到 R2 反而跌了 20.47%。</p>
+<p>计划与执行的落差在接地实验里最明显。加上结构化 3D 描述子后，Gemini-3-Pro 的位置误差从 78.08 mm 降到 16.76 mm，覆盖率却从 15.44% 降到 13.13%；九个模型里最高覆盖率只有 25.10%，全流程最好总分只有 17.39。落位估得准，不等于把砖放上去，也不等于放上去之后结构还对。</p>
+<p>长程敏感性是另一条稳定规律。初始复杂度低时，装配长度从 1 到 2 块增到 3 到 5 块，宏平均从 40.01 掉到 18.29；长度固定在短程，初始结构从 0 到 29 块增到 79 块以上，宏平均从 40.01 掉到 16.64。两个因子都高的格子最差，宏平均只有 4.43。初始复杂度的影响更渐进，也更依赖具体结构。</p>
+<p>恢复实验单独看 25 个扰动任务，平均分只从 54.73 升到 55.14，涨 0.42 分；8 个任务变好，最大涨幅 26.22 分，最大跌幅 15.99 分。恢复能力在任务之间高度不均匀，均值几乎被正负抵消。</p>
+<p>把目标直接给出来，执行能力又是另一幅图景：真值引导的有效动作评测里，Gemini-3-Pro 用 150 个动作拿到 24.25，GPT-OSS-120B 用 187 个动作拿到 23.76，DeepSeek-V4.1 是 142 个动作 22.66，GPT-4o 只有 86 个动作 13.20。单个动作可以做得不错，全流程分数却很低，缺口出在选步、定位和连续状态维护上。</p>
+<h2 id="_7">工程实现细节</h2>
+<p>仿真侧用 NVIDIA Isaac Sim 6.0.1，机器人是 Franka Emika Panda 配平行夹爪，乐高砖建成带碰撞几何、接触和摩擦的动态刚体。观测只有顶视规划相机的 RGB 加关节状态；臂和夹爪通过 ROS 2 控制，运动默认走 cuMotion/RMPflow，MoveIt 可作备选。</p>
+<p>API 是一组受约束的技能：场景观察、物体接地、几何推理、基于点云的抓取估计、运动规划、夹爪控制、抓放执行。每个函数规定输入、返回观察和执行约束，模型只能组合调用，不能直接读写仿真器状态。3D 描述子由技能工具生成，是砖块几何与空间属性的紧凑表示。</p>
+<p>执行有两种模式：非反思一次生成完整程序；反思逐步闭环，每次抓放后拿新观察和结构化反馈，比对预期进度，再决定继续、改程序、纠正或终止。</p>
+<p>训练集有 20 万以上任务，来源包括合成的乐高 3D 数据集、LDraw 模型，以及真实手册配对应的 3D 结构；每块砖的动作标注和中间状态真值都有记录，由三名人工评审复核。训练集平均 4.94 块动作砖，中位 4，超过 20 块的占 0.49%，最长 43 块；初始砖数 0 到 740，中位 57，30 到 78 块与 79 到 149 块两组分别占 30.4% 和 22.2%；两个因子的 Pearson 相关系数只有 0.181。</p>
+<p>校验池由 48 个源模型转成 1,277 个任务，筛后剩 1,067 个，平均 4.82 块动作砖，最长 29 块；初始砖数 0 到 411，均值 80.44。基准按难度从这个池子抽样，不是独立切分，50 个任务也覆盖不了超过 300 块初始砖的极端格子。</p>
+<p>评分的几个关键超参没有给数值。正文说高斯核带宽 <span class="arithmatex">\(\sigma_k\)</span>、位姿三项权重 <span class="arithmatex">\(\lambda\)</span>、质量分权重、时间惩罚系数、<span class="arithmatex">\(T_{\mathrm{base}}\)</span> 和 <span class="arithmatex">\(T_{\mathrm{brick}}\)</span> 都在附录报告，但 HTML 附录 A 到 D 里只有流程、数据分布和案例，没有这些数。交互轮数预算和 wall-clock 预算同样只写了预定义。</p>
+<h2 id="_8">我的判断</h2>
+<p>这个设计站得住的地方在于评测对象选对了。装配的成败最终体现在结构上，而不是动作序列像不像参考轨迹；按最终结构打分，就绕开了逐任务采轨迹这个最贵的环节，通用模型可以直接进场。工具库那一步也聪明，把 VLA 的轨迹采集问题换成 API 编排问题，技能承担可行性，模型只负责选砖和目标位姿，这是九个模型换原语后平均分从 7.88 跳到 14.71 的原因。</p>
+<p>没报的东西不少。<span class="arithmatex">\(\sigma_k\)</span>、<span class="arithmatex">\(\lambda\)</span>、时间惩罚系数和两个时间常数缺失，分数不可复算，跨论文比较只能停在同代码内部；每个 episode 的时长、token 消耗、每模型跑几次、有无随机种子和方差，全都没有。50 个任务意味着一题约值 2 分，单任务波动会直接进均值，而表里给到两位小数，精度比样本量支撑的更高。</p>
+<p>完成阈值值得单独说。乐高凸点的配合是毫米级，5 cm 的完成判定比真实拼接松了一个量级，砖落在 5 cm 内就算完成，结构上可能根本没咬合。论文案例印证了这点：先验任务经验把朝向分从 24.57 抬到 80.63、位置分从 96.20 抬到 99.72、总分从 45.12 到 56.32，完成分仍然是 0。软分数更适合读成接近目标的程度，不适合读成拼成了的比例。</p>
+<p>排名也被工具库改写。通用 API 下 Claude-Opus-4.5 以 13.83 领先，DeepSeek-V4.1 只有 8.49；换上任务导向原语后 DeepSeek-V4.1 到 17.39，反超 Claude-Opus-4.5 的 17.04。论文自己也提到，低层 API 下的评测会把推理能力和工具编排混在一起。</p>
+<p>后续工作有几件事值得先做。把 <span class="arithmatex">\(\sigma_k\)</span> 与 <span class="arithmatex">\(\lambda\)</span> 写进配置并公开，让分数可复算；每个模型至少跑三次并报方差，别把 50 个任务的单次结果当成稳定排名；反思轮数预算和 wall-clock 预算分开记，否则分不清是模型不会改还是没时间改；另外单独统计结构连接真正形成的比例。</p>
+<h2 id="_9">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与本文的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual2Skill（Tie 等，2025）</td>
+<td>用装配图、位姿估计和运动规划做家具装配，本文换成方法无关的评测</td>
+</tr>
+<tr>
+<td>Manual2Skill++（Tie 等，2025）</td>
+<td>加入显式连接件约束，本文对连接合法性只做弱检查</td>
+</tr>
+<tr>
+<td>BrickCraft（Yu 等，2026）</td>
+<td>从数字设计导出装配顺序与情境手册来指导视觉运动技能，本文不训练策略</td>
+</tr>
+<tr>
+<td>ManualVLA（Gu 等，2026）</td>
+<td>从目标状态生成中间手册来条件化执行，本文直接把手册当输入</td>
+</tr>
+<tr>
+<td>AssemblyBench（Li 等，2026）</td>
+<td>评装配顺序与物理可行的零件轨迹，本文评最终物理结构</td>
+</tr>
+<tr>
+<td>CaP-X（Fu 等，2026）</td>
+<td>研究不同工具抽象与反馈设置下的编码智能体，与本文工具库对比最接近</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/" class="btn btn-neutral float-left" title="头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/" class="btn btn-neutral float-right" title="Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

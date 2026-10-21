@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4eba\u5f62\u673a\u5668\u4eba\u94bb\u4f4e\u6746\u8fc7\u7a84\u7f1d\uff1a\u78b0\u649e\u6807\u7b7e\u9020\u5728\u6ca1\u626b\u8fc7\u7684\u7a7a\u95f4\u91cc";
+        var mkdocs_page_input_path = "papers/202610/20261019_SWAP_\u626b\u63a0\u4f53\u6807\u6ce8_\u6d4b\u8bd5\u65f6\u91c7\u6837\u5f15\u5bfc.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/" class="btn btn-neutral float-left" title="动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/" class="btn btn-neutral float-right" title="训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</h1>
+<h2 id="_2">引子</h2>
+<p>一段被杂物挤窄的通道里，人形机器人要从中间穿过去。头顶横着一根离地 0.40 m 的杆，它得把身体压到杆下；再往前两堵墙之间的缝只够侧身，腰部要转到 1.5 rad。拐角处还有一个吊在绳上的球来回摆。Figure 1 把这些动作放在同一段任务谱里：蹲行、侧步、扭腰，都由同一个高层策略生成。</p>
+<p>难点不在单个动作，而在每一步要同时满足三件事。机器人有 29 个自由度，脚踩在哪里、上身怎么摆、手臂抬多高，任何一处蹭到墙都算失败。它还得保持动态平衡，蹲得越低，腿上的力矩余量越小。可行解也不唯一，同一堵墙可以左绕也可以右绕。</p>
+<p>现有三条路线各缺一块。强化学习直接加碰撞惩罚，容易被奖励塑形带偏，策略塌到少数几种行为上。模型规划器能把碰撞写成显式代价，但全身规划非凸，对初值和权重敏感。行为克隆能学到自然动作，代价是依赖大规模遥操作数据。</p>
+<p>落到硬件上，这套系统是 Unitree G1 加一台 Livox Mid-360 激光雷达（LiDAR），点云 10 Hz，高层策略 20 Hz，底层控制器 50 Hz，跑在板载的 NVIDIA Jetson Orin 上。真机每个场景只做 5 次试验，蹲行与快速动态障碍两项各成功 3 次。失败原因被归到两处：极端姿态下雷达被身体挡住，以及更激烈动作上仿真到真机（sim-to-real）的跟踪偏差。</p>
+<h2 id="_3">论文信息</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原标题</td>
+<td>SWAP: Test-Time Steerable Humanoid Whole-Body Collision Avoidance</td>
+</tr>
+<tr>
+<td>作者</td>
+<td>Zeji Yi、Guanqi He、Xiaofeng Guo、Guannan Qu、Pieter Abbeel、Yan Duan、Karen Liu、Guanya Shi</td>
+</tr>
+<tr>
+<td>机构</td>
+<td>卡内基梅隆大学（Carnegie Mellon University）与 Amazon FAR；Guanqi He、Xiaofeng Guo、Pieter Abbeel、Yan Duan、Karen Liu 与 Guanya Shi 标注工作在 Amazon FAR 完成</td>
+</tr>
+<tr>
+<td>链接</td>
+<td>https://arxiv.org/abs/2610.25711</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>2026-10-19（arXiv 第一版）</td>
+</tr>
+<tr>
+<td>项目页</td>
+<td>https://iscoyizj.github.io/SWAP-steerable-humanoid-oa-website/</td>
+</tr>
+</tbody>
+</table>
+<p>SWAP 是 Steerable Whole-body Avoidance Policy 的缩写，test-time steerable 指部署时用打分函数在候选轨迹里挑，不必重训。</p>
+<h2 id="_4">问题背景</h2>
+<p>论文把系统切成四层，各层的输出和边界都很清楚。</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>输出什么</th>
+<th>论文中的记号</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>感知层</td>
+<td>带时序的感知嵌入</td>
+<td><span class="arithmatex">\(\mathbf{z}_t = \mathrm{Enc}(\mathbf{o}_t^{\text{obs}}, \mathbf{z}_{t-1})\)</span></td>
+<td>只看外部障碍，不碰本体感觉</td>
+</tr>
+<tr>
+<td>高层策略</td>
+<td>全身轨迹命令（基座位姿、速度、高度与上身自由度）</td>
+<td><span class="arithmatex">\(\boldsymbol{\tau}_{t:t+H} = \pi_H(\mathbf{z}_t, \mathbf{s}_t)\)</span></td>
+<td>20 Hz，不出关节力矩</td>
+</tr>
+<tr>
+<td>底层控制器</td>
+<td>关节目标位置，经 PD 转成力矩</td>
+<td><span class="arithmatex">\(\mathbf{a}_t = \pi_L(\boldsymbol{\tau}_t, \mathbf{q}_t, \dot{\mathbf{q}}_t)\)</span></td>
+<td>50 Hz，完全不用外感知</td>
+</tr>
+<tr>
+<td>引导目标</td>
+<td>给候选轨迹打分的标量函数</td>
+<td><span class="arithmatex">\(f(\mathbf{s}_t, \mathbf{z}_t, \boldsymbol{\tau})\)</span></td>
+<td>只排序候选，不改先验</td>
+</tr>
+</tbody>
+</table>
+<p>围绕怎么让机器人不撞，已有工作大致分三派。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表做法</th>
+<th>卡住的地方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>带安全代价的强化学习</td>
+<td>碰撞惩罚、控制屏障函数（CBF）约束的 MDP、人工势场（HumanoidPF）</td>
+<td>奖励塑形敏感，行为偏保守；势场依赖显式几何映射</td>
+</tr>
+<tr>
+<td>基于模型的规划</td>
+<td>显式代价的全身规划器（SPARK）、CHOMP 优化</td>
+<td>构型空间非凸，对初值和权重敏感，难上实时频率</td>
+</tr>
+<tr>
+<td>示教与生成式策略</td>
+<td>扩散策略（diffusion policy）、引导扩散（BeyondMimic）</td>
+<td>依赖示教覆盖；引导要可微代价或在线优化，换目标常需重训</td>
+</tr>
+</tbody>
+</table>
+<p>三派都没回答一个组合问题：碰撞监督如何在不做遥操作的前提下规模化，同时允许部署时换目标而不重训。ARMOR 用反向事后策略解决了前半段，部署行为仍绑在训练目标上；BeyondMimic 用代价引导扩散做到了零样本适应，代价是每个新目标都要设计并调一个引导项。</p>
+<h2 id="_5">核心思想</h2>
+<p>论文借的是强化学习里的 hindsight 思路：Andrychowicz 等人在 2017 年提出把没达成的目标改写成已达成的目标，用失败样本继续训练。SWAP 把它搬到几何上：不采无碰撞示教，改为先让机器人按人体运动先验动起来，记录身体扫过的空间，再把障碍物摆到没有扫过的区域。按定义，这条执行完的轨迹对新摆的障碍物就是无碰撞的。</p>
+<p>第二个转换针对部署目标。扩散模型一步可以出 <span class="arithmatex">\(N\)</span> 条候选，候选之间的差异就是多模态的物理形态；换目标时只需换一个打分函数 <span class="arithmatex">\(f\)</span>，先验不动。Table 1 的六个解析目标都写成指数形式的负距离，一行即可写完。</p>
+<h2 id="_6">方法</h2>
+<h3 id="hierarchical-command-space">机制一：分层命令空间（Hierarchical Command Space）</h3>
+<p>这一层治的是端到端扩散的失败：一个网络同时学避障和平衡会互相拉扯，迭代去噪的计算量也难满足人形控制 30 到 50 Hz 的频率要求。</p>
+<p>高层策略是以扩散 Transformer（Diffusion Transformer，DiT）为骨干的条件扩散模型，输出基座位置、速度、高度与上身自由度的航点序列。底层只用本体感觉，输入是目标航点、关节位置与速度、上一帧动作，输出关节目标位置，再由 PD 控制器转成力矩。底层用近端策略优化（PPO）训 50K 次迭代，奖励是跟踪项加运动项：</p>
+<div class="arithmatex">\[r_{\text{track}} = \exp\left(-\tfrac{1}{\sigma_v^2}\|\mathbf{v}_t^b - \mathbf{v}_t^{b*}\|_2^2 - \tfrac{1}{\sigma_p^2}\|\mathbf{p}_t^b - \mathbf{p}_t^{b*}\|_2^2 - \tfrac{1}{\sigma_h^2}(h_t - h_t^*)^2 - \tfrac{1}{\sigma_u^2}\|\mathbf{p}_t^u - \mathbf{p}_t^{u*}\|_2^2\right)\]</div>
+<p>运动项惩罚身体倾斜、基座角速度和关节加速度。训练时基座速度随机采样、上身参考关节位置取自 LAFAN1，这是后面扫掠体数据丰富的前提。底层训完即冻结，作为高层固定的动作空间。</p>
+<h3 id="swept-volume-hindsight-labeling">机制二：扫掠体事后标注（Swept-Volume Hindsight Labeling）</h3>
+<p>扩散策略需要感知输入与无碰撞轨迹的配对，这类数据遥操作拿不到。论文用机器人自己的扫掠体造标签。先把 LAFAN1 上身片段和随机基座航点拼成命令序列，交给冻结的底层执行，得到实际关节轨迹，再取所有时刻身体占据空间的并集 <span class="arithmatex">\(\mathcal{S} = \bigcup_{t=0}^{T} \mathcal{R}(\mathbf{q}_t)\)</span>。障碍物从补集 <span class="arithmatex">\(\mathcal{W} \setminus \mathcal{S}\)</span> 采样，落在这里的任意一组障碍物都构成这条轨迹的无碰撞标签。扫掠体用实际执行轨迹算而非命令参考，数据集因此天然包含底层跟踪误差。</p>
+<p>增强分两路。正向增强从标签障碍里随机删掉一部分，剩下的仍在补集内，原轨迹依然无碰撞。负向增强把障碍物塞进扫掠体内部，让同一条轨迹变成会撞，这批负样本只训练打分函数。</p>
+<p>感知是重渲染的：沿回放的关节轨迹做射线投射，对增强后的障碍物合成点云，再叠高斯噪声模拟真实传感器。最终数据集含 2,356 条执行过的 rollout，做 100 倍正负增强并剔除不合理配置后，留下 78,900 对样本。会摔倒或跟踪误差过大的 rollout 被滤掉，约占总量的 3%。墙的偏航角在 <span class="arithmatex">\(\pm 20^{\circ}\)</span> 内扰动，中心平移 <span class="arithmatex">\(\pm 0.5\)</span> m。</p>
+<h3 id="monte-carlo-test-time-steering">机制三：测试时蒙特卡洛引导（Monte Carlo Test-Time Steering）</h3>
+<p>这一层治的是部署目标会变。想让它快一点、朝某方向转、压低身高或留更多避障余量，这些偏好写进训练就意味着一目标一重训。论文在每个规划步采 <span class="arithmatex">\(N\)</span> 条候选，按用户给定的目标函数挑一条：</p>
+<div class="arithmatex">\[\boldsymbol{\tau}^{*} = \arg\max_{\boldsymbol{\tau}^{(i)},\, i \in \{1,\dots,N\}} f(\mathbf{s}_t, \mathbf{z}_t, \boldsymbol{\tau}^{(i)})\]</div>
+<p><span class="arithmatex">\(f\)</span> 只需能给候选打分，不需要可微。Table 1 列了六个解析目标：基座速度、转向、到点、基座高度、左臂抬起、右臂抬起，形式都是 <span class="arithmatex">\(\exp(-\|\cdot\|_2/\beta)\)</span>。避障这类更复杂的目标用一个离线学出的 Q 函数打分。高层 MDP 跑在 20 Hz，状态是 <span class="arithmatex">\((\mathbf{s}_t, \mathbf{z}_t)\)</span>，动作是整段轨迹块，奖励为</p>
+<div class="arithmatex">\[r_t = 0.1\, V_{\mathrm{swept}}(\boldsymbol{\tau}_{t:t+H}) - V_{\mathrm{collision}}(\boldsymbol{\tau}_{t:t+H}, \mathcal{O})\]</div>
+<p>前半项奖励在自由空间里推进，后半项惩罚与障碍相交。回报用离线 GAE 估计，取 <span class="arithmatex">\(\lambda = 0.95\)</span>、<span class="arithmatex">\(\gamma = 0.99\)</span>。</p>
+<p>另两条路各有代价：分类器引导要求目标可微并在每个噪声层级调缩放系数 <span class="arithmatex">\(s\)</span>，无分类器引导（CFG）每换一个标签都要重训。蒙特卡洛采样只在输出端做选择，不必为每个目标重调梯度尺度。</p>
+<h2 id="_7">实验</h2>
+<h3 id="_8">实验设置</h3>
+<p>仿真用 Isaac Gym，机器人是 29 自由度的 Unitree G1，五个任务分别测窄缝侧向通过、钻低杆、抬臂通过、快速与慢速动态障碍。仿真激光雷达装在躯干上，360 度覆盖、16 线、10 Hz。感知编码器是 PointNet++ 加 GRU，输出 32 维嵌入，训 200K 步，用 8 张 L40S 跑 6 小时；高层扩散模型训 500K 步，同样 8 张 L40S 跑 5 小时。引导采 <span class="arithmatex">\(N = 32\)</span> 条，另在 MuJoCo 里验证了 sim2sim 一致性。</p>
+<p>指标有两个：成功率是到达目标且没摔倒、没碰撞的回合占比；碰撞率在一块由 180 个立方体组成的墙上统计。静态障碍的各项任务共用同一套高层策略与感知编码器；动态障碍任务单独训了高层策略，因为 10 Hz 点流不足以估计高频动态障碍状态。</p>
+<h3 id="_9">主结果</h3>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>End2End 扩散 成功率 / 碰撞率</th>
+<th>SWAP 无引导 成功率 / 碰撞率</th>
+<th>SWAP 完整 成功率 / 碰撞率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>侧向过窄缝</td>
+<td>8.2% / 4.1%</td>
+<td>72.5% / 12.3%</td>
+<td>88.4% / 2.2%</td>
+</tr>
+<tr>
+<td>钻低杆</td>
+<td>5.6% / 3.2%</td>
+<td>68.3% / 16.8%</td>
+<td>85.7% / 2.5%</td>
+</tr>
+<tr>
+<td>抬臂通过</td>
+<td>15.4% / 20.8%</td>
+<td>74.1% / 10.5%</td>
+<td>91.2% / 1.3%</td>
+</tr>
+<tr>
+<td>快速动态障碍</td>
+<td>6.3% / —</td>
+<td>65.8% / —</td>
+<td>82.6% / —</td>
+</tr>
+<tr>
+<td>慢速动态障碍</td>
+<td>51.5% / —</td>
+<td>81.2% / —</td>
+<td>93.4% / —</td>
+</tr>
+<tr>
+<td>平均</td>
+<td>17.4% / 9.4%</td>
+<td>72.4% / 13.2%</td>
+<td>88.3% / 2.0%</td>
+</tr>
+</tbody>
+</table>
+<p>动态障碍两项没有碰撞率，因为场景里只有一个障碍物，失败就是被撞上。完整方法平均成功率 88.3%、碰撞率 2.0%；引导相对无引导版本把成功率抬高 12 到 18 个百分点，把碰撞率压低 9 到 14 个百分点。真机每场景 5 次试验。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>侧向过窄缝</th>
+<th>钻低杆</th>
+<th>抬臂通过</th>
+<th>快速动态障碍</th>
+<th>慢速动态障碍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成功次数</td>
+<td>4/5</td>
+<td>3/5</td>
+<td>4/5</td>
+<td>3/5</td>
+<td>4/5</td>
+</tr>
+</tbody>
+</table>
+<p>论文没有逐场景归因，只列了两条总体原因：雷达自遮挡与 sim-to-real 跟踪不匹配。</p>
+<h3 id="_10">消融</h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>论文中的设置</th>
+<th>观察到的结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基轨迹数量</td>
+<td>逐步增加</td>
+<td>成功率随之上升</td>
+</tr>
+<tr>
+<td>数据增强倍数</td>
+<td>逐步提高；配合引导时约 50 倍处饱和</td>
+<td>无引导时饱和点更晚</td>
+</tr>
+<tr>
+<td>负样本占比</td>
+<td>10% 最优，50% 明显变差</td>
+<td>负样本过多使策略过度保守</td>
+</tr>
+<tr>
+<td>训练与测试障碍重叠</td>
+<td>最接近的训练配置与测试场景重叠 84–90%</td>
+<td>位置、偏航角、缝宽没见过，仍能通过</td>
+</tr>
+</tbody>
+</table>
+<p>负样本给 Q 函数提供会撞的纠正信号，10% 在安全意识和行为多样性之间最平衡；加到 50% 会污染训练分布，在高增强倍数下反而变差。配合引导后性能在 50 倍增强附近就饱和，比无引导时更早，说明引导把 Q 函数学到的东西用足了。</p>
+<h3 id="_11">反常结果与参数敏感性</h3>
+<p>最反常的一条是端到端扩散的碰撞率。它平均成功率只有 17.4%，平均碰撞率却只有 9.4%，比无引导的 SWAP（13.2%）还低。解释是因果错位：大量失败发生在机器人走到障碍物之前，生成的动作本身动态不稳定，机器人摔了，没机会去撞。慢速动态障碍上端到端反而有 51.5% 的成功率，因为那项任务可以站着不动只动胳膊。</p>
+<p>引导收益与目标维度有关。动态障碍下，基座相关的三个目标（速度、转向、到点）提升 41% 到 44%，上身目标（抬左臂、抬右臂）只有 34% 到 35%；静态场景下六个目标都在 29% 到 31%。解释是低维目标更容易被采样优化，上身构型维度高、更敏感。六个目标的平均提升是 34%。</p>
+<p>目标之间也不正交。Figure 9 对比了抱住双臂、无引导的名义行为、左转三种配置：把抱住双臂作为引导目标时，未被引导的转向指标掉到名义值以下。扩散策略把这两种行为耦合在一起学，引导改变的是运动模式。</p>
+<p>采样数 <span class="arithmatex">\(N\)</span> 的敏感性在附录。延迟从 <span class="arithmatex">\(N=1\)</span> 到 <span class="arithmatex">\(N \approx 32\)</span> 几乎持平，因为 GPU 并行单元还没吃满；超过 32 后延迟明显上升，最终奖励在 32 后进入平台。论文据此把 <span class="arithmatex">\(N=32\)</span> 定为部署配置，单次调用约 13 ms。</p>
+<h2 id="_12">工程实现细节</h2>
+<p>部署链路的关键是把批量采样塞进 20 Hz 的预算里。模型导出到 ONNX Runtime，用 CUDA 执行提供器加 IO binding 与 FP16，前者省掉多余的主机与设备间拷贝，后者把算术精度减半。论文的基准显示，在这套配置下 <span class="arithmatex">\(N=32\)</span> 与 <span class="arithmatex">\(N=1\)</span> 的速度基本相同，这是蒙特卡洛引导能实时跑的前提。</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>频率或规格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>激光雷达点云</td>
+<td>10 Hz</td>
+</tr>
+<tr>
+<td>感知编码器</td>
+<td>10 Hz，32 维嵌入</td>
+</tr>
+<tr>
+<td>高层扩散策略</td>
+<td>20 Hz，每步 <span class="arithmatex">\(N=32\)</span> 条候选，chunk 长度 5</td>
+</tr>
+<tr>
+<td>单次推理延迟</td>
+<td>约 13 ms（CUDA + IO binding + FP16，<span class="arithmatex">\(N=32\)</span>）</td>
+</tr>
+<tr>
+<td>底层 RL 控制器</td>
+<td>50 Hz</td>
+</tr>
+<tr>
+<td>新规划覆盖周期</td>
+<td>0.05 s</td>
+</tr>
+<tr>
+<td>模型训练</td>
+<td>编码器 200K 步、8 张 L40S、6 小时；扩散 500K 步、8 张 L40S、5 小时</td>
+</tr>
+<tr>
+<td>数据集</td>
+<td>2,356 条 rollout，增强后 78,900 对样本</td>
+</tr>
+</tbody>
+</table>
+<p>调度是双速率异步结构。高层每步生成 32 条轨迹块，选出最好的一条写进共享缓冲区；底层读取后把航点插值成 50 Hz 的关节指令。条件输入用 5 步历史，<span class="arithmatex">\(\mathbf{c} = (\mathbf{z}_t, \mathbf{s}_{t-4:t})\)</span>，感知嵌入只算一次。真机上动捕（MoCap）只用于机器人定位和动态障碍状态，静态障碍感知完全来自激光雷达。</p>
+<h2 id="_13">我的判断</h2>
+<p>这套设计站得住的地方在于标签的定义是几何封闭的。障碍物只要落在扫掠体之外，那条执行完的轨迹对它必然无碰撞。标签因此能批量造，而且天然带底层跟踪误差，避开了高层规划漂亮、底层走不出来这类分层系统最常见的错配。负样本只喂 Q 函数、不进扩散训练集，也是克制之处：碰撞样本会把生成分布拉向保守，用打分器消化它更合适。</p>
+<p>论文没报的东西不少。真机每个场景 5 次试验只能说明能跑通，不足以支撑成功率之间的比较；跌倒率、平均通过时间、单回合能耗都没给。基线只有端到端扩散和去掉引导的自身，ARMOR、HumanoidPF、SPARK 只在相关工作里定性对比。Q 函数的精度、离线 GAE 的偏差、打分耗时也没报告。训练侧的 8 张 L40S 与 6 小时、5 小时是给了，一轮数据采集要多少机时仍然缺失。</p>
+<p>几个超参没交代清楚。规划时域 <span class="arithmatex">\(H\)</span> 只有符号没有数值，部署端 chunk 长度 5 是唯一能对上的数；扩散步数 <span class="arithmatex">\(K\)</span> 与归一化系数 <span class="arithmatex">\(\beta\)</span> 都没给，也没做敏感性。负样本比例只在 10% 与 50% 两点比较，中间的最优点可能更细。<span class="arithmatex">\(N\)</span> 的敏感性只在附录一个动态障碍任务上测过。</p>
+<p>和模型规模的关系基本没讨论。感知嵌入只有 32 维，训练用 8 张 L40S，配置偏轻。更大的编码器或更少的去噪步数可能换来更大的 <span class="arithmatex">\(N\)</span>，而 <span class="arithmatex">\(N\)</span> 的上限被 20 Hz 卡死，这是论文承认的限制。</p>
+<p>如果要在这套框架上继续做，先量真机上雷达自遮挡的姿态范围，因为它是论文列出的首要失败原因，用感知侧补全或加装第二台雷达就能缓解；再把负样本比例当首要调参项，从 10% 往两侧各扫一格；<span class="arithmatex">\(N\)</span> 从 32 起步测一次 64；规划时域要和 50 Hz 的跟踪带宽对齐。</p>
+<h2 id="_14">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与 SWAP 的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BeyondMimic（Liao 等，2025）</td>
+<td>同样用扩散先验加代价引导做零样本适应，含避障；SWAP 改用事后标注训练条件扩散，引导换成采样选择</td>
+</tr>
+<tr>
+<td>ARMOR（Kim 等，2024）</td>
+<td>反向事后策略，把障碍物合成到已知无碰撞的人体运动周围；SWAP 用机器人自己的扫掠体造标签</td>
+</tr>
+<tr>
+<td>HumanoidPF（Xue 等，2026）</td>
+<td>人工势场引导强化学习，擅长窄缝；SWAP 不用显式几何映射，也不必为安全项精调奖励</td>
+</tr>
+<tr>
+<td>NavDP（Cai 等，2026）</td>
+<td>扩散导航策略加特权信息与安全评论家，做到 sim2real；SWAP 面向全身避障，由分层 Q 函数打分</td>
+</tr>
+<tr>
+<td>SPARK（Sun 等，2025）</td>
+<td>基于模型的全身规划器，能优化显式代价；SWAP 用学习到的多模态先验绕开非凸与初值敏感</td>
+</tr>
+<tr>
+<td>HWC-Loco（Lin 等，2025）、FALCON（Zhang 等，2025b）</td>
+<td>同属分层全身控制；SWAP 的低层命令空间沿用 FALCON 的解耦思路</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/" class="btn btn-neutral float-left" title="动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/" class="btn btn-neutral float-right" title="训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Spot \u722c\u697c\u68af\u53bb\u780c\u5899\uff1a\u628a\u780c\u7b51\u7cbe\u5ea6\u62bc\u5728\u4e24\u5f20 AprilTag \u4e0a";
+        var mkdocs_page_input_path = "papers/202610/20261020_MARA_\u53ccAprilTag\u951a\u5b9a_Spot\u780c\u5899.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/" class="btn btn-neutral float-left" title="读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/" class="btn btn-neutral float-right" title="世界模型要会预测失败：视触觉画布上的策略评测与再训练">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="spot-apriltag">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</h1>
+<h2 id="_1">引子</h2>
+<p>供料区地面上摆着两摞木砖，每摞七块，按标准砖比例做成 200 mm × 100 mm × 60 mm，单块平均 550 g。四米外的装配区地面贴着一张 Tag36h11 的 AprilTag。Spot 走到砖摞前，六自由度臂伸出，夹爪降到目标上方 3.5 cm，停一下，闭合，提到 80 cm 的搬运高度，转身走 15.46 s，到另一头放到离面 4.5 cm 处松开。一块砖 50.47 s，十四块垒完一面墙约 12 分钟。</p>
+<p>墙的形状是弧形的。首层目标偏航角跨度 107.8°，砖之间没有统一的直角关系，每次下放都要带不同的 yaw。到第二层问题显出来：十次重复里这一层中位偏航误差 3.32°，首层只有 0.6°。砖缝开始不齐，还没到坍塌。</p>
+<p>误差不是机器人自报的。一台朝下的相机架在 PLACE-TAG 上方约 1.33 m，CAD 里按同样的相机参数渲染出每层的真值图，与实拍图叠加，量出每块砖中心相对目标点的平面偏移，同一套叠加也用来提取轮廓，算出偏航角偏差。十次全自主搭建没有一次坍塌。同一套系统后来搬到室外，供料区与装配区不在同一标高，中间隔着一道带踏步的楼梯，Spot 自己下楼取砖、上楼放砖，把一面平墙垒完，但这一段只有视频，没有逐块误差。</p>
+<h2 id="_2">论文信息</h2>
+<ul>
+<li>原标题：Towards Autonomous Bricklaying Using Boston Dynamics Spot</li>
+<li>作者：Karl-Johan Sorensen、Nico vom Hofe、Frank H. P. Fitzek，前两位共同一作</li>
+<li>机构：麻省理工学院建筑系；德累斯顿工业大学 Deutsche Telekom 通信网络教席；德累斯顿 CeTI 触觉互联网与人机协同卓越集群</li>
+<li>链接：https://arxiv.org/abs/2610.27472</li>
+<li>时间：2026 年 10 月 20 日首次公开；原载第 43 届 ISARC 2026 会议论文集，DOI 10.22260/ISARC2026/0052</li>
+<li>项目页与代码：代码与实验数据在 https://github.com/soerensenkarl/MARA-bricklaying，室外搭建视频在 https://youtu.be/p-ExWFgYa-I</li>
+</ul>
+<h2 id="_3">问题背景</h2>
+<p>砌筑机器人这个词覆盖的东西差别很大，几层概念先分开。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>指什么</th>
+<th>这篇里的对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>现场砌筑（on-site fabrication）</td>
+<td>在工地原地装配，不做工厂预制再吊装</td>
+<td>供料区与装配区分离，机器人往返搬运</td>
+</tr>
+<tr>
+<td>移动操作（mobile manipulation）</td>
+<td>底盘移动与机械臂操作串成一件完整的活</td>
+<td>Spot 加六自由度臂，行走与拾放同一循环</td>
+</tr>
+<tr>
+<td>视觉基准标记（fiducial marker）</td>
+<td>相机可解算六自由度位姿的贴纸图案</td>
+<td>Tag36h11 的 PICK-TAG 与 PLACE-TAG</td>
+</tr>
+<tr>
+<td>干垒（dry stacking）</td>
+<td>不用砂浆，靠自重与摩擦叠放</td>
+<td>全部十四块砖，首层垫防滑垫</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线可以分成三派。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表系统</th>
+<th>做法</th>
+<th>卡在哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>龙门与专用砌砖机</td>
+<td>SAM100、BRONCO</td>
+<td>固定机架或轨道，节拍高，工艺成熟</td>
+<td>需预勘测场地与严格工作流，材料必须摆在臂展内</td>
+</tr>
+<tr>
+<td>轮式与履带移动操作</td>
+<td>NimbRo UGV、In situ Fabricator</td>
+<td>移动底盘加工业臂，靠全站仪等外部标定建基准</td>
+<td>楼梯、碎石、杂乱场地进不去，材料仍要就近堆放</td>
+</tr>
+<tr>
+<td>腿足移动操作</td>
+<td>四足加臂的拾放系统</td>
+<td>四足越障，臂负责抓取与放置</td>
+<td>只做通用拾放，没有砌筑场景的精度证据</td>
+</tr>
+</tbody>
+</table>
+<p>三派都没有回答同一个问题。腿足平台在毫米级放置任务上的重复精度是多少，这个精度会不会被行走引入的全局定位漂移吃掉，楼梯这类只有腿足能过的地形值不值得为精度让步。作者把它压成一句，此前没有研究定量评估过腿足机器人砌砖的精度。</p>
+<h2 id="_4">核心思想</h2>
+<p>这套系统借的是手眼标定里的相对定位思路，把每个动作的参考系从世界坐标换到眼前那张贴纸。问题于是从「机器人在整栋楼里定位有多准」换成「它在 0.8 m 外一张贴纸的坐标系里放砖有多准」。前者随行走累积漂移，后者只跟单次观测质量与臂的重复性有关。</p>
+<p>CAD 在这里充当唯一真值源。墙体几何在 Rhino 里建，脚本导出每块砖相对标记的位姿，执行器按文件逐条走，换墙型只改模型再导出，不用重新示教每块砖。设计与执行由此直接对接，中间没有人工翻译环节。</p>
+<h2 id="_5">方法</h2>
+<h3 id="dual-fiducial-relative-anchoring">机制一：双标记相对锚定（Dual-Fiducial Relative Anchoring）</h3>
+<p>治的失败是累计漂移。十四块砖对应十四次往返，GraphNav 每次重定位都有跳变，砖位若写在全局坐标系里，误差会随层数往上叠。</p>
+<p>做法是给两个工作区各贴一张 Tag36h11 标记，供料区一张 PICK-TAG，装配区一张 PLACE-TAG。所有砖的位姿都写成相对这两张标记的坐标，下发前再变换到 Spot 的 vision 坐标系，那是由机器人视觉定位系统维护的世界固定系。基座预置走同一套路：先沿标记 x 轴负方向走到目标砖后方 0.8 m，朝向与标记正 x 轴对齐，到位后重新解算一次标记变换，把这一帧当作臂指令的基准。这个距离同时满足臂展与标记可见性。选被动标记而不用全站仪、UWB 或长距 RFID，理由是后者要供电、要安装、要做几何预标定，代价是标记必须始终在视野里。</p>
+<h3 id="cad-cad-to-execution-pose-export">机制二：CAD 到执行文件的位姿导出（CAD-to-Execution Pose Export）</h3>
+<p>治的失败是几何复杂度。曲墙偏航角跨度 107.8°，砖块没有统一朝向，逐块示教既慢又难复现。</p>
+<p>目标砖位在 Rhino 里三维建模，脚本抽取位置与朝向，导出成 JSON 配置文件，每条记录是砖相对标记的位姿。运行时系统遍历文件，每块砖走四步：取砖、走到装配区、按目标位姿放砖、返回供料区。墙体形状的变化不进入机器人代码。</p>
+<h3 id="fixed-pitch-pick-and-place-primitive">机制三：固定俯仰的拾放原语（Fixed-Pitch Pick-and-Place Primitive）</h3>
+<p>治的失败是夹持与落点的耦合。夹爪手坐标系与砖块几何中心不重合，抓不稳、放不准都会直接变成毫米级偏差。</p>
+<p>取砖时张开夹爪，把手坐标系移到配置位置上方 20 cm，下降到上方 3.5 cm，停顿，闭合夹爪，提到 80 cm 的搬运高度，全程俯仰角保持 95°，接近垂直、略向后倾，这是实验试出来的抓取角。放砖是它的反向：从目标上方 30 cm 接近，下降到离面 4.5 cm，停顿，张开夹爪，收回并收纳。放置时末端俯仰角设为 90°，偏航角取配置文件里的目标朝向，因此能放非轴对齐的砖；z 方向加 −1.5 cm 偏移，补掉手坐标系到所夹砖块中心的距离。两段序列都开着 hip height assist。</p>
+<h3 id="autowalk-autowalk-and-digital-twin-supervision">机制四：预录 Autowalk 与数字孪生监看（Autowalk and Digital Twin Supervision）</h3>
+<p>治的失败是空间分离：地形会变，机器人没有在线路径规划；人不在现场，也要知道机器在干什么。</p>
+<p>导航靠人手录制的两条 autowalk 任务，去程与回程各一条，每条是由航点和边构成的图，附带录制时的视觉快照。运行时模块把图上传给 GraphNav，从最近的可见 AprilTag 开始定位，GraphNav 把里程计、视觉几何特征与存储的地图快照比对，再沿录好的路径避障行走。监看靠基于 ROS 2 Humble 的数字孪生，状态与感知通过 RViz 推给远程操作员：状态含电量与每个关节位置，可重建整机位姿；感知侧是五台机身相机加夹爪相机共六路点云。论文没有交代远程链路的时延与丢包处理。</p>
+<h2 id="_6">实验</h2>
+<p>室内场地里供料区与装配区相距约 4 m，两张标记放在房间对角，为免损伤机器人用木块代替真砖。供料区两摞各七块，目标是四层共十四块的曲墙，首层五块，往上逐层收窄，首层下垫防滑垫。指标取平面位置误差（x、y）与偏航误差；z、roll、pitch 一有偏差即视为失败，不做分析；坍塌记为失败。十次全自主运行全部成功。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首层 x 方向位置误差中位数</td>
+<td>1.18 mm</td>
+<td>五块砖合并十次运行</td>
+</tr>
+<tr>
+<td>首层 y 方向位置误差中位数</td>
+<td>1.01 mm</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>首层偏航误差中位数</td>
+<td>0.6°</td>
+<td>目标 yaw 跨度 107.8°</td>
+</tr>
+<tr>
+<td>第二层偏航误差中位数</td>
+<td>3.32°</td>
+<td>各层中最大</td>
+</tr>
+<tr>
+<td>第三、四层偏航误差中位数</td>
+<td>低于 0.9°</td>
+<td>论文只给上界</td>
+</tr>
+<tr>
+<td>全部砖位平移 RMSE</td>
+<td>27.72 mm</td>
+<td>十次运行汇总</td>
+</tr>
+<tr>
+<td>全部砖位旋转 RMSE</td>
+<td>2.06°</td>
+<td>十次运行汇总</td>
+</tr>
+<tr>
+<td>报告的平均误差上限</td>
+<td>平移低于 10 mm，yaw 低于 1.5°</td>
+<td>摘要与结论</td>
+</tr>
+<tr>
+<td>失败次数</td>
+<td>0 / 10</td>
+<td>坍塌才算失败</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>平均耗时</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>取砖</td>
+<td>9.18 s</td>
+<td>含接近、下降、夹持、提起</td>
+</tr>
+<tr>
+<td>走到装配区</td>
+<td>15.46 s</td>
+<td>约 4 m，沿预录路径</td>
+</tr>
+<tr>
+<td>放砖</td>
+<td>9.68 s</td>
+<td>含下降、松爪、收回、收纳</td>
+</tr>
+<tr>
+<td>返回供料区</td>
+<td>16.15 s</td>
+<td>回程比去程略慢</td>
+</tr>
+<tr>
+<td>单块合计</td>
+<td>50.47 s</td>
+<td>导航占 63%</td>
+</tr>
+<tr>
+<td>仅操作部分</td>
+<td>约 18.9 s</td>
+<td>取砖加放砖</td>
+</tr>
+</tbody>
+</table>
+<p>论文没有做受控消融，能当对照的只有分层结果。三个可能的误差来源，防滑垫的摩擦、木砖表面的光滑程度、标记固在地面而放置高度逐层上升，在同一批数据里是混着的。</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>砖数</th>
+<th>中位位置误差</th>
+<th>中位偏航误差</th>
+<th>论文给的解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一层</td>
+<td>5</td>
+<td>x 1.18 mm、y 1.01 mm，各层最小</td>
+<td>0.6°</td>
+<td>防滑垫提高了地面摩擦</td>
+</tr>
+<tr>
+<td>第二层</td>
+<td>少于首层</td>
+<td>x、y 均为负向偏移</td>
+<td>3.32°</td>
+<td>木砖表面光滑，摩擦低</td>
+</tr>
+<tr>
+<td>第三层</td>
+<td>少于第二层</td>
+<td>轻微负向偏移</td>
+<td>低于 0.9°</td>
+<td>标记在底面，臂端离标记更远</td>
+</tr>
+<tr>
+<td>第四层</td>
+<td>少于第三层</td>
+<td>轻微负向偏移</td>
+<td>低于 0.9°</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<p>与已报道系统对比，可比性有限，硬件量级差得远。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>平台</th>
+<th>放置精度</th>
+<th>规模</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本文</td>
+<td>Spot 加六自由度臂</td>
+<td>平均平移低于 10 mm，RMSE 27.72 mm，yaw 平均低于 1.5°</td>
+<td>14 块砖，10 次</td>
+</tr>
+<tr>
+<td>NimbRo UGV</td>
+<td>轮式加 UR10e</td>
+<td>平均平移 13–19 mm，旋转 0.45–1.26°</td>
+<td>自主砌墙试验</td>
+</tr>
+<tr>
+<td>In situ Fabricator</td>
+<td>1.4 t 履带加工业臂，2.55 m 臂展，40 kg 负载</td>
+<td>最大装配误差 7 mm</td>
+<td>1600 块砖</td>
+</tr>
+</tbody>
+</table>
+<p>一处反常。平均平移误差声称低于 10 mm，全量 RMSE 却是 27.72 mm，两个数只有在误差分布重尾时才并存：大部分砖位很准，少数偏得很远，把平方和拉了起来。箱线图标出了超出上界的离群点，并说明是真实数据，但论文没有给逐次运行的均值与标准差，也没说明两组数字是否用了不同口径。</p>
+<p>第二个反常是首层。它的目标偏航角跨度最大，107.8°，按理最难放，偏航误差中位数反而最小，只有 0.6°。可行的解释是首层直接落在防滑垫上，没有下层砖面作为误差源，臂端离地面标记也最近。这个解释与论文一致，但没有被单独验证。</p>
+<p>第三个反常是参数敏感性。0.8 m 的站距、3.5 cm 与 4.5 cm 的下降余量、95° 的取砖俯仰、−1.5 cm 的 z 偏移，都决定整套动作的成败，论文没有给扫描或容差范围，只对 95° 说了一句「实验确定」。换一种砖或换一台 Spot 还能不能用，无从判断。室外那组同样没有量化，楼梯证明了轮式与履带平台做不到的通行能力，但没有逐块误差，无法判断爬楼后精度是否退化。</p>
+<h2 id="_7">工程实现细节</h2>
+<p>整套系统用 Python 加 Boston Dynamics SDK 写成，配置以 JSON 承载，一条记录对应一块砖相对标记的位姿。执行循环如下，四步来自论文对软件流水线的描述。</p>
+<pre class="highlight"><code class="language-text">for brick in config.bricks:
+    pick(brick, ref=PICK_TAG)
+    autowalk(SUPPLY_TO_ASSEMBLY)
+    place(brick, ref=PLACE_TAG)
+    autowalk(ASSEMBLY_TO_SUPPLY)</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>取值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基座站距</td>
+<td>目标砖沿标记 x 轴后方 0.8 m</td>
+<td>兼顾臂展与标记可见性</td>
+</tr>
+<tr>
+<td>取砖接近高度</td>
+<td>目标上方 20 cm</td>
+<td>快速接近段</td>
+</tr>
+<tr>
+<td>取砖下降终点</td>
+<td>目标上方 3.5 cm</td>
+<td>夹持前停顿位</td>
+</tr>
+<tr>
+<td>搬运高度</td>
+<td>80 cm</td>
+<td>行走时的抬升高度</td>
+</tr>
+<tr>
+<td>取砖俯仰</td>
+<td>95°</td>
+<td>略后倾，实验确定</td>
+</tr>
+<tr>
+<td>放砖接近高度</td>
+<td>目标上方 30 cm</td>
+<td>慢速接近段</td>
+</tr>
+<tr>
+<td>放砖下降终点</td>
+<td>离面 4.5 cm</td>
+<td>松爪高度</td>
+</tr>
+<tr>
+<td>放砖俯仰</td>
+<td>90°</td>
+<td>垂直下放</td>
+</tr>
+<tr>
+<td>z 偏移</td>
+<td>−1.5 cm</td>
+<td>补偿手坐标系到砖心</td>
+</tr>
+<tr>
+<td>测量相机高度</td>
+<td>PLACE-TAG 上方约 1.33 m</td>
+<td>朝下拍每层真值叠加</td>
+</tr>
+</tbody>
+</table>
+<p>机器人本体是货架产品，六自由度臂全展 984 mm，额定举升 11 kg。装臂后机身剩余负载约 6 kg，论文提到余量也许能放砂浆罐或让机器人背砖，但没有测。数字孪生的带宽指标给得实在：RGB-D 六路点云平均 3.5 Hz，关节状态约 50 Hz，每台相机发一对时间同步的 RGB 与深度消息，平均 921.7 kB 与 614.46 kB。多路并发时上行链路会成为瓶颈，论文没有给链路配置。</p>
+<p>感知侧另有一个未接入闭环的模块。作者用 ATSS-MobileNetV2 做砖块检测的初步试验，样例里以 75% 的置信度框出一块砖并给出中心点，设想是用检测结果生成从相机系到夹爪系的抓取向量，从而抓取位置不可预测的构件，或验证放置是否到位。目前只是单帧示例，没有进入控制回路。</p>
+<h2 id="_8">我的判断</h2>
+<p>这套设计站得住，是它挑对了误差源。砌筑的精度要求落在单块砖的落点上，腿足平台最不可控的却是长距离行走后的全局位姿。把每次操作锚在 0.8 m 外一张被动标记上，等于把行走距离从误差链里摘出去。其次是用 CAD 当唯一真值源，墙型变化只改模型与 JSON，可扩展性不依赖算法进步。第三是不自研平台，省掉机械可靠性与认证成本，代价是接受 Spot 出厂级的重复精度。</p>
+<p>论文没报的东西比它报了的更能说明当前阶段。零失败的代价是没有失败样本，抓空、夹滑、放偏、超时这四类事件一次都没被记录，只留下「坍塌即失败」这一条判据，而十四块干垒的曲墙在 3.32° 的中位偏航误差下还没到塌的程度，判据相当宽松。成本没有报，节拍没有和人工砌筑对比，室外那组只有视频。作者承认速度参数是保守设置，63% 的时间花在走路上，当前瓶颈在搬运而不在砌。</p>
+<p>几条能直接照做的建议。评价口径拆开报，至少给每次运行的均值、标准差与离群点数量，让「平均低于 10 mm」和「RMSE 27.72 mm」并存有解释。楼梯场景补一组逐块误差，与室内同结构对比，否则腿足平台唯一的结构性优势无法量化。抓取与放置加一个在线校验环节，夹爪相机加检测模型已经在手上，接进放砖前的确认步骤比再刷精度数字更有价值。多标记或视觉 SLAM 的扩展要尽早做，单标记方案在论文划定的小尺度之外没有依据。</p>
+<p>这篇的定位是可行性验证，结论该按这个尺度读：四足加臂能在两个分离的工作区之间自主往返，用被动标记把十四块砖垒成一面曲墙，平均误差十毫米以内，能爬楼梯。它没有回答的是换成真砖加砂浆、连续多天、有人的工地还能不能保持这个数，而这恰好是工地真正在意的部分。</p>
+<h2 id="_9">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与这篇的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lenz 等，NimbRo UGV，2022</td>
+<td>轮式加 UR10e，13–19 mm 与 0.45–1.26°，本文最直接的对标</td>
+</tr>
+<tr>
+<td>Giftthaler 等，In situ Fabricator，2017</td>
+<td>1.4 t 履带加工业臂，1600 块砖最大误差 7 mm</td>
+</tr>
+<tr>
+<td>Pritschow 等，BRONCO，1996</td>
+<td>第一台移动平台砌砖机器人，需预勘测与遥控</td>
+</tr>
+<tr>
+<td>Madsen，SAM100 产能分析，2019</td>
+<td>商用半自动砌砖机，走产能路线，工作空间受限</td>
+</tr>
+<tr>
+<td>Zhang 等，腿足移动操作多阶段拾放，RA-L 2025</td>
+<td>腿足加臂的长程拾放，靠 sim-to-real 提鲁棒性，不涉及砌筑精度</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/" class="btn btn-neutral float-left" title="读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/" class="btn btn-neutral float-right" title="世界模型要会预测失败：视触觉画布上的策略评测与再训练">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

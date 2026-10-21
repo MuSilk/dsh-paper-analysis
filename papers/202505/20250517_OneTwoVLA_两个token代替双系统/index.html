@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u673a\u5668\u4eba\u7092\u83dc\u65f6\u8be5\u4e0d\u8be5\u5148\u60f3\u4e00\u4e0b\uff1aOneTwoVLA \u7528\u4e00\u4e2a\u6a21\u578b\u66ff\u6389\u53cc\u7cfb\u7edf";
+        var mkdocs_page_input_path = "papers/202505/20250517_OneTwoVLA_\u4e24\u4e2atoken\u4ee3\u66ff\u53cc\u7cfb\u7edf.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../202610/20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202610/20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2025 年 5 月</li>
+      <li class="breadcrumb-item active">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/" class="btn btn-neutral float-left" title="一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="onetwovla">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</h1>
+<p>番茄炒蛋这个任务里，机器人夹住油瓶往锅边走，油瓶在途中滑落，它举着空夹爪完成了倒油动作，然后去拿番茄。这不是抓取精度的问题：策略在每个时刻只做「看一眼图、吐一个动作块」这一个映射，「刚才那次抓取成功了没有」不在它的输入里，它也没有地方放这件事。</p>
+<p>火锅任务里更明显。四盘食材的相对位置每次随机，指令是「涮牛肉再涮一样蔬菜」。缺了进度记录的模型会反复去夹同一盘牛肉，或者在等待时停在初始位置不动。调酒任务里，三杯鸡尾酒的配料摆在一起有近十种外观相似的瓶子，模型偶尔会倒错瓶子，而且倒错了也不会回头。</p>
+<p>这三件事分别是：发现自己搞砸了，听懂一句临时的插话，按当前局面重排步骤。OneTwoVLA 要解决的是「什么时候停下来重新想」这个时机问题。</p>
+<h2 id="_1">论文信息</h2>
+<ul>
+<li>原标题：OneTwoVLA: A Unified Vision-Language-Action Model with Adaptive Reasoning</li>
+<li>作者：Fanqi Lin、Ruiqian Nai、Yingdong Hu、Jiacheng You、Junming Zhao、Yang Gao</li>
+<li>机构：清华大学、上海期智研究院、Spirit.AI</li>
+<li>链接：https://arxiv.org/abs/2505.11917</li>
+<li>时间：2025 年 5 月首次公开，v2 是 2026 年 3 月 1 日</li>
+<li>项目页：https://one-two-vla.github.io/</li>
+</ul>
+<h2 id="_2">先把术语边界摆清楚</h2>
+<p>「推理加操作」这条线上，几个词经常被混着用，各自指的东西并不一样。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>指什么</th>
+<th>在这篇里对应什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统一与系统二（System One / System Two）</td>
+<td>卡尼曼的双过程框架：快直觉与慢思考</td>
+<td>动作模式与推理模式，但由同一个模型承担</td>
+</tr>
+<tr>
+<td>视觉语言动作模型（VLA）</td>
+<td>从预训练视觉语言模型初始化，输出机器人动作</td>
+<td>底座是 <span class="arithmatex">\(\pi_0\)</span>，动作部分沿用 flow matching 动作专家</td>
+</tr>
+<tr>
+<td>决策 token（decision token）</td>
+<td>模型每步先吐一个特殊词，决定进入哪种模式</td>
+<td><code>[BOR]</code> 进入推理，<code>[BOA]</code> 直接出动作</td>
+</tr>
+<tr>
+<td>动作块（action chunk）</td>
+<td>一次预测若干连续动作，而不是单步</td>
+<td>动作模式每次输出一块，部署时靠 temporal ensemble 平滑</td>
+</tr>
+<tr>
+<td>共训（co-training）</td>
+<td>机器人数据与无动作的视觉语言数据混在一起训练</td>
+<td>16,000 条合成数据，用来补推理与泛化</td>
+</tr>
+<tr>
+<td>指代抓取（visual grounding）</td>
+<td>指令用名称、空间、属性或语义指代物体</td>
+<td>四类指代各测 10 次，单环境与开放世界两套设置</td>
+</tr>
+</tbody>
+</table>
+<p>按处理「推理」的方式，现有做法能分成四派，卡点各不相同。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表</th>
+<th>做法</th>
+<th>卡在哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>纯 VLA，不推理</td>
+<td><span class="arithmatex">\(\pi_0\)</span>、OpenVLA</td>
+<td>图像加指令直接出动作块</td>
+<td>长任务丢步，出错不自知，没有语言出口，指代换种说法就懵</td>
+</tr>
+<tr>
+<td>双系统</td>
+<td>Hi Robot、ViLa、GR00T N1 一类</td>
+<td>上层 VLM 出原子指令，下层 VLA 执行</td>
+<td>两层互不知道对方的能力边界，上层会给出做不到的指令；上层延迟会让指令过期</td>
+</tr>
+<tr>
+<td>每步都推理</td>
+<td><span class="arithmatex">\(\pi_{0.5}\)</span></td>
+<td>每个动作前先预测一个子任务</td>
+<td>推理浅，且每步都要付解码时间</td>
+</tr>
+<tr>
+<td>测试时不推理</td>
+<td>ECoT-Lite</td>
+<td>训练时带推理，测试时不生成</td>
+<td>速度快，但推理退化了，人机对话也失去入口</td>
+</tr>
+</tbody>
+</table>
+<p>四派都在优化「怎么想得更好」，绕开了同一个问题：执行过程中哪几步值得停下来想，这件事该由谁来定。双系统把它交给固定节拍，每步都推理把它交给位置，测试时不推理直接取消掉。OneTwoVLA 的立场是交给模型自己判断，并且用同一套权重判断和执行。</p>
+<h2 id="token">核心思想：把「何时想」压成一个 token</h2>
+<p>论文借的是推理模型里已经成熟的写法：在词表里加两个特殊 token，让模型自己决定接下来的输出属于哪一类。<span class="arithmatex">\([BOR]\)</span> 意味着开始写推理，<span class="arithmatex">\([BOA]\)</span> 意味着直接动手。这个改动把「什么时候该想」从系统设计问题变成了一个二分类的预测问题，而分类器和策略共用同一套参数。</p>
+<p>共用参数这件事带来的性质比省一个模型更重要。因为计划和动作是同一个模型产出的，它给出的计划天然落在自己能做到的范围里。论文附录里也承认了这条性质的反面：推理如果把食物位置说错了，动作会老老实实走向那个错误的位置。</p>
+<h2 id="_3">方法</h2>
+<h3 id="token_1">机制一：两个决策 token 与两种模式</h3>
+<p>它治的失败是「思考时机由外部决定」。双系统按固定间隔调用上层模型，这个节拍跟任务本身无关，任务简单时浪费，任务变难时又不够。</p>
+<p>每个时刻的输入是四样东西：当前多相机图像 <span class="arithmatex">\(I_t^{1:n}\)</span>、上一次推理时刻的参考图 <span class="arithmatex">\(I^{ref,1:n}\)</span>、语言指令 <span class="arithmatex">\(\ell\)</span>、以及最新的推理内容 <span class="arithmatex">\(R\)</span>。模型先预测决策 token <span class="arithmatex">\(DT \in \{\texttt{[BOR]}, \texttt{[BOA]}\}\)</span>，然后分岔：</p>
+<div class="arithmatex">\[\hat{R} \sim \pi_\theta(\cdot \mid I_t^{1:n}, I^{ref,1:n}, \ell, R)\]</div>
+<div class="arithmatex">\[A_t \sim \pi_\theta(\cdot \mid I_t^{1:n}, I^{ref,1:n}, \ell, R, s_t)\]</div>
+<p>推理那一路只写到 <code>[EOS]</code> 为止，动作那一路多喂一个本体状态 <span class="arithmatex">\(s_t\)</span>。参考图 <span class="arithmatex">\(I^{ref}\)</span> 解决的是一个具体问题：推理里写的「油瓶在夹爪左前方」是相对夹爪描述的，夹爪一动这句话就失效，配上写这段话时的那一帧，模型可以拿文字对图，而不是拿一段过期描述硬套当前画面。</p>
+<h3 id="_4">机制二：推理内容固定成四段</h3>
+<p>它治的失败是「推理内容没人管，写什么都行」。论文把推理钉死成四个字段：任务相关物体的位置描述、完成任务的逐步计划、已经完成到哪一步的历史摘要、下一步要执行什么。四段里面真正起作用的是后两段。长任务最常见的死法是忘了自己做到哪一步，把进度外化成文字，等于每回合都把状态重新读一遍。</p>
+<p>标注靠一条两阶段全自动管线。第一阶段先给任务一个 <span class="arithmatex">\(K\)</span> 步的高层计划 <span class="arithmatex">\(P=(p_1,\dots,p_K)\)</span>，从每条演示里均匀抽 <span class="arithmatex">\(N=32\)</span> 帧，让 Gemini 2.5 找出每个子任务完成之后的推理区间，得到 <span class="arithmatex">\(K+1\)</span> 个区间。第二阶段取每个区间的中点帧 <span class="arithmatex">\(\hat{I}^j\)</span>，让 Gemini 依次生成场景描述 <span class="arithmatex">\(D_j\)</span>，拼上固定的计划 <span class="arithmatex">\(P\)</span>、历史摘要 <span class="arithmatex">\(H_j=(p_1,\dots,p_j)\)</span> 和下一步 <span class="arithmatex">\(X_j=p_{j+1}\)</span>，四元组就是这个区间的推理内容。</p>
+<p>质量在番茄炒蛋上做了人工核验：81.5% 的区间判定正确，83.3% 的场景描述被认为合理。</p>
+<h3 id="_5">机制三：训练时怎么让「想」这个动作真的出现</h3>
+<p>它治的失败是「标注好了，但模型学不会停下来」。监督信号按区间类型给：推理区间里，如果当前推理内容已经过期，监督目标是 <code>[BOR]</code>；内容更新完之后，同一段里立刻转成监督 <code>[BOA]</code>。动作区间一律监督 <code>[BOA]</code>。</p>
+<p>按这个规则训练会碰到一个失衡问题。动作区间比推理区间长得多，决策 token 退化成一个极度不平衡的二分类，模型很自然地塌到「永远输出 <code>[BOA]</code>」，也就是部署时几乎不再推理。论文的补丁是在动作区间里也让它基于过期的推理去预测 <code>[BOR]</code>，但不监督那段推理内容本身，纯粹为了把 <code>[BOR]</code> 的比例顶上去。附录 F.1 把这个动机写得很直白。</p>
+<p>同一节里还有一条更细的监督：推理区间里除了学「先 <code>[BOR]</code> 再 <code>[BOA]</code>」，也要学「在推理内容没更新的情况下直接基于旧内容出 <code>[BOA]</code> 和动作」，同样不监督 <code>[BOA]</code>。这条防的是部署时推理没及时更新，模型仍能给出一个可执行的动作，不至于卡住。</p>
+<h3 id="_6">机制四：合成带推理的视觉语言数据</h3>
+<p>它治的失败是「机器人数据只教会任务本身，教不了泛化」。机器人数据的规模跟着人工标注线性涨，扩不动。</p>
+<p>管线三步走。Gemini 2.5 Pro 先生成大量桌面布局的文字描述，FLUX.1-dev 照着描述出图，再对图做随机增强：鱼眼畸变，或者合成一个带自适应亮度的夹爪，让画面更像机器人看到的视角。最后 Gemini 回填指令和推理。一共 16,000 条，其中 6,000 张图做指代抓取，每张配 17 组指令-推理对，指代方式按名称 2 组、空间 5 组、属性 5 组、语义 5 组分配；剩下 10,000 张做长程规划，每张配一份分步计划。</p>
+<p>论文提到试过用 GPT-4o 做标注，认为它空间理解太弱，才换成 Gemini 2.5 Pro。</p>
+<h3 id="_7">机制五：实例化与部署</h3>
+<p>它治的失败是「架构改好了，但落地跑不起来」。底座是 <span class="arithmatex">\(\pi_0\)</span>，视觉语言那一半自回归出文字，用交叉熵监督；动作那一半沿用 <span class="arithmatex">\(\pi_0\)</span> 的 flow matching 动作专家。对原模型的输入做了两处修改，一是加入参考图 <span class="arithmatex">\(I^{ref}\)</span>，二是本体状态不只给当前这一刻，还给了 0.05 秒和 0.25 秒之前的两帧，用来让动作更连贯。</p>
+<p>部署侧用 temporal ensemble：动作模式下每 0.2 秒生成一段时间上重叠的动作序列，多个预测按指数权重平均，得到实际执行的动作。</p>
+<h2 id="_8">实验</h2>
+<h3 id="_9">设置</h3>
+<p>主平台是单条 7 自由度 Franka，配 Weiss WSG-50 平行夹爪，腕部一台鱼眼 GoPro，动作空间 7 维，演示用 UMI 采集。第二个平台是两条 6 自由度 ARX 臂加三路相机（两腕部一底座），动作 14 维，用 Meta Quest 遥操作，主要用在泛化规划实验上。</p>
+<p>三个长任务。番茄炒蛋：先倒油，再倒番茄蛋液进炒菜机，熟了之后用勺子把菜盛到盘子上，最后把勺子放回机器里，200 条演示，其中 100 条专门拍油瓶滑落后的重抓。火锅：四盘食材位置随机，要先涮牛肉再涮指定蔬菜，600 条演示，其中 200 条是纠正夹爪错位。调酒：三种鸡尾酒各 3 到 4 种配料，每种 100 条，共 300 条。所有任务的物体初始位置在 10×10 cm² 区域内随机，每个方法每任务跑 20 次。</p>
+<h3 id="_10">主结果：四个能力加一个泛化</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>OneTwoVLA</th>
+<th><span class="arithmatex">\(\pi_0\)</span></th>
+<th>双系统</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>三个长任务平均成功率（每任务 20 次）</td>
+<td>87%</td>
+<td>比它低 30</td>
+<td>比它低 24</td>
+</tr>
+<tr>
+<td>错误恢复（救回 / 出错）</td>
+<td>8/10（80.0%）</td>
+<td>8/14（57.1%）</td>
+<td>7/12（58.3%）</td>
+</tr>
+<tr>
+<td>人机交互（成功 / 次数）</td>
+<td>20/20（100%）</td>
+<td>无语言输出</td>
+<td>13/20（65%）</td>
+</tr>
+<tr>
+<td>单环境指代抓取</td>
+<td>78%</td>
+<td>5%</td>
+<td>未参与</td>
+</tr>
+<tr>
+<td>开放世界指代抓取</td>
+<td>8%</td>
+<td>3%</td>
+<td>未参与</td>
+</tr>
+<tr>
+<td>开放世界加 VL 共训（OneTwoVLA-VL）</td>
+<td>73%</td>
+<td>未参与</td>
+<td>未参与</td>
+</tr>
+</tbody>
+</table>
+<p>错误恢复那一列的分母各不相同，10、14、12，说明三个模型的出错频率本来就不一样，它衡量的是出错之后救回来的比例，不能当绝对鲁棒性读。人机交互这里 <span class="arithmatex">\(\pi_0\)</span> 没有语言输出，直接退出了这项比较。</p>
+<p>长任务里两个基线失败的方式不一样。<span class="arithmatex">\(\pi_0\)</span> 经常停在初始位置，或者反复夹同一盘牛肉，而且炒蛋时勺子挖得太轻。双系统的失败更像串台：上层偶尔给出场景里根本没有的原子指令，例如让机器人在没有葱的时候加葱；Gemini 2.5 Pro 的推理延迟又会让上层来不及更新，下层就在一个分布外的状态里继续执行。</p>
+<p>还有一组泛化规划的实验，四个任务都要求常识推理：指令是「帮我拿一罐冰可乐」，场景里看不到可乐，得先想到可乐在冰箱里；「递给我一个空盘子」，盘子上面还摆着水果，得先清空；「把那罐可可粉拿过来」，目标超出臂展，得先抓旁边的棍子把罐子够近；「帮我做点喝的」，要根据「想保持清醒」推咖啡、根据「想吃得健康」推羽衣甘蓝汁。只用机器人数据训出来的版本会给出完全错误的计划，<span class="arithmatex">\(\pi_0\)</span> 会随机执行原子技能，只有加了 16,000 条合成数据共训的 OneTwoVLA-VL 能排出正确步骤。</p>
+<h3 id="_11">消融与分项：合成数据到底补了什么</h3>
+<p>指代抓取按四种指代方式拆开看，最能说明合成数据补的是哪一类能力。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>单环境 名称/空间/属性/语义</th>
+<th>单环境合计</th>
+<th>开放世界 名称/空间/属性/语义</th>
+<th>开放世界合计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OneTwoVLA-VL</td>
+<td>10/8/8/9</td>
+<td>35/40（88%）</td>
+<td>8/6/7/8</td>
+<td>29/40（73%）</td>
+</tr>
+<tr>
+<td>OneTwoVLA</td>
+<td>10/5/8/8</td>
+<td>31/40（78%）</td>
+<td>2/0/1/0</td>
+<td>3/40（8%）</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\pi_0\)</span></td>
+<td>2/0/0/0</td>
+<td>2/40（5%）</td>
+<td>1/0/0/0</td>
+<td>1/40（3%）</td>
+</tr>
+</tbody>
+</table>
+<p>读法很清楚。单环境里两个版本都靠名称吃得开，10/10，差距出在空间指代，5 对 8；开放世界则是全面塌方，OneTwoVLA 在空间、语义两类上直接归零，共训之后回到 6/10 和 8/10。属性指代是最稳的一类，单环境里两个版本都是 8/10。</p>
+<p>开放世界测试用 20 个物体分三组：5 个机器数据里见过，10 个只见于合成视觉语言数据，5 个两边都没见过。OneTwoVLA-VL 在第三组上也能抓到，论文举的例子是 Sprite 和 GoPro。</p>
+<p>共训对交互能力也有用。20 个训练中从未出现过的交互场景，OneTwoVLA-VL 成功率 72.5%。</p>
+<h3 id="_12">几个反常的结果</h3>
+<p>动作预测反而更准了。多一段文字生成按理说更难学，结果 <span class="arithmatex">\(\pi_0\)</span> 在验证集上的动作 MSE 比 OneTwoVLA 高 62%（指代抓取实验）和 56%（多模态实验）。论文的解释是详细的推理标注帮模型更好地拟合了动作。</p>
+<p>多模态行为真的出现了。桌面对称摆两个一样的方块，指令只说「抓方块」，不指定左右，20 次里左 9 右 11；瓶子是左 8 右 12。<span class="arithmatex">\(\pi_0\)</span> 用的也是 flow matching，理论上同样能多模态，实际却始终只抓右边。作者把这归因于推理的概率性采样：在文字上采到左还是右，动作就跟着走。</p>
+<p>延迟的代价比直觉小。4090 上两张输入图，<span class="arithmatex">\(\pi_0\)</span> 0.082 秒，OneTwoVLA 的动作模式输入 20 个 token 时 0.102 秒、200 个 token 时 0.104 秒。推理模式输出 20、100、200 个 token 分别是 0.853、2.346、4.361 秒。放到整条任务上看：番茄炒蛋一次 183 秒，想了 5 次共 16 秒，占 8.7%；一杯 Mountain Fuji 135 秒，想了 5 次共 14 秒，占 10.4%。</p>
+<p>认知和行为绑得很死。推理说错了，动作会照着错的位置走；开放世界里推理锁定了一个和指令不符的物体，动作也照样去抓那个物体。作者把它当作协同的证据，换成工程视角则是同一条性质的两面。</p>
+<h2 id="_13">工程实现细节</h2>
+<p>训练侧的量都比较小：每个任务训 30,000 步，8 张 H100 跑 10 小时左右，沿用 <span class="arithmatex">\(\pi_0\)</span> 的超参，只改了输入的两处。</p>
+<p>数据侧的三笔账。机器人演示按任务记：番茄炒蛋 200 条、火锅 600 条、调酒 300 条、泛化规划的原子技能 2,000 条、指代抓取单环境 200 条加开放世界 933 条。合成数据 16,000 条，全部由 Gemini 2.5 Pro 标注，无人工介入。标注管线里的两个常数是 <span class="arithmatex">\(N=32\)</span> 帧和 <span class="arithmatex">\(K+1\)</span> 个区间。</p>
+<p>推理内容的四段结构可以当成一个 prompt 模板来抄：</p>
+<pre class="highlight"><code>场景描述：&lt;任务相关物体的位置，相对夹爪描述&gt;
+高层计划：1. ... 2. ... 3. ...
+历史摘要：已完成 &lt;p1..pj&gt;
+下一步：&lt;p_{j+1}&gt;</code></pre>
+<p>部署侧两个数字：动作模式每 0.2 秒出一段重叠序列，temporal ensemble 按指数权重平均；推理期间机器人要停顿 2 到 3 秒，这是论文在局限里自己承认的。</p>
+<h2 id="_14">我的判断</h2>
+<p>设计上有三处站得住。</p>
+<p>第一，决策 token 这个抽象选得干净。它没有新增网络、没有新增调度器，只在词表上加两个词，把「何时想」变成一个可训练、可测量、可调阈值的预测问题。第二，「进度外化成文字」是这篇最实用的部分，长任务最常见的失败是忘了做到哪一步，把它写进推理内容等于给模型一个外部状态。第三，同一套权重的推论很硬：论文说推理写错了动作会跟着错，这既是缺点也是证据，说明内部只有一个决策者，而不是两个系统在互相喊话。</p>
+<p>没报的成本集中在标注链路上。Gemini 2.5 Pro 在区间标注、场景描述、指令生成、推理生成里被反复调用，论文只给了数据条数，没给调用次数、费用和总标注时长。真机侧的采集成本同样只有条数：火锅 600 条演示、开放世界 933 条演示，这些靠 UMI 和遥操作采集，人工时间没有出现。8 张 H100 跑 10 小时是单任务口径，四类能力背后其实是四批权重，不是一套通吃。</p>
+<p>没讨论的超参直接决定模型多爱「停下来想」：动作区间里那个 <code>[BOR]</code> 过采样的比例、推理区间判定用的 32 帧采样密度、<span class="arithmatex">\(K\)</span> 步计划怎么切、temporal ensemble 的时间常数。其中 <code>[BOR]</code> 比例最关键，按附录 F.1 的描述，它直接决定推理频率，而论文只留了一句「有助于提高 <code>[BOR]</code> 的比例」，没有任何敏感性分析。这个比例一变，延迟占比和成功率会怎么换，目前没有答案。</p>
+<p>模型规模这条线也是空的。底座沿用 <span class="arithmatex">\(\pi_0\)</span> 及其超参，没有更小或更大底座的对照。作者在局限里承认模型变大之后动作推理可能成为瓶颈。所以「小一号的模型还学不学得会输出 <code>[BOR]</code>」没有答案，而这恰恰是能不能落到低成本硬件上的问题。</p>
+<p>如果要照着做，顺序上先做两件不依赖大改的事：把决策 token 的采样温度当成一等工作来调，在真机上量一遍不同 <code>[BOR]</code> 比例下完成时间与成功率怎么换；把推理内容固定成四段，先把「进度外化」这一条单独拿去做消融，看它贡献多少。<span class="arithmatex">\(I^{ref}\)</span> 和 0.05/0.25 秒的本体历史建议直接留着，它们解决的是真问题。合成数据不用一上来就上万条，两千条足够看出开放世界的曲线在哪一格开始拐弯。恢复数据单独采，别指望主演示里自然出现油瓶滑落。</p>
+<p>这篇最实在的地方，是把「什么时候想」从系统设计问题降级成了一个 token 的预测问题。代价也很清楚：它把「哪几步算关键步骤」换成了「哪些区间被人标成推理区间」，而区间切分、<span class="arithmatex">\(K\)</span> 步计划、过采样比例这三样现在都还是人定的。</p>
+<h2 id="_15">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>和这篇的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\pi_0\)</span></td>
+<td>底座模型，动作专家与 flow matching 损失直接沿用，微调后作为不推理的基线</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\pi_{0.5}\)</span></td>
+<td>单系统但每步都预测子任务的路线，本篇把它作为「推理浅且每步付解码时间」的对照</td>
+</tr>
+<tr>
+<td>Hi Robot</td>
+<td>双系统基线的灵感来源，本篇用 Gemini 2.5 Pro 充当上层，按固定间隔调用</td>
+</tr>
+<tr>
+<td>ECoT-Lite</td>
+<td>训练带推理、测试时不生成推理的路线，与本篇的「按需推理」形成正面对照</td>
+</tr>
+<tr>
+<td>ViLa、GR00T N1</td>
+<td>同属双系统或 VLA 路线，本篇在相关工作里用来划清与分层架构的区别</td>
+</tr>
+<tr>
+<td>UMI</td>
+<td>演示采集设备，Franka 平台上的专家数据由它采集</td>
+</tr>
+<tr>
+<td>Temporal ensemble</td>
+<td>部署时的动作平滑手段，让 0.2 秒一次的重叠动作序列连续执行</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/" class="btn btn-neutral float-left" title="一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

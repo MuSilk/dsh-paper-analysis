@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5934\u6234\u76f8\u673a\u66ff\u6389\u8155\u90e8\u8ffd\u8e2a\uff1a\u4e00\u53ea\u4e0d\u901a\u7535\u7684\u624b\u5957\u540c\u65f6\u7ed9\u51fa\u89c2\u6d4b\u4e0e\u6807\u7b7e";
+        var mkdocs_page_input_path = "papers/202610/20261020_ForwardCamUMI_\u5934\u6234\u5355\u76ee_\u65e0\u7535\u8def\u624b\u5957.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/" class="btn btn-neutral float-left" title="工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/" class="btn btn-neutral float-right" title="读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</h1>
+<h2 id="_2">引子</h2>
+<p>一个人把 103 克的相机绑在头上，手里握着一只不通电的塑料夹爪，站在桌边。桌上四块 60 mm 的 AprilTag 纸片围出工作区，中间散着积木和收纳盒。他弯腰、伸手、捏住积木、放进盒子，头顶那颗 15 Hz 的相机录下全程。这段录像是策略以后要看的画面，也是夹爪位姿和开口宽度的唯一来源。采集速度是每分钟 2.0 到 3.1 条演示，中位 6 到 8 秒；同一任务用遥操作是每分钟 1.6 条，中位 14 秒。</p>
+<p>常规手持设备把相机装手腕上，再配一个位姿追踪器：腕部 SLAM、视觉惯性、VR 控制器或固定外部相机。每一种都添一条自己的流，有自己的时钟和标定。腕部视角被手的方向绑住，即使通用操作接口（Universal Manipulation Interface, UMI）用了 155° 鱼眼，手一抬或一转，收纳盒就出画；固定相机不受手影响，代价是身体挡镜头，论文测到 8% 到 22% 的帧被遮挡。</p>
+<p>rollout 里反复出现一个画面。机械臂夹着积木往盒子走，腕部鱼眼画面里只剩积木和远处的墙，盒子不在画面内，策略提前松手。腕部视角的两个策略合计 21 次失败里 12 次是这种中途掉落；头戴视角的 45 次失败里只有 1 次，还是起飞滑脱。轨迹和标签相同，差别只在观测从哪里看。</p>
+<p>论文把相机从手腕挪到头上，把手套做成纯机械件。122 美元的 4K 相机、22 美元的打印手套、10 美元的头带，加四张纸瓦片就是采集端全部；部署时同一颗相机装在 120 美元的小机械臂上，按关节状态模仿采集者的头。标题里的 almost 落在这里，头是一台六轴支架在复现人的头部轨迹。</p>
+<h2 id="_3">论文信息</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原标题</td>
+<td>A Head Camera Is (Almost) All You Need: An Electronics-Free UMI Glove Labelled and Observed by One Moving Camera</td>
+</tr>
+<tr>
+<td>作者</td>
+<td>Yosub Shin、Yuan Liu、Igor Molybog</td>
+</tr>
+<tr>
+<td>机构</td>
+<td>夏威夷大学马诺阿分校（University of Hawaii at Manoa）；Yuan Liu 为独立研究者</td>
+</tr>
+<tr>
+<td>链接</td>
+<td>https://arxiv.org/abs/2610.27622</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>2026-10-20（arXiv 第一版）</td>
+</tr>
+<tr>
+<td>项目页</td>
+<td>未标注</td>
+</tr>
+<tr>
+<td>代码</td>
+<td>手套硬件 https://github.com/YosubShin/yam-umi 与工具 https://github.com/YosubShin/forward-cam-umi，均为 MIT 许可；机器人侧标定与数据集工具尚未发布</td>
+</tr>
+</tbody>
+</table>
+<p>论文面向 CoRL 2026 的 UMI Arena workshop，回应它提出的两个挑战：不做 SLAM 的追踪，以及人到机器人的视角差距。</p>
+<h2 id="_4">问题背景</h2>
+<p>手持演示设备要回答两个问题：策略看到什么，夹爪怎么被追踪。现有做法把它们都压到手腕上。这两个问题决定采集设备的形态，也决定流水线里有几条流要同步。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>论文中的所指</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>观测流</td>
+<td>策略输入的那一路 RGB</td>
+<td>头戴相机、腕部鱼眼、固定相机三选一</td>
+</tr>
+<tr>
+<td>动作标签</td>
+<td>瓦片世界系下的夹爪 6-DoF 位姿与开口宽度</td>
+<td>没有力或触觉，需一次标定转到关节动作</td>
+</tr>
+<tr>
+<td>世界系</td>
+<td>四块 60 mm AprilTag 瓦片定义的桌面坐标</td>
+<td>标签要求瓦片入镜，只试了一种布局</td>
+</tr>
+<tr>
+<td>人类侧设备</td>
+<td>22 美元被动手套加头戴相机</td>
+<td>无电路、无 IMU、无 SLAM</td>
+</tr>
+<tr>
+<td>机器人侧</td>
+<td>SO-101 六轴位置器</td>
+<td>只复现视角，不进策略输入，也不算标签</td>
+</tr>
+</tbody>
+</table>
+<p>按追踪方式分，已有路线三派，外加一条同源的手持路线。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>做法</th>
+<th>卡点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>腕部 SLAM 或视觉惯性</td>
+<td>腕部相机跑 SLAM，或再加一个 IMU</td>
+<td>需要建图与纹理，遮挡和快动下丢跟踪</td>
+</tr>
+<tr>
+<td>VR 控制器或动捕</td>
+<td>手柄、外部跟踪系统直接给 6-DoF</td>
+<td>增重，YUBI 319 g 里有 119 g 是控制器</td>
+</tr>
+<tr>
+<td>固定外部相机</td>
+<td>俯视相机同时看手与桌面</td>
+<td>不漂移，但人体遮挡 8% 到 22% 的帧</td>
+</tr>
+<tr>
+<td>手持 UMI 类</td>
+<td>腕部相机加夹爪复制品，观测与标签同源</td>
+<td>视角随手走，收纳盒容易出画</td>
+</tr>
+</tbody>
+</table>
+<p>四派都没回答同一个问题：能不能让同一颗相机既给出策略看到的画面，又给出标签，并且这个画面在部署时由机器人复现。SLAM 与 VR 把标签做准了，各多一条要标定的流；固定相机视角稳，遮挡率下不来；UMI 把观测和标签合并了，视角却留在手上。人手抓放时眼睛先到、头留在手臂长度之外，这个事实没有被任何路线用进设备设计。</p>
+<h2 id="_5">核心思想</h2>
+<p>论文借人类眼动研究的结论：gaze precedes the hand。人伸手前眼睛已经落在目标上，头的位置让手、目标和周围工作区同时留在视野里。搬到设备上，追踪问题换成怎样让基准点出现在同一张图里，视角问题换成怎样让机器人旁边有一台演人头的六轴支架。原来要同步相机、追踪器和标定三条流，现在一只相机同时看见手套上的基准点与地上的瓦片，旁边的小臂把头的位置演出来。</p>
+<h2 id="_6">方法</h2>
+<h3 id="passive-fiducial-labelling">机制一：被动基准点标注（Passive Fiducial Labelling）</h3>
+<p>这个机制治标签来源。靠电子元件测开口会带回电池、线缆和第二套时间戳；只贴平面标签，从头顶看指尖标签近乎侧向。论文把手套做成 YAM 夹爪的打印复制品，手指沿用原装齿条齿轮，手背装 11 面、边长 15 mm 的 ArUco 十二面体，任意姿态下总有三四个面朝向相机，透视 n 点（Perspective-n-Point, PnP）解出的 6-DoF 位姿不会因为手背翻转而断。</p>
+<p>开口宽度单独处理。每个夹爪加打印楔形尾巴，五个面贴 12 mm 的 AprilTag，背面再固定一枚，头戴视角下总有一面可见；尾巴到背面的距离沿夹爪轴变化，对应开口宽度。每台设备用卡尺量过的垫片做一次线性标定，留出集 RMS 为 0.9 到 3.8 mm。</p>
+<p>标签链是三层复合：瓦片给相机位姿，十二面体给相机系下的夹爪位姿，复合得到工具位姿，再一次 hand-eye 接到基座。手套 22 美元，没有电子件。</p>
+<h3 id="single-camera-localisation-against-tiles">机制二：瓦片世界里的单相机定位（Single-Camera Localisation Against Tiles）</h3>
+<p>这个机制治头部运动下的定位。相机会晃、会转、会被手臂挡，SLAM 需要纹理和建图。论文改用静态基准：四块 60 mm 瓦片贴在桌上，选在抓取时视线落点附近，保证至少两块入镜，场景不放别的标签。</p>
+<p>每帧解相机位姿、夹爪位姿和开口宽度。瓦片布局用素材里的多瓦片帧重新拟合，四瓦片重投影从 3.4 px 降到 0.5 px RMS；单块瓦片求解时，不同瓦片的分歧从 10 到 13 mm 收到 4 到 9 mm。只剩一块瓦片的帧按 0.6 m/s 和 120°/s 的上限链到上一个位姿；断流超过 0.3 秒就切开 episode，短于 1 秒的片段丢掉，每场切掉 0.7% 到 7.4% 的帧，198 条演示得到 200 段。固定相机在同一批演示上丢掉 8% 到 22% 的帧，碎成 259 段。</p>
+<p>相机是 Arducam B0587，4K，122 美元，15 Hz 短曝光，头上 103 克加 37 克 USB 线；每场前对 0.5 到 1 米外的点调一次俯仰。以编码器为参照，5 065 帧上工具点中位误差 6.5 mm、p90 14.1 mm，姿态中位 1.55°、p90 2.70°。</p>
+<h3 id="robot-side-head-positioner">机制三：机器人旁的假头位置器（Robot-Side Head Positioner）</h3>
+<p>这个机制治部署时的视角差距。采集者的头不存在，把相机固定在机器人身上就退回固定相机，装腕上又回到腕部视角。论文在 YAM 旁立一台 SO-101 从动臂，六个 Feetech STS3215 舵机，零件 122 美元，摘要写作 120 美元；夹爪支架拆掉，舵机改作腕部偏航，同一颗相机可在人头和机器人头之间换装。</p>
+<p>运动学用 60 个经瓦片验证的位姿拟合，残差 7 mm 和 0.7°。每场开始停在头部中位位姿，对瓦片注册一次，之后只读 YAM 的关节编码器。控制分两层：固定增益控制器保持夹爪的初始视觉方位，岭回归残差补上人头相对手的位移，输入是九个位姿特征、抓取方位、方位历史与距离，在约 100 条手套 episode 上拟合。15 条留出 episode 上头部位姿误差中位 46 mm 和 5.4°，p90 为 81 mm 和 9.6°；固定在平均位姿是 87 mm 和 7.0°。相机跟手有 0.4 秒滞后，瓦片参照下中位 16 mm，夹爪归一化质心 0.37/0.62，采集者录的是 0.38/0.60。指令低通后限速 50°/s。</p>
+<h2 id="_7">实验</h2>
+<h3 id="_8">实验设置</h3>
+<p>八条策略覆盖头戴、腕部鱼眼、固定相机三种视角。除第 6 条外遥操作动作来自编码器；除说明外手套标签来自头戴相机。遥操作员看头戴预览，三台相机同时录，各策略共享轨迹，只在观测与配比上不同。遥操作 178 条、38.6k 帧，手套 198 条演示、200 段、50.0k 帧，各留 6 条验证。策略是 LeRobot 里的动作分块 Transformer（Action Chunking Transformer, ACT），50k 步，关节空间动作，按留出 episode 的验证损失取 checkpoint。评测 25 个摆放位，每位一次，60 秒预算，记录成功、没抓到、盒前掉落、盒里掉落、超时。</p>
+<h3 id="_9">主结果</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>数据配方</th>
+<th>遥操作 + 手套</th>
+<th>观测</th>
+<th>验证损失</th>
+<th>成功</th>
+<th>失败构成</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>仅遥操作</td>
+<td>172</td>
+<td>头戴</td>
+<td>0.318</td>
+<td>18/25</td>
+<td>没抓 5、掉落 1、超时 1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>共训练</td>
+<td>172 + 194</td>
+<td>头戴</td>
+<td>0.263</td>
+<td>20/25</td>
+<td>没抓 5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>仅遥操作，低预算</td>
+<td>48</td>
+<td>头戴</td>
+<td>0.464</td>
+<td>10/25</td>
+<td>没抓 15</td>
+</tr>
+<tr>
+<td>4</td>
+<td>共训练，低预算</td>
+<td>48 + 194</td>
+<td>头戴</td>
+<td>0.295</td>
+<td>17/25</td>
+<td>没抓 8</td>
+</tr>
+<tr>
+<td>5</td>
+<td>腕部相机 UMI</td>
+<td>168 + 253</td>
+<td>腕部鱼眼</td>
+<td>0.257</td>
+<td>15/25</td>
+<td>没抓 6、掉落 3、盒里掉 1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>头戴标签替代编码器</td>
+<td>172（头戴标签）</td>
+<td>头戴</td>
+<td>0.328</td>
+<td>15/25</td>
+<td>没抓 10</td>
+</tr>
+<tr>
+<td>7</td>
+<td>固定相机系统</td>
+<td>172 + 255</td>
+<td>固定相机</td>
+<td>0.256</td>
+<td>12/25</td>
+<td>没抓 12、盒里掉 1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>头戴标签，腕部视角</td>
+<td>168 + 192</td>
+<td>腕部鱼眼</td>
+<td>0.252</td>
+<td>14/25</td>
+<td>没抓 3、掉落 7、盒里掉 1</td>
+</tr>
+</tbody>
+</table>
+<p>最直接的对照是 3 和 4。48 条遥操作只有 10/25，加 194 段手套数据后到 17/25，9 个位翻盘、2 个翻车，McNemar p=0.065，与 172 条纯遥操作的 18/25 齐平。172 条档加手套从 18/25 到 20/25，4 赢 5 输。验证损失两档都降，0.318 到 0.263，0.464 到 0.295。</p>
+<h3 id="_10">消融</h3>
+<p>消融分三组：遥操作预算、标签来源、观测视角。</p>
+<table>
+<thead>
+<tr>
+<th>消融</th>
+<th>条件 A</th>
+<th>条件 B</th>
+<th>验证损失</th>
+<th>成功</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>加手套数据，低预算</td>
+<td>48 条遥操作（#3）</td>
+<td>48 + 194（#4）</td>
+<td>0.464 → 0.295</td>
+<td>10/25 → 17/25</td>
+</tr>
+<tr>
+<td>加手套数据，满预算</td>
+<td>172 条遥操作（#1）</td>
+<td>172 + 194（#2）</td>
+<td>0.318 → 0.263</td>
+<td>18/25 → 20/25</td>
+</tr>
+<tr>
+<td>标签来源</td>
+<td>编码器（#1）</td>
+<td>头戴标签（#6）</td>
+<td>0.318 → 0.328</td>
+<td>18/25 → 15/25</td>
+</tr>
+<tr>
+<td>观测视角</td>
+<td>头戴（#2）</td>
+<td>腕部鱼眼（#5）</td>
+<td>0.263 → 0.257</td>
+<td>20/25 → 15/25</td>
+</tr>
+<tr>
+<td>观测视角</td>
+<td>头戴（#2）</td>
+<td>固定相机（#7）</td>
+<td>0.263 → 0.256</td>
+<td>20/25 → 12/25</td>
+</tr>
+<tr>
+<td>标签与视角分开</td>
+<td>腕部视角 + 头戴标签（#8）</td>
+<td>腕部视角 + 固定标签（#5）</td>
+<td>0.252 → 0.257</td>
+<td>14/25 → 15/25</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">反常结果与参数敏感性</h3>
+<p>四种共训练视角的离线损失只差 0.011，0.252 到 0.263，rollout 却拉开 20/25、15/25、14/25、12/25。论文引了离线损失预测力弱的旧结论，这组数正好是反例：选型只能靠真机。</p>
+<p>标签来源与视角分得干净。头戴标签放腕部视角（#8 对 #5），14/25 对 15/25，分不出差别；放头戴视角（#8 对 #2），20/25 掉到 14/25，没抓变成中途掉落。视角是主因。腕部视角 21 次失败里 12 次掉落，头戴视角 45 次里 1 次；操作员笔记里每次掉落都发生在鱼眼看不见盒子的时候。</p>
+<p>共训练收益随预算缩小。194 段手套约等于 65 到 100 条遥操作，1 条遥操作换 2 到 3 条手套；48 条的混合落在 96 到 172 条遥操作的水平。增益在 24 条时是 0.075，96 条时 0.011，手套撑大小遥操作集，替不掉最后几十条。</p>
+<p>开口误差在工作区里是平的。按四分位、0.4 到 0.8 米距离、40° 到 87° 仰角、视线夹角分箱，中位 2.8% 到 4.8% 行程，p90 6.8% 到 8.5%；标签挪一帧误差变大，说明没有滞后。全开时 4% 到 6% 的少读来自每场线性拟合的尺度误差。112 条 episode、24.6k 帧上中位 3.5%、p90 7.9%，闭合状态 2.3%，10 条里 9 条每帧有标签。</p>
+<p>25 个位、单次试验、单种子，三组配对 6/1、11/3、8/2，p 为 0.13、0.06、0.11，没一对低于 0.05；#6 对 #1 的 p=0.58。排名一致，样本量撑不起强结论。四个视角的中位成功耗时都是 16 到 19 秒。</p>
+<p>手套数据单独训练不迁移，验证损失 0.52 对共训练 0.26，头戴相机会拍到采集者的前臂和手指。固定相机最弱，12/25，失败方式和头戴一样是没抓到，12/13；它装得偏低，10% 的遮挡只是上界。位置器 0.4 秒滞后会撞关节限位，头部模型是单场线性拟合，没对 rollout 调过。</p>
+<h2 id="_12">工程实现细节</h2>
+<p>零件清单可以照抄。相机 Arducam B0587，122 美元，15 Hz 短曝光，经 GoPro 转接件固定在 10 美元头带上，103 克加 37 克线。手套 22 美元，11 面 15 mm 十二面体，两片夹爪各五面 12 mm 尾巴加背面固定标签。四块 60 mm 瓦片贴视线落点附近。位置器 SO-101 六个 STS3215，122 美元，摘要 120 美元。数字相加，采集端加部署端的硬件不到 280 美元，瓦片与打印件不计。</p>
+<p>标定三步：OpenCV 的 calibrateRobotWorldHandEye 解法兰到球体；trimmed Kabsch 把工具点对到正运动学，5 065 帧里 91% 是内点；瓦片布局多帧重拟合，3.4 px 到 0.5 px。三步一次性离线，之后每场只做位置器对瓦片的注册。</p>
+<p>阈值集中：单瓦片 0.6 m/s 和 120°/s，断流 0.3 秒，最短片段 1 秒，每场切帧 0.7% 到 7.4%；位置器限速 50°/s，九特征岭回归用约 100 条 episode 拟合、15 条验证。ACT 50k 步，验证 6 条。手套时间线重采样到遥操作节奏，闭合态锚在最小夹紧指令的 0.22 行程而非 0.25 中位，120 次 rollout 里没有携带途中松手。</p>
+<h2 id="_13">我的判断</h2>
+<p>设计站得住，原因在流的数量。观测、位姿、开口、世界系全部来自同一颗相机的同一帧，时间戳天然对齐，标定只剩一条一次性链。头戴视角的收益也有机制解释：人搬运时眼睛仍看得到目标，腕部相机看不到，策略把盒子在画面里的位置当成了松手条件，出画就开爪。</p>
+<p>成本报表不完整。论文报了零件价，没报人工时薪与总工时，也没报每场对准、贴瓦片、注册的时间，更没报 ACT 训练算力。位置器的控制电子、电源、支架打印件不在 122 美元里，瓦片与耗材也没计价。数据集是否公开没有说明，只给了 MIT 许可的硬件与工具，机器人侧标定与数据集工具尚未发布。</p>
+<p>超参没有敏感性分析。岭回归正则、九个特征的选法、固定增益、低通截止都只给一个值；0.3 秒和 1 秒阈值直接决定丢帧量，只报了区间；闭合态 0.22 只在 120 次 rollout 的观察里提了一句，没对照 0.25；位置器 0.4 秒滞后与 16 mm 误差没单独消融。</p>
+<p>模型规模没讨论。全部实验用 ACT，骨干和输入分辨率没写。6.5 mm、1.55° 对 ACT 够用，换成更大的视觉语言动作模型或扩散策略，标签噪声、0.4 秒滞后、单视角是否仍不成瓶颈，没有数据。25 个位、单种子、单采集者、单任务、单布局，结论的适用范围就这一格。</p>
+<p>可以照做的几条：去掉腕部支架重跑腕部视角；瓦片中位重拟合换完整 bundle adjustment；残差模型拿 rollout 成功率调；补第二个采集者、任务、种子，把 p 压到 0.05 以下再谈排序。双臂、多瓦片、野外是论文列出的后续，数据成本不高，难的是换场景保证瓦片入镜。</p>
+<h2 id="_14">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>做法</th>
+<th>与本文的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UMI（Chi 等，2024）</td>
+<td>腕部相机加夹爪复制品，手持采集</td>
+<td>起点，被替换的是腕部相机与追踪器</td>
+</tr>
+<tr>
+<td>FastUMI（2024）</td>
+<td>硬件无关的 UMI，加视觉惯性追踪</td>
+<td>多流路线，本文用单流替代</td>
+</tr>
+<tr>
+<td>EgoMimic（Kareer 等，2025）</td>
+<td>第一视角人类视频共训练，手部位姿从视频估计</td>
+<td>同样用人类数据，本文的采集者握着机器人夹爪复制品</td>
+</tr>
+<tr>
+<td>Open-TeleVision（Cheng 等，2024）</td>
+<td>VR 头显驱动主动视觉遥操作</td>
+<td>同样让相机主动看，本文不需要操作员和头显</td>
+</tr>
+<tr>
+<td>Active vision（Chuang 等，2025）</td>
+<td>双臂操作中的主动视觉</td>
+<td>视角能动的先例，本文搬到部署侧</td>
+</tr>
+<tr>
+<td>YAM-UMI（Shin，2026）</td>
+<td>本文手套所复制的 YAM 夹爪装置</td>
+<td>硬件基线，本文换视角与标签链</td>
+</tr>
+<tr>
+<td>Mobile ALOHA（Fu 等，2024）</td>
+<td>多源数据共训练</td>
+<td>共训练先例，本文用在手持与遥操作之间</td>
+</tr>
+</tbody>
+</table>
+<p>论文相关工作里还提到 TinyUMI 这类手持设备变体，以及 VR 定位精度与 SLAM 系统本身的研究。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/" class="btn btn-neutral float-left" title="工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/" class="btn btn-neutral float-right" title="读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

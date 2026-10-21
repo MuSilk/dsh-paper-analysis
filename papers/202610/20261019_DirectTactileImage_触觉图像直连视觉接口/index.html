@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u628a\u89e6\u89c9\u585e\u8fdb\u89c6\u89c9\u63a5\u53e3\uff1aAstra \u5728\u63d2\u5b54\u4e0e\u62bd\u62d4\u4e0a\u538b\u8fc7\u4e13\u7528\u89e6\u89c9\u7b56\u7565";
+        var mkdocs_page_input_path = "papers/202610/20261019_DirectTactileImage_\u89e6\u89c9\u56fe\u50cf\u76f4\u8fde\u89c6\u89c9\u63a5\u53e3.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/" class="btn btn-neutral float-left" title="128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/" class="btn btn-neutral float-right" title="把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="astra">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</h1>
+<h2 id="_1">引子</h2>
+<p>桌上一个带孔的方块，轴要从孔口进去，孔的方向被工件本体挡住，固定相机只看得见轴的上端和方块正面。在成功的那条轨迹里（Insert Hole，种子 1000028），两条触觉带的斜率方向相反，轴上端在画面里也偏了一点，模型把进入方向翻到负 X 一侧，保持轴尖抵着孔口转动，再顺着推断出的孔轴推进。同一个任务的纯视觉版本按参考轨迹试正 X 方向的斜坡，反复在同一深度上转，没有把轴送进去。差别不在抓取精度，而在有没有读到孔口斜面朝哪边这条局部几何，固定相机看不见孔内壁，指尖的形变图看得见。</p>
+<p>触觉也不是万能的。重块被读成轻块的那条失败轨迹（Weight Classify，种子 10038）里，模型把抬升时很小的接触变化当成轻物证据，把重块放进了蓝色托盘，而抓位、开口和运动都会改变图像，小剪切并不等于轻载。Empty-Can Selection 的另一条失败轨迹（种子 10034）第 370 步才选定正确的罐子，第 390 步开始最后的抓取提升，400 步的动作预算已经不够完成搬运。</p>
+<p>这些轨迹指向一个分歧。接触丰富操作长期被当作专用触觉策略的地盘，判材料、判滑移、判插入方向都默认要有触觉预训练的表征和动作头。这篇论文问的是另一件事：一个只带视觉接口的通用多模态模型，能不能把触觉图像当普通图片读，靠少量示范把接触证据接到动作上。</p>
+<h2 id="_2">论文信息</h2>
+<ul>
+<li>原标题：GPT-6 Astra Is a Native Visuo-Tactile Policy for Contact-Rich Manipulation</li>
+<li>作者：Chen Yang、Linzhe Shi、Hang Zhang、Mu Xu、Jiansheng Fan、Chen Wang</li>
+<li>机构：清华大学（Tsinghua University）、高德地图（Amap, Alibaba Group），Chen Wang 为通讯作者</li>
+<li>链接：https://arxiv.org/abs/2610.26846</li>
+<li>日期：2026 年 10 月 19 日（arXiv v1，cs.RO，论文页面标注 October 20, 2026）</li>
+<li>代码：https://github.com/ccyydd/TacTalent</li>
+<li>项目页：https://tactalent.github.io/ ，另有视频库 https://tactalent.github.io/gallery.html</li>
+</ul>
+<h2 id="_3">问题背景</h2>
+<p>触觉在这条线上至少指三件不同的事：传感器吐出的原始图像、从图像学出来的表征、把表征接到动作上的策略。论文动的是第一层与第三层之间的接口，绕开了第二层。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>指什么</th>
+<th>本文的位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接触丰富操作（contact-rich manipulation）</td>
+<td>成功依赖局部几何、滑移与材料属性的操作，如插入、抽出、易碎件抓取</td>
+<td>评测范围是 8 个 UniVTAC 任务加 11 个 OpenViTac 任务</td>
+</tr>
+<tr>
+<td>视触觉传感器（vision-based tactile sensor）</td>
+<td>以 GelSight 为代表，把接触几何与形变编码成图像</td>
+<td>输入里的左右指触觉 RGB 图，走模型已有的视觉接口</td>
+</tr>
+<tr>
+<td>专用触觉策略（specialist tactile policy）</td>
+<td>在触觉数据上预训练表征或动作头，按任务族训练</td>
+<td>被比较的对象：FTP-1、SimpleTouch、OpenVTLA 等</td>
+</tr>
+<tr>
+<td>上下文策略（in-context policy）</td>
+<td>不更新权重，把示范与在线记录放进上下文，由模型直接出动作</td>
+<td>Astra 的工作方式，交互结构沿用 RoboICL</td>
+</tr>
+<tr>
+<td>执行回执（execution receipt）</td>
+<td>一条命令执行后的记录，与命令本身分开</td>
+<td>每轮进入上下文，区分命令发完了与任务推进了</td>
+</tr>
+<tr>
+<td>动作注（action note）</td>
+<td>决策时附的短文字，说明模型对当前接触的判断</td>
+<td>轨迹分析的证据来源之一</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线可以分三派，卡点各不相同。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表工作</th>
+<th>做法</th>
+<th>卡在哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>先学触觉表征再接到动作</td>
+<td>VITaL、3D-ViTac、ViTacFormer、Sparsh、AnyTouch、T3</td>
+<td>在触觉数据上预训练可迁移的接触表征，再为任务族训练策略</td>
+<td>表征与传感器、抓取构型绑定，换传感器要重新对齐</td>
+</tr>
+<tr>
+<td>把触觉塞进预训练 VLA</td>
+<td>Tactile-VLA、VLA-Touch、AT-VLA、OpenVTLA</td>
+<td>在 VLA 里加触觉编码分支或双层次触觉反馈</td>
+<td>需要额外的模态对齐训练，触觉与视觉主干各一套</td>
+</tr>
+<tr>
+<td>通用多模态模型直接当策略</td>
+<td>GPT-as-Policy、RoboICL、RoboDawn、RoboProbe</td>
+<td>用示范与在线记录组成上下文，输出末端与夹爪命令</td>
+<td>输入一直是场景图，接触证据没有入口</td>
+</tr>
+</tbody>
+</table>
+<p>三派的共同前提是触觉需要自己的入口。前两派为触觉加一层编码器与一批对齐数据，第三派绕开训练却只喂场景图。如果触觉传感器的输出本来就是图像，通用模型的视觉接口为什么不能直接吃它，这个问题一直没被回答。</p>
+<h2 id="_4">核心思想</h2>
+<p>借的框架是 RoboICL 的 observation-action-receipt-observation 语法。一次交互由观测、动作、回执、下一帧观测四段组成，示范与在线经验用同一种结构表达。触觉图像被放进观测这一格，位置与场景图并列，输入类型没有增加。</p>
+<p>原来那个问题，通用模型需不需要一套触觉专用的感知与策略，被换成了通用模型能不能在示范上下文里把接触图像与它前后的动作、结果对上。这个替换可检验：同一批场景种子、同一套示范块、同一套动作接口，只把触觉图拿掉或放回去，成功率之差就是触觉的边际贡献。</p>
+<p>RoboICL 在这里只承担接口约定；论文没有改 Astra 的权重，也没有为触觉加适配层。</p>
+<h2 id="_5">方法</h2>
+<h3 id="tactile-images-as-visual-input">机制一：接触图像直连视觉接口（Tactile Images as Visual Input）</h3>
+<p>治的失败是触觉被当成新模态。一旦触觉需要独立编码器，换传感器、换抓取构型、换任务都要重新对齐，通用模型的视觉能力也用不上。</p>
+<p>第 <span class="arithmatex">\(t\)</span> 轮决策的输入是任务指令 <span class="arithmatex">\(g\)</span>、机器人状态 <span class="arithmatex">\(x_t\)</span>、场景图 <span class="arithmatex">\(I_t\)</span>，以及视触觉设定下附加的左右指接触图 <span class="arithmatex">\(T_t\)</span>。场景图给全局位姿与目标几何，接触图给局部形变，状态给本体感觉，三者合起来才能把看到的一次接触与准备发出的位移联系起来。相机严格按 benchmark 官方配置：UniVTAC 八个任务里六个只有固定相机，Lift Can 与 Insert Tube 额外给腕部；OpenViTac 每个任务都给固定加腕部。视觉独跑（V）从示范和在线观测里都删掉接触图，其余输入不动。</p>
+<p>动作由同一个上下文生成：</p>
+<div class="arithmatex">\[A_t \sim \pi(\cdot \mid g, \mathcal{D}, \mathcal{M}_t, x_t, I_t, T_t),\qquad a=(\Delta p, \Delta r, u)\]</div>
+<p><span class="arithmatex">\(\Delta p\)</span> 与 <span class="arithmatex">\(\Delta r\)</span> 是平移与旋转增量，<span class="arithmatex">\(u\)</span> 是夹爪目标，合起来七维；V 设定里 <span class="arithmatex">\(T_t\)</span> 缺席。</p>
+<h3 id="demonstration-blocks-and-interaction-memory">机制二：示范块与交互记忆（Demonstration Blocks and Interaction Memory）</h3>
+<p>治的失败有两种：少样本下模型不知道某种接触之后通常发生什么，长回合里它忘了前面试过哪些方向。</p>
+<p>示范上下文 <span class="arithmatex">\(\mathcal{D}\)</span> 由成功轨迹里切出的块组成，一块包含起点的观测与状态、<span class="arithmatex">\(H\)</span> 步动作、执行回执、结束时的观测与状态。切块用 RoboICL 放出的确定性选择器离线完成，按时间目标分散、互不重叠、跳过无效动作窗。十二个任务用一条示范切十二块，六个分类或选择任务用两条示范各五块，Insert Block v2 用三条示范、每个形状一条、各五块。<span class="arithmatex">\(H\)</span> 按轨迹长度逐任务固定，取值在 4 到 10 之间，例如 Weight Classify 两条示范的起点是 <span class="arithmatex">\(\{0,33,66,99,132\}\)</span> 与 <span class="arithmatex">\(\{0,35,69,104,139\}\)</span>，<span class="arithmatex">\(H=5\)</span>。</p>
+<p>在线记忆 <span class="arithmatex">\(\mathcal{M}_t\)</span> 同构：分布式锚点保留较早阶段，最近一次交互保留最新结果，被省略的区间用显式缺口标记，示范块整局常驻。</p>
+<h3 id="seven-dimensional-commands-and-execution-receipts">机制三：七维动作与执行回执（Seven-Dimensional Commands and Execution Receipts）</h3>
+<p>治的失败是把命令完成当成任务完成。插入命令发出去，物体仍可能卡在孔沿上。</p>
+<p>benchmark 适配层把七维命令转成仿真器接口并记录执行，回执与下一帧观测进入下一次决策；一条命令被执行只说明动作发出去了，物体有没有到位由新观测判断。Insert Block v2 的一条成功轨迹在释放之后零件仍停在孔口，模型把它当作未完成，重新抓取、抬升、再对位。仿真侧的协议是 60 Hz 命令、每条命令两个 120 Hz 子步，模型每次决策附一条短动作注，说明它把接触图读成了什么。</p>
+<h2 id="_6">实验</h2>
+<h3 id="_7">设置</h3>
+<p>评测覆盖 8 个 UniVTAC 任务与 11 个 OpenViTac 任务，合计 19 个。采样用 10% 分层抽样、种子 42，每个输入设定含 80 个 UniVTAC 与 130 个 OpenViTac 场景种子，共 210 个，每任务十个，Insert Block v2 按三个形状各十个共三十个。模型是 GPT-6 Astra，推理强度 xhigh；示范来自 UniVTAC 放出的训练记录，OpenViTac 的示范用官方脚本专家在训练模式下采集。基线取自各自 benchmark 的已发表结果，Astra 在自己抽的场景上评测，两边不是同一批 episode。成功率按任务报告，均值等权，Insert Block v2 的三十个场景先聚成一个任务分。Grasp Chip 判据被放宽：完整芯片被抓取、搬运、在目标区域以稳定支撑放置即算成功，不再要求特定的释放回撤顺序。</p>
+<h3 id="_8">主结果</h3>
+<table>
+<thead>
+<tr>
+<th>基准</th>
+<th>模型</th>
+<th>任务均值（%）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UniVTAC</td>
+<td>ACT</td>
+<td>30.9</td>
+</tr>
+<tr>
+<td>UniVTAC</td>
+<td>VITaL</td>
+<td>40.5</td>
+</tr>
+<tr>
+<td>UniVTAC</td>
+<td><span class="arithmatex">\(\pi_{0.5}\)</span></td>
+<td>41.1</td>
+</tr>
+<tr>
+<td>UniVTAC</td>
+<td>FTP-1</td>
+<td>62.9</td>
+</tr>
+<tr>
+<td>UniVTAC</td>
+<td>SimpleTouch</td>
+<td>70.9</td>
+</tr>
+<tr>
+<td>UniVTAC</td>
+<td>Astra（V）</td>
+<td>76.3</td>
+</tr>
+<tr>
+<td>UniVTAC</td>
+<td>Astra（V+T）</td>
+<td>93.8</td>
+</tr>
+<tr>
+<td>OpenViTac</td>
+<td>StarVLA（Qwen3）</td>
+<td>24.2</td>
+</tr>
+<tr>
+<td>OpenViTac</td>
+<td>XVLA</td>
+<td>37.6</td>
+</tr>
+<tr>
+<td>OpenViTac</td>
+<td>FTP-1</td>
+<td>61.2</td>
+</tr>
+<tr>
+<td>OpenViTac</td>
+<td>OpenVTLA</td>
+<td>68.7</td>
+</tr>
+<tr>
+<td>OpenViTac</td>
+<td>Astra（V）</td>
+<td>80.6</td>
+</tr>
+<tr>
+<td>OpenViTac</td>
+<td>Astra（V+T）</td>
+<td>81.8</td>
+</tr>
+</tbody>
+</table>
+<p>视触觉设定下 UniVTAC 均值 93.8%，比最强的 SimpleTouch 高 22.9 个百分点；OpenViTac 均值 81.8%，比 OpenVTLA 高 13.1 个百分点；对 FTP-1 的差是 30.9 与 20.6 个百分点。纯视觉也已越过两条基线均值，76.3% 对 70.9%，80.6% 对 68.7%。增益落在受限抽拔与孔内插入上：Pull-out Key 从 30% 到 90%，Insert Hole 从 60% 到 100%，Insert HDMI 从 50% 到 80%，Hardness Classify 从 70% 到 90%。Lift Bottle 与 Grasp Classify 在两种设定下都是 100%，触觉这两项没有可加的空间。</p>
+<p>八条成功轨迹按推断、探测、微调、恢复四类组织。Pull-out Key 第 60 步的注认出扭转形变，把动作从再拉一次换成卸载扭转；Grasp Chip 单侧接触后改用更小的闭合增量，第 110 步发出 0.5 mm 横向修正，双边接触后不再收紧；Insert Block v1 在孔沿接触后命令 2 mm 回中。</p>
+<h3 id="_9">消融</h3>
+<p>输入消融是同一个模型在 V 与 V+T 两种设定下的逐任务差，19 个任务里六个升、九个持平、四个降。</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>V（%）</th>
+<th>V+T（%）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pull-out Key</td>
+<td>30</td>
+<td>90</td>
+</tr>
+<tr>
+<td>Lift Can</td>
+<td>80</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Insert Hole</td>
+<td>60</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Insert HDMI</td>
+<td>50</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Hardness Classify</td>
+<td>70</td>
+<td>90</td>
+</tr>
+<tr>
+<td>Insert Block v1</td>
+<td>40</td>
+<td>70</td>
+</tr>
+<tr>
+<td>Weight Classify</td>
+<td>50</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Empty-Can Selection</td>
+<td>70</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Insert Tube</td>
+<td>100</td>
+<td>90</td>
+</tr>
+<tr>
+<td>Insert Block v2</td>
+<td>76.7</td>
+<td>70</td>
+</tr>
+<tr>
+<td>UniVTAC 均值</td>
+<td>76.3</td>
+<td>93.8</td>
+</tr>
+<tr>
+<td>OpenViTac 均值</td>
+<td>80.6</td>
+<td>81.8</td>
+</tr>
+</tbody>
+</table>
+<p>持平的九项是纯视觉已经满分或接近满分的任务：Lift Bottle、Put Bottle、Grasp Classify、Roughness Classify、Roughness-Guided Regrasp、Grasp Chip、Gear Assembly、Pull Drawer、Insert USB。论文报的触觉增益是 UniVTAC 均值 17.5 个百分点、OpenViTac 均值 1.2 个百分点，前者几乎全部来自四个插入与抽拔任务的跳变，后者被四个下降任务抵掉大半。</p>
+<h3 id="_10">反常结果与参数敏感性</h3>
+<p>第一个反常是触觉在两边的价值差一个数量级，17.5 对 1.2。论文的解释是相机配置：UniVTAC 六个任务只有固定相机，OpenViTac 每个任务都有固定加腕部两路视图，视觉线索更足时触觉的边际价值下降。这与 V 设定的表现一致，Astra 纯视觉在 OpenViTac 已到 80.6%，高于 OpenVTLA 的 68.7%。</p>
+<p>第二个反常是加了触觉反而变差，Weight Classify 从 50% 掉到 40%，Empty-Can Selection 从 70% 掉到 50%，Insert Tube 从 100% 掉到 90%，Insert Block v2 从 76.7% 掉到 70%。论文检查了三对 V 成功而 V+T 失败的 Weight Classify 样本，纯视觉那条路是松开夹爪看可见滑移判重量，触觉版本把弱剪切读成轻载。Empty-Can Selection 的问题在预算，反复比较接触条件让后面的搬运没有时间。</p>
+<p>第三个反常是饱和。触觉设定下 19 个任务里 13 个达到 90% 以上，其中 9 个在这批采样里满分；Insert USB 在 Astra 两种设定下都是 100%，同一张表里 OpenVTLA 是 27%。这些天花板让均值越来越难区分强弱策略。</p>
+<p>参数敏感性只有一处硬数字：每任务十个 episode，单个 episode 的得失就值十个百分点；抽样只用一个种子 42；<span class="arithmatex">\(H\)</span>、示范条数、推理强度都没有扫描，Grasp Chip 判据放宽对 OpenViTac 均值的影响也没有单独报告。失败模式给得倒具体，Insert Block v1 的一条失败轨迹从第 240 步起累计俯仰增量约 51.6 度，插入仍未完成；Insert HDMI 的一条失败轨迹用了 600 个动作与 120 次模型决策，第 235 步的注说触觉图轴向符号不确定，第 270 步又转回竖直解释，诊断始终没收敛成有效的修正。</p>
+<h2 id="_11">工程实现细节</h2>
+<p>控制回路是一次请求返回若干条动作，60 Hz 下发，两个 120 Hz 子步执行，下一轮修正要等下一次响应，上下文常驻的开销直接体现在 token 账上。</p>
+<table>
+<thead>
+<tr>
+<th>设定</th>
+<th>输入 token</th>
+<th>其中缓存输入</th>
+<th>输出 token</th>
+<th>总 token</th>
+<th>费用（元）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V</td>
+<td>127,250,755</td>
+<td>104,837,109</td>
+<td>2,283,555</td>
+<td>129,534,310</td>
+<td>3,102.25</td>
+</tr>
+<tr>
+<td>V+T</td>
+<td>203,911,092</td>
+<td>170,693,217</td>
+<td>2,521,218</td>
+<td>206,432,310</td>
+<td>4,402.80</td>
+</tr>
+<tr>
+<td>合计</td>
+<td>331,161,847</td>
+<td>275,530,326</td>
+<td>4,804,773</td>
+<td>335,966,620</td>
+<td>7,505.05</td>
+</tr>
+</tbody>
+</table>
+<p>两个评测阶段合计 335.97 百万 token、7,505.05 元；V+T 比 V 多约 59% 的 token、多 42% 的费用；缓存输入在两个设定里都占输入 token 的 80% 以上。论文注明这些数字含计费错误、重试与重跑，不含示范准备与后续补充实验。</p>
+<table>
+<thead>
+<tr>
+<th>设定</th>
+<th>请求数</th>
+<th>均值（秒）</th>
+<th>中位数（秒）</th>
+<th>P90</th>
+<th>P95</th>
+<th>P99</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V</td>
+<td>3,927</td>
+<td>22.8</td>
+<td>15.4</td>
+<td>46.3</td>
+<td>59.1</td>
+<td>110.7</td>
+</tr>
+<tr>
+<td>V+T</td>
+<td>4,890</td>
+<td>21.1</td>
+<td>14.0</td>
+<td>44.0</td>
+<td>56.8</td>
+<td>96.6</td>
+</tr>
+</tbody>
+</table>
+<p>超过 120 秒的响应分别占 0.76% 与 0.47%。一次响应能出多条动作，下一条依赖观测的修正仍要等下一次响应回来，尾延迟直接拖慢整条闭环。动作预算也是硬约束，Empty-Can Selection 的 400 步、Insert HDMI 的 600 步与 120 次决策，都按 benchmark 上限截断。</p>
+<h2 id="_12">我的判断</h2>
+<p>站得住的地方在接口选择。触觉图像本来就是图像，视觉主干在预训练里处理过大量纹理、形变与遮蔽关系，把接触图放进同一个输入槽位，等于让读触觉复用读图的能力，代价只是一次调用里多两张图。证据不止均值，需要根据接触改变动作的几类轨迹行为是逐帧可读的，卸载扭转、保持入口接触转向、双边接触后停闭合、释放后复查，场景图支撑不了这些决定。</p>
+<p>评测可比性要先打折。基线是别人在完整 episode 集上报的数，Astra 用 10% 抽样、每任务十个 episode，一个 episode 值十个百分点，两边还不是同一批场景；Grasp Chip 判据被放宽，而这一项在两种设定下都是 100%，放宽只会抬高 OpenViTac 均值。在这三个条件下，1.2 个百分点的 OpenViTac 增益落在噪声尺度里，既不能当作触觉无效的证据，也不能当作有效的证据。</p>
+<p>成本论文报了但没展开。7,505.05 元是评测开销，不是部署成本；真正要看的是每次决策 15.4 秒的中位响应与 P99 的 110.7 秒，这个节奏只适合慢速、可停顿的桌面任务。示范准备的开销被排除在计费之外，论文没有给这部分数字。</p>
+<p>没做的实验很清楚：<span class="arithmatex">\(H\)</span>、示范条数、示范块数、推理强度档位都没有敏感性分析，只有仿真没有真机，触觉传感器的型号、分辨率与标定流程没有交代，抽样种子只有一个。这些空白里 <span class="arithmatex">\(H\)</span> 与示范条数最可能影响结论，因为它们同时改变上下文长度与 token 成本。</p>
+<p>要往下推，三件事按顺序做。先造视觉不可区分的对照任务，同形不同质量、同色不同摩擦的块，把看出纹理与摸出物理量分开；再把探测预算写进策略，给显式的停止规则与剩余动作计数；最后在真机上先测标定误差与执行延迟，仿真里的干净接触图不会原样出现。</p>
+<p>触觉进入通用模型的门槛在接口，不在数据量。这篇论文拆掉了接口这一半，剩下的一半在评测设计与闭环时延上。</p>
+<h2 id="_13">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与本文的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RoboICL</td>
+<td>提供 observation-action-receipt-observation 语法与确定性示范块选择器，本文上下文结构直接沿用</td>
+</tr>
+<tr>
+<td>FTP-1</td>
+<td>跨传感器预训练的通用触觉策略，UniVTAC 62.9、OpenViTac 61.2，本文主要对照</td>
+</tr>
+<tr>
+<td>SimpleTouch</td>
+<td>不做触觉策略预训练、给 VLA 加触觉专家，UniVTAC 70.9，本文最强基线</td>
+</tr>
+<tr>
+<td>OpenVTLA</td>
+<td>在 OpenViTac 内研究触觉表征与集成，均值 68.7</td>
+</tr>
+<tr>
+<td>GPT-as-Policy、RoboProbe</td>
+<td>前者比较直接与混合策略，后者考察执行边界，本文问题设定的直接前序</td>
+</tr>
+<tr>
+<td>VITaL</td>
+<td>视觉触觉表征学习，代表先学表征这条路线</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/" class="btn btn-neutral float-left" title="128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/" class="btn btn-neutral float-right" title="把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

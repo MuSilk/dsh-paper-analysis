@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5de5\u5177\u81ea\u5df1\u5199\uff1aVLM agent \u63a5\u7ba1\u53cc\u81c2\u673a\u5668\u4eba\uff0c\u8d62\u5728\u8bfb\u573a\u666f\uff0c\u8f93\u5728\u63a5\u89e6\u90a3\u4e00\u4e0b";
+        var mkdocs_page_input_path = "papers/202610/20261016_HexaShell_\u81ea\u5df1\u5199\u5de5\u5177\u7684\u673a\u5668\u4ebaagent_\u8d62\u51e0\u4f55\u8f93\u63a5\u89e6.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/" class="btn btn-neutral float-left" title="不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/" class="btn btn-neutral float-right" title="插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="vlm-agent">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</h1>
+<h2 id="_1">引子</h2>
+<p>桌面上一块 T 形积木，一块 T 形垫子。双臂机器人要把积木推到垫子上，结束时两只手臂回 home，误差不超过 7 mm 和 7°。整个 episode 给 600 个动作步，约 24 秒机器人时间。</p>
+<p>机器人只有三路 640×480 的 RGB 相机：一个固定在头部，两个装在手腕上，随末端一起走。没有深度图。夹爪的每个动作都以世界坐标的米和度为单位，任何一次抓取或放置，位置要准到一厘米左右。</p>
+<p>布局 2 的第 4 轮里，agent 要量积木顶面的高度。工具从头部和腕部两个视角估计面积，要求两边的面积比落在 0.85 以上，否则拒绝回答。十次请求全部被拒，agent 退回去用桌面高度 0.765 m，而积木顶面在 0.780 m。15 mm 的高度误差把投影轮廓挪了 10 mm。第一次搬运其实只偏了 3.2 mm，落在限制之内，但释放检查用了同一个错误高度，报出 12.5 mm，agent 连改三次，最终停在 13.6 mm 外。</p>
+<p>这段失败里不缺信息：两个视角都拍到了积木，标定也在。错在测量代码把「面积」定义成网格计数，而两个相机的像素尺度不同。论文要问的问题由此展开：一个编码 agent 拿着一条命令行，能自己把这类工具写到什么程度，又会在哪里停住。</p>
+<h2 id="_2">论文信息</h2>
+<ul>
+<li>原标题：HexaShell: A Thin Harness for Exploring the Limits of VLM Agents as Robot Coding Agents</li>
+<li>作者：Hongcheng Gao、Alex Zhou（共同一作）、Jay Zhu、Zelin Zheng、Shijia Ge、Xiping Li、Di Wu、Yazhe Wang、Jianshu Zeng、Xuan Shangguan、Yongli Wang、Yexing Wan、Lingyu He、Zhiqi Jia、Sihang Wu、Xiao He（通讯）</li>
+<li>机构：论文只给出站点 hexafuture.ai，未标注具体单位</li>
+<li>链接：https://arxiv.org/abs/2610.23479</li>
+<li>时间：2026 年 10 月 16 日</li>
+<li>代码：https://github.com/HexaFuture/HexaShell（已进化出的工具）</li>
+<li>站点：https://hexafuture.ai</li>
+</ul>
+<h2 id="_3">问题背景</h2>
+<p>这篇论文把「agent 控制机器人」拆成几层，先对齐用词。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>指什么</th>
+<th>在这篇里对应什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>薄壳（thin harness）</td>
+<td>把命令行翻译成关节运动的服务器，不做任何决策</td>
+<td>只提供 <code>robo</code> 一条命令、<code>obs/</code> 目录和约 60 行手册</td>
+</tr>
+<tr>
+<td>工具（tool）</td>
+<td>带 <code>tool.py</code> 与 <code>interface.md</code> 的目录，给 <code>robo</code> 增加子命令</td>
+<td>负责从 RGB 量出三维位置，跨 episode 保留</td>
+</tr>
+<tr>
+<td>episode 日志</td>
+<td>每条命令、每帧相机图、agent 的对话记录</td>
+<td>优化轮的唯一证据来源</td>
+</tr>
+<tr>
+<td>优化轮（optimizer round）</td>
+<td>失败后诊断、改一个工具、跑测试、重试同一布局</td>
+<td>中位 6.3 分钟一轮</td>
+</tr>
+<tr>
+<td>动作步（action step）</td>
+<td>官方基准里的一次 <code>take_action</code></td>
+<td>200 到 1900 步，push T 是 600 步</td>
+</tr>
+<tr>
+<td>布局（layout）</td>
+<td>种子内一组固定的物体位姿与桌面材质</td>
+<td>每个种子 30 到 75 个布局</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线大致三派。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>做法</th>
+<th>卡在哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>学出来的策略</td>
+<td>VLA 或世界动作模型从大量演示里直接输出动作</td>
+<td>需要成规模的机器人数据，换任务要重训；在遮挡与杂乱场景里退化快</td>
+</tr>
+<tr>
+<td>固定接口的 VLM agent</td>
+<td>让 VLM 在别人写好的薄壳上选末端目标点</td>
+<td>接口定死了能做什么，模型的空间判断又不准，天花板由接口决定</td>
+</tr>
+<tr>
+<td>让模型写机器人代码</td>
+<td>Code as Policies、ReKep、MOKA、RoboCodeX 之类，按指令生成程序或关键点</td>
+<td>程序用完即弃，感知与控制原语仍由人写，模型学到的东西留不下来</td>
+</tr>
+</tbody>
+</table>
+<p>三派合起来留下一个问题没有回答：如果不许 agent 改脚手架、也不许换模型，只许它写和修自己的工具，它能在这套基准上走到多高，失败又集中在哪一类物理交互上。论文用 42 个任务和一张按接触类型划分的能力图回答这个问题。</p>
+<h2 id="_4">核心思想</h2>
+<p>编码 agent 在软件仓库里的循环是现成的：读代码、跑、读报错、改一处、跑测试、通过后修复留下。论文把这三步搬到机器人上，只做了三个替换。</p>
+<p>第一个替换是把「技能」换成「工具库」。agent 不写一次性任务脚本，它维护一组带接口说明和单元测试的小函数；每次失败只改其中一个函数，改完在同一个布局上重跑。第二个替换是把「深度」换成「标定几何」。像素加内外参就是一条世界坐标下的射线，射线再补一个约束，比如已知高度的桌面、块顶平面，或者第二个视角，就得到三维位置。第三个替换是把「总分」换成「接触分类」。每个任务被打上物理标签与决策标签，成功率的差异按标签拆开看，边界才显形。</p>
+<p>一句话概括：论文把「VLM 能不能直接当机器人策略」换成了「一个不改模型的 agent，靠可测试的测量工具能覆盖哪几类接触」。</p>
+<h2 id="_5">方法</h2>
+<h3 id="thin-harness">机制一：薄壳（Thin Harness）</h3>
+<p>治的是「接口替 agent 做决定」这种失败。容器里的 agent 是一个未经改动的编码 agent 命令行程序，没有网络、没有 API key、没有宿主机目录，出网流量走一个出口代理，只放行模型端点和薄壳自己的路由。</p>
+<p>它拿到的只有一个可执行文件 <code>robo</code> 和一个按需刷新的 <code>obs/</code> 目录。目录里是三路 640×480 图像，每台相机的内参和在世界系下的位姿，两个工具中心点（TCP）的位姿与关节角。没有深度图。基础命令是 <code>move</code>（沿世界轴平移 TCP，每轴最多 0.20 m）、<code>rotate</code>（绕 TCP 旋转，每轴最多 90°）、<code>point</code>、<code>gripper</code>、<code>home</code>、<code>wait</code>、<code>obs</code>、<code>status</code>、<code>done</code>。</p>
+<p>服务器对每条命令做校验，按 2 cm 间距插值出直线笛卡尔路径，逐点用 cuRobo 解逆运动学，按机器人官方限位做梯形速度规划，再按基准的 25 Hz 采样，走官方 <code>take_action</code> 调用。没有运动规划器，也没有机器人本体和桌面之外的碰撞模型。命令返回一个 JSON 记录：</p>
+<pre class="highlight"><code>{
+  "request": ...,
+  "plan_ok": true,
+  "reached_pose": ...,
+  "settled": true,
+  "gripper": ...,
+  "time_used": ..., "time_left": ...,
+  "commands_left": ...,
+  "episode_over": false
+}</code></pre>
+<p>失败原因是有限的几种：<code>ik_unreachable</code>、<code>self_collision</code>、<code>table_collision</code>、<code>workspace_limit</code>。观测、测量和模型思考都不计步，只有真正执行的 <code>take_action</code> 计一步，计数器随每条响应返回。</p>
+<p>同一个服务器有两个执行器。direct 执行器在进程内直接驱动仿真，可以 reset、回放，并把真实物体位姿写进一个容器永远收不到的字段；bridge 执行器把服务器包成官方评测客户端的策略，没有 reset，也没有 ground truth。agent 在两边的接口相同，而每个交付的工具都必须在 bridge 下能跑。</p>
+<h3 id="calibrated-geometry">机制二：标定几何（Calibrated Geometry）</h3>
+<p>治的是「单目深度不准」这种失败。一个像素加标定得到一条射线，射线本身不是位置，每次测量都要再补一个约束。</p>
+<p>第一个约束是桌面。共享工具 <code>table_plane</code> 在 episode 内首次调用时测桌面高度，不花步数：它扫一串候选高度，把一台相机的图像按这个高度的平面 warp 到另一台相机，取重投影最一致的解。三台相机两两之间在实验里一致到 1 mm 以内（0.7646 到 0.7656 m）。第二个约束是任何已知高度的水平面，块顶、碗沿、盒子的插槽，量出高度后，穿过像素的射线与这个平面求交就得到点。第三个约束是第二个视角：两台相机看到同一个点，两条射线近似相交，取交点即三角化位置。</p>
+<p>对应像素的来源有两种，agent 自己在一对图里点，或者工具内部用模板匹配、轮廓、圆拟合去找。头部相机能看到整张桌子，但常常太远、角度太斜，物体之间还会遮挡。腕部相机能给第二个视角，前提是机器人先把腕部移过去。这一步是机器人运动，会消耗动作步。规则写得很硬：物体的尺寸、位置、高度都必须在当前 episode 里量，不许来自基准的资产、布局、配置文件或日志。</p>
+<h3 id="tools-as-code">机制三：工具即代码（Tools as Code）</h3>
+<p>治的是「学到的东西留不下来」这种失败。一个工具是一个目录，里面有 <code>tool.py</code> 和 <code>interface.md</code>。Python 文件声明名字、子命令、参数，以及一个 <code>run(api, command, args)</code> 函数，操作对象是 <code>EpisodeAPI</code>。这个 API 给出关节角、TCP 位姿、三路带标定的 RGB 图，以及和基础命令相同的运动原语。</p>
+<p>工具不能 import 仿真器，不能读物体位姿，只有列在任务的 <code>enabled_tools.txt</code> 里才会被加载。不移动机械臂的测量命令免费，因此 agent 可以随便调用；会动臂的命令，包括挪腕部相机去看一眼，返回和基础命令相同的规划判定，并把各阶段列出来。共享池里只有 <code>pick</code> 和 <code>table_plane</code> 两个工具，循环从不修改它们，其余工具都按任务定制。</p>
+<p>交付检查是这一机制的另一半：文件要完整，工具要能加载，<code>interface.md</code> 不许出现任务名或物体名。检查用一张禁用词表执行，不通过就回滚这次编辑。这条规则逼着工具写成通用的测量函数，而不是把「egg carton 在 (x, y)」写死。</p>
+<h3 id="evolution-loop">机制四：进化循环（Evolution Loop）</h3>
+<p>治的是「失败不知道从哪改」这种失败。一个命令跑一个任务、占一张 GPU。循环按布局推进，先用评测种子 0 的前十个布局（Generalization 任务五个标准、五个杂乱，共用同一套工具）。</p>
+<p>acting agent 用当前工具尝试这个布局。成功时，optimizer 读一遍轨迹，往 <code>playbook.md</code> 追加一小段，记下哪些工具好用、为什么。失败时，它读命令日志、每条命令执行后的相机帧、当前工具代码，把诊断写进 <code>skill.md</code>，然后新增或修改一个工具。交付检查通过后，仿真重启，同一个布局再试一次，每个布局最多改五次。十个布局跑完，工具固化，再不启用 optimizer，在十个开发布局和十个新布局上各测一遍。</p>
+<p>两个 agent 都是 Codex 加 GPT-6-Astra，推理强度 medium。optimizer 只能写 <code>tasks/⟨task⟩/</code> 下的东西，碰不到薄壳、手册和共享池。每次任务的开发预算 12 小时。</p>
+<h2 id="_6">实验</h2>
+<p>设置上，基准是 RoboDojo：双臂 ARX X5，Isaac Sim 5.1，42 个任务分五类（Generalization、Memory、Long-Horizon、Precision、Open），展开成 54 个变体。每个任务三个评测种子，一个种子是 30 到 75 个布局，物体位姿和桌面材质在固定规则下变化。成功与否由基准自己的 checker 逐步判定，首次成功即结束。榜单分数是五类等权平均，Generalization 取标准与杂乱两个变体的平均。</p>
+<p>对比对象取 2026 年 10 月 14 日的榜单，每个条目在每个种子上跑 50 个 episode；两个最强的学习策略是 VPP2（成功率 32.26%，进度分 39.26，世界动作模型）和 PhysicalRSI（31.38%，36.27，VLA 加语言模型 agent）；30 个学习策略用于杂乱对比。同模型无工具的基线是 GPT-6-Astra 在基准作者写的固定壳里选夹爪目标点，每任务一个种子 50 个 episode（22.48%，28.97）。</p>
+<p>主结果是冻结重测：每个任务在种子 0 的十个新布局（第 10 到 19 个）上各跑一集，工具构建时没见过这些布局。重测时 agent 的 prompt 里放了任务描述和基准文档里的评分表，也放了开发阶段的工具使用笔记。硬件是一张 RTX 4090 跑一个 run。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>成功率</th>
+<th>进度分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HexaShell（RGB，冻结工具）</td>
+<td>39.7</td>
+<td>48.0</td>
+</tr>
+<tr>
+<td>VPP2（世界动作模型）</td>
+<td>32.3</td>
+<td>39.3</td>
+</tr>
+<tr>
+<td>PhysicalRSI（VLA + LLM agent）</td>
+<td>31.4</td>
+<td>36.3</td>
+</tr>
+<tr>
+<td>GPT-6-Astra 无工具</td>
+<td>22.5</td>
+<td>29.0</td>
+</tr>
+<tr>
+<td>54 个变体朴素平均：HexaShell / VPP2 / PhysicalRSI / 无工具</td>
+<td>35.4 / 30.6 / 26.1 / 24.3</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>逐变体看，HexaShell 有 23 个变体高于 VPP2，中位高 29 点；27 个低于，中位低 23 点。领先的地方集中在「读懂并记住场景」：Memory 65.0%（对手最高 55.6%），Open 50.0%（对手最高 31.0%）。落后的是精确接触：VPP2 在 Precision 上 35.2%，Long-Horizon 37.0%，HexaShell 分别是 31.3% 和 23.8%。六个变体全过十次，十九个变体挂零。</p>
+<p>杂乱场景最能看出系统依赖什么。任务本身不变，只在周围加 13 到 18 个干扰物。HexaShell 在开发布局上标准通过 35.0%，杂乱 33.3%，保住 95% 的成功；同模型无工具保住 87%；30 个学习策略只保住 1% 到 68%，中位 18%，VPP2 从 46.4% 掉到 12.6%，PhysicalRSI 从 25.7% 掉到 5.6%。原因在工具做什么：agent 点一个目标像素，工具只测这个物体。折衣服是例外，从 4/5 掉到 2/5，因为它的工具按颜色连通域找布料，旁边有东西就断。</p>
+<p>三角化与深度网络的对照用同一套壳、同一个循环、同一个模型，都跑开发布局。下表里三角化一列的榜单分是 38.3，比主表的 39.7 低，因为两者测的布局集不同。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>三角化 成功 / 进度</th>
+<th>深度网络 成功 / 进度</th>
+<th>渲染深度 成功 / 进度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generalization</td>
+<td>34.2 / 37.7</td>
+<td>26.7 / 30.0</td>
+<td>45.4 / 51.5</td>
+</tr>
+<tr>
+<td>Precision</td>
+<td>21.3 / 28.4</td>
+<td>7.5 / 11.9</td>
+<td>41.3 / 47.3</td>
+</tr>
+<tr>
+<td>Long-Horizon</td>
+<td>18.8 / 32.2</td>
+<td>13.8 / 29.2</td>
+<td>32.5 / 44.2</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>73.3 / 73.3</td>
+<td>55.0 / 58.0</td>
+<td>66.6 / 66.6</td>
+</tr>
+<tr>
+<td>Open</td>
+<td>43.8 / 46.6</td>
+<td>45.0 / 48.1</td>
+<td>58.5 / 60.7</td>
+</tr>
+<tr>
+<td>榜单分</td>
+<td>38.3 / 43.6</td>
+<td>29.6 / 35.4</td>
+<td>48.8 / 54.1</td>
+</tr>
+<tr>
+<td>54 变体平均</td>
+<td>35.7 / 40.8</td>
+<td>27.8 / 33.0</td>
+<td>47.2 / 52.8</td>
+</tr>
+</tbody>
+</table>
+<p>三角化比深度网络高 8.7 分。按布局配对，它把深度网络的 57 次失败变成成功，丢掉了 23 次（McNemar 检验，p&lt;0.001）。增益最大的是 push T（从 10 个布局过 4 个变成 10 个）、imitate sorting sequence（1 到 8）、play Xylophone（0 到 6）。损失集中在往圆形容器里放东西的任务上，比如 pour liquid into cup、pour by language、stack bowls，各丢两个布局，这类任务要量出容器边缘。</p>
+<p>原因在误差量级。用 8 个任务的 300 帧对渲染深度做参考，Depth Anything V2 Base 在物体像素上的中位误差是头部 41 mm、腕部约 100 mm，即使用桌面把尺度固定住。另外三个网络 Depth Pro 和两个版本的 MoGe 把头部误差压到 20 到 31 mm，腕部仍在 21 到 72 mm。抓取和放置需要大约一厘米。几何没有这个地板：假设成立时，误差只来自标定和像素。渲染深度仍高 10.6 分，差距大部分在紧密插入。</p>
+<p>第二视角不是免费的。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>三角化</th>
+<th>深度网络</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用于观察的执行步占比</td>
+<td>3.6%</td>
+<td>0.7%</td>
+</tr>
+<tr>
+<td>出现观察动作的 episode</td>
+<td>180（43%）</td>
+<td>40（10%）</td>
+</tr>
+<tr>
+<td>观察步占步数上限的中位比例</td>
+<td>4.9%</td>
+<td>2.9%</td>
+</tr>
+<tr>
+<td>成功数（420 集）</td>
+<td>152</td>
+<td>118</td>
+</tr>
+<tr>
+<td>步数上限使用中位数</td>
+<td>70.0%</td>
+<td>63.1%</td>
+</tr>
+<tr>
+<td>用掉 75% 以上上限的失败</td>
+<td>189 / 268</td>
+<td>228 / 302</td>
+</tr>
+<tr>
+<td>撞到步数上限的 episode</td>
+<td>20</td>
+<td>26</td>
+</tr>
+<tr>
+<td>发生观察动作的 180 个布局上的成功</td>
+<td>39</td>
+<td>22</td>
+</tr>
+</tbody>
+</table>
+<p>在有观察动作的 180 个布局上，三角化成功 39 次，深度网络 22 次（22 比 5 的不一致对，p=0.002）。其余 240 个布局上差距收窄到 113 比 96。步数并没有因此更紧：用掉四分之三预算的失败比例反而更低（71% 对 75%），撞上限的 episode 更少（20 对 26）。代价分布不均，最贵的是必须重新量出「上一版工具当作固定值」的东西：蛋盒花掉 40% 的步数，硬币槽 16%，这几个任务最终都没成功。付得值的地方回报很高：play Xylophone 花 17% 的步数在观察上，从 0 个布局变成 6 个；push T 花 8%，从 4 个变成 10 个。</p>
+<p>能力图把平均数藏起来的分裂摊开：18 个变体在 50% 以上，19 个是 0%。</p>
+<table>
+<thead>
+<tr>
+<th>物理标签</th>
+<th>变体</th>
+<th>无工具</th>
+<th>深度网络</th>
+<th>三角化</th>
+<th>VPP2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R 刚性抓放堆叠</td>
+<td>22</td>
+<td>36.9</td>
+<td>44.1</td>
+<td>50.0</td>
+<td>30.0</td>
+</tr>
+<tr>
+<td>Pu 推、滑、按</td>
+<td>4</td>
+<td>60.0</td>
+<td>67.5</td>
+<td>92.5</td>
+<td>24.7</td>
+</tr>
+<tr>
+<td>Mv 运动中的物体</td>
+<td>2</td>
+<td>33.0</td>
+<td>30.0</td>
+<td>40.0</td>
+<td>43.0</td>
+</tr>
+<tr>
+<td>In 紧密插入</td>
+<td>12</td>
+<td>1.7</td>
+<td>1.7</td>
+<td>8.3</td>
+<td>28.1</td>
+</tr>
+<tr>
+<td>Df 可变形、流体、颗粒</td>
+<td>6</td>
+<td>26.0</td>
+<td>30.0</td>
+<td>33.3</td>
+<td>49.4</td>
+</tr>
+<tr>
+<td>Ar 铰接物体、工具使用</td>
+<td>8</td>
+<td>2.0</td>
+<td>0.0</td>
+<td>7.5</td>
+<td>21.6</td>
+</tr>
+<tr>
+<td>全部</td>
+<td>54</td>
+<td>24.3</td>
+<td>27.8</td>
+<td>35.4</td>
+<td>30.6</td>
+</tr>
+</tbody>
+</table>
+<p>推类到了 92.5%，刚性操作 50.0%，插入只有 8.3%，十二个插入变体里七个挂零。决策标签的影响小得多，只有记忆一项突出，65.0%。VPP2 的画像正好相反：推类 24.7%、刚性 30.0%，插入 28.1%、可变形 49.4%、铰接 21.6%。用渲染深度时插入能到 30.1%，其中 insert key 80%、play stacking toy 73%，换成 RGB 只剩 8.3%；倒液从 59% 到 95% 掉到 0% 到 10%。头部相机一个像素在桌面上覆盖 2 到 3 mm，而插入要求孔和零件在同一帧里对齐到几毫米，能分辨孔的那个腕部视角又必须在夹着零件时获得。</p>
+<p>失败怎么结束，也是一条诊断线索。420 集里有 268 集失败，5 集因工具报错提前结束；其余 263 集里 57% 耗尽预算，30% 由 agent 宣布完成但 checker 不同意，13% 在还剩四分之一以上预算时放弃，另有 2 集被 checker 判违规。可变形、铰接、刚性任务的失败 60% 到 77% 是耗尽预算，agent 看得出结果不对，反复重试直到步数用完。记忆任务有一半是宣告成功，agent 以为自己复现了先前状态。运动中物体的典型失败是目标一经过就放弃。宣告失败指向感知或任务规格的缺口，耗尽预算指向执行的缺口。</p>
+<p>论文还做了一次「知道 checker 要什么」的对照。早期用渲染深度时，给 optimizer 一份简短的 checker 说明，三个任务从 0% 到 40% 提到 95% 到 100%。这份说明在 RGB 运行里一直保留，开发布局上 press by number 保住 9/10，pour balls into vase 保住 7/10，pour liquid into cup 掉到 1/10，同时把五分之一步数花在观察上。知道检查条件必要，但不充分，工具还得量得准。</p>
+<h2 id="_7">工程实现细节</h2>
+<p>手册约 60 行，所有任务共享，工具各自的 <code>interface.md</code> 追加在后面。它写清世界系（原点在两臂基座之间的地面，桌面名义高度 0.74 m，真实高度由 <code>table_plane</code> 测）、TCP 与开合轴的定义、基础命令、限制（每个 episode 最多 60 条命令，仿真时间按任务限）、JSON 反馈字段、观测结构（三路 640×480 加 <code>state.json</code>，含两个 TCP 位姿、关节角、夹爪值和各相机内参外参），以及投影与反投影公式。</p>
+<p>几个能照着做的数字：路径插值间距 2 cm，逆解用 cuRobo，时间采样 25 Hz，<code>wait</code> 最多 5 s。重测一集中位 739 s，对应 26 s 的机器人时间，几乎全是模型延迟，基准不为延迟计费。</p>
+<p>优化轮的成本：769 轮，每任务中位 17 轮；失败后的一轮中位 6.3 分钟，90% 在 11 分钟内；一轮里 optimizer 平均跑 16 条 shell 命令，92% 的失败轮会运行任务自带测试；中位编辑加 118 行、删 6 行（含测试与笔记）。每轮读入 75 万 token，大部分命中缓存，写出 5700 token；总计读 4.87 亿、写 380 万。所有任务合计留下 327 条任务命令、约 7.8 万行 Python，42 条命令用到第二相机，在 25 个任务里被调用 998 次。</p>
+<p>两个 agent 的权限被切得很干净：acting agent 的容器看不到仿真器、任务代码和评分代码，成功只由基准 checker 判定；optimizer 只能改 <code>tasks/⟨task⟩/tools/</code>，交付检查用禁用词表挡住任务名与物体名，不通过就回滚。</p>
+<h2 id="_8">我的判断</h2>
+<p>这套设计站得住，主要靠三点。第一，把 ground truth 用架构隔离，而不是靠 prompt 约束：容器里没有仿真器、没有 key，agent 想作弊也没有通道，分数才可信。第二，薄壳换的是工具而不是脚手架，agent、prompt、基础接口、模型都固定，三角化与深度网络的对照才是干净的消融。第三，作者主动做了泄漏审计：七个任务的工具里残留了固定几何常量，用这些常量时它们过了 70 个重测布局里的 3 个，把常量换成 episode 内测量后重测，全部 0/10。把这件事写进正文，比多报两个点更有价值。</p>
+<p>没报的成本有三块。推理开销很大，一集重测 739 s 对应 26 s 机器人时间，优化阶段累计读了近 5 亿输入 token，论文没有给出与学习策略推理延迟的对比。人力也没算：每任务 12 小时开发预算，25 个任务由作者写了 checker 说明，七个任务重测清零，说明结果对这批人工输入敏感。第三，运行参数没有消融：每布局最多改五次、开发只用十个布局、12 小时预算，这三项决定了工具能长到多成熟，论文没有给出更紧或更松时的曲线。</p>
+<p>还有两处比较口径要留意。三角化与深度网络的对照跑的是开发布局（420 集），主表的 39.7% 跑的是新布局，所以表 1 的 38.3 与主表不能直接相减。能力图里各列也不是同一批布局：三角化一列在新布局上，深度网络与无工具两列在开发布局上，类别之间的排序可以参考，绝对差值要打折看。</p>
+<p>模型规模与模型种类的影响完全没有测。整套结果只有一个模型（GPT-6-Astra，medium 推理强度），无工具基线还用了基准作者写的壳，这等于把「模型本身的空间判断」限制在别人的接口里。换一个更弱或更强的模型，工具库的形态大概率会变。</p>
+<p>要照着做，有四条建议。复现时先跑审计脚本，把工具里的字面量与任务定义、日志逐个比对，再报分数。插入类任务要把测量塞进夹持过程，让工具在夹着零件时继续修正运动，而不是先测后动，论文自己把这一步列为下一步。步数预算必须把视角移动计入，否则主动感知的成本会被系统性低估。无工具基线要用同一个模型、同一套壳，比较对象才对齐。</p>
+<p>这套工作在读场景和记忆上已经超过学习策略，短板落在接触。工具库的上限由「能否在接触中继续测量」决定，这条边界比 39.7% 这个数字更值得记住。</p>
+<h2 id="_9">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与这篇的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Code as Policies / ReKep / MOKA</td>
+<td>让模型按指令生成程序或关键点，原语与优化器由人写，程序用完即弃</td>
+</tr>
+<tr>
+<td>URAI</td>
+<td>同时期工作，编程 agent 写运动工具，执行 agent 调用，工具同样跨 episode 保留</td>
+</tr>
+<tr>
+<td>CaP-X</td>
+<td>把编码 agent 放进操作基准里评，看它能否写出可执行策略</td>
+</tr>
+<tr>
+<td>RLE-Bench</td>
+<td>把编码 agent 当机器人学习工程师，考训练与调试流程</td>
+</tr>
+<tr>
+<td>LIBERO-Agent</td>
+<td>通用 agent 直接操作机器人，不经过工具层</td>
+</tr>
+<tr>
+<td>Voyager</td>
+<td>技能库随进程增长，场景是 Minecraft，不是物理机器人</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/" class="btn btn-neutral float-left" title="不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/" class="btn btn-neutral float-right" title="插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

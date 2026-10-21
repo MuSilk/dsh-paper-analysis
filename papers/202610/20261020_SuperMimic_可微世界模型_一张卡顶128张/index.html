@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "128 \u5f20\u5361\u8bad 7 \u5929\uff0c1 \u5f20\u5361 3 \u5c0f\u65f6\uff1a\u53ef\u5fae\u4e16\u754c\u6a21\u578b\u628a\u4eba\u5f62\u52a8\u4f5c\u5e93\u644a\u6210\u4e00\u4efd\u7b56\u7565";
+        var mkdocs_page_input_path = "papers/202610/20261020_SuperMimic_\u53ef\u5fae\u4e16\u754c\u6a21\u578b_\u4e00\u5f20\u5361\u9876128\u5f20.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/" class="btn btn-neutral float-left" title="同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/" class="btn btn-neutral float-right" title="把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="128-7-1-3">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</h1>
+<h2 id="_1">引子</h2>
+<p>一台 Unitree G1 站在平整地面上，面前排着 129,514 段动作，每段从头播一遍。摔倒、根高度偏离参考超过 0.25 米、倾角误差超过 0.8，就记一次失败。这支队列来自 BONES-SEED 中筛过的 G1 重定向动捕，里面有侧滚、90 度与 360 度原地翻转、交叉腿，也有躺在地板上再爬起来。</p>
+<p>已发表的最强跟踪器 SONIC 在这条队列上失败 179 段，而且失败成组出现：22 段侧滚全摔，44 段翻转全摔，一支 8 段的舞蹈全摔，24 段跳远里摔 15 段。为这个结果付出的代价是 128 张 L40 跑 168 小时，论文折算约 21,000 GPU 时。</p>
+<p>SuperMimic 用一张 H100 跑 3 小时，也就是 3 个 GPU 时，在同一个基准上失败 25 段；两张 H100 跑 9.8 小时，失败清零。它用的数据还更少，训练集是 BONES-SEED 公开子集 264.56 小时动作，比 SONIC 的 611 小时少 2.3 倍。</p>
+<p>冲突落在训练方式上：动作库越大控制器越强，每条动作看起来各不相同，共享的却始终是同一台机器人的同一套刚体动力学与接触。无模型强化学习不利用这层共享，每条动作都要从带噪的仿真 rollout 里重新估计动作后果，扩库于是等于加算力。</p>
+<h2 id="_2">论文信息</h2>
+<ul>
+<li>原标题：SuperMimic: Scaling Humanoid Whole-Body Control with One Differentiable World Model</li>
+<li>作者：Qiayuan Liao、Yiyang Shao、Junfeng Long、Kevin Zakka、Roberto Horowitz、Pieter Abbeel、Koushil Sreenath（Liao 与 Shao 共同一作，Abbeel 与 Sreenath 共同指导）</li>
+<li>机构：加州大学伯克利分校（UC Berkeley）</li>
+<li>链接：<a href="https://arxiv.org/abs/2610.28480">arXiv:2610.28480</a></li>
+<li>日期：2026-10-20（arXiv 第一版），CoRL 2026</li>
+<li>项目页：https://supermimic.github.io；代码：未标注</li>
+</ul>
+<h2 id="_3">问题背景</h2>
+<p>这篇论文站在人形全身跟踪这条流水线的训练层，先把这条流水线各层的分工与边界摆清楚。</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>论文里的叫法</th>
+<th>输入</th>
+<th>输出</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据层</td>
+<td>BONES-SEED G1 重定向集</td>
+<td>142,220 条原始动捕</td>
+<td>129,514 条平地可行动作</td>
+<td>只保留站在平地上能完成的片段</td>
+</tr>
+<tr>
+<td>目标接口</td>
+<td>motion encoder、velocity encoder</td>
+<td>未来 10 帧参考、速度指令 <span class="arithmatex">\((v_x,v_y,\omega_z)\)</span></td>
+<td>32 维隐变量 <span class="arithmatex">\(z\)</span></td>
+<td>每个接口一套编码器，共享解码器</td>
+</tr>
+<tr>
+<td>策略层</td>
+<td>共享解码器 <span class="arithmatex">\(\text{dec}_\theta\)</span></td>
+<td><span class="arithmatex">\(z\)</span> 与最近 10 帧本体观测</td>
+<td>29 维关节设定点</td>
+<td>低 PD 增益，设定点近似力矩代理</td>
+</tr>
+<tr>
+<td>执行层</td>
+<td>MuJoCo Warp 与真机</td>
+<td>关节设定点</td>
+<td>50 Hz 控制步</td>
+<td>一步含 4 个 5 ms 子步</td>
+</tr>
+<tr>
+<td>模型层</td>
+<td>世界模型 <span class="arithmatex">\(f_\omega\)</span></td>
+<td>状态、动作、仿真上下文 <span class="arithmatex">\(\xi\)</span></td>
+<td>下一状态、回报、无噪观测、终止概率</td>
+<td>只在训练期存在，部署时不用</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线分成三派，各自卡在不同位置。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表工作</th>
+<th>做法</th>
+<th>卡住的地方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>逐动作专家加热蒸馏</td>
+<td>DeepMimic、PHC、BeyondMimic</td>
+<td>每条动作训一个专家，再蒸馏进一个控制器</td>
+<td>蒸馏有损，专家数随库线性增长</td>
+</tr>
+<tr>
+<td>单一大策略加集群 PPO（近端策略优化）</td>
+<td>SONIC</td>
+<td>把整个库塞进一个策略，加数据加卡</td>
+<td>约 21,000 GPU 时，加卡边际收益很薄</td>
+</tr>
+<tr>
+<td>可微代理模型加解析梯度</td>
+<td>SuperTrack、ControlVAE、SuperDyno、SHAC</td>
+<td>学一个可微动力学，对短视界回报求导</td>
+<td>多用于角色动画，未到人形真机与十万级动作库</td>
+</tr>
+</tbody>
+</table>
+<p>三派都没回答的问题是：刚体仿真器的接触非光滑、实现也不可微，能不能不改造仿真器，只从它产出的日志里拟合一份可微代理，让策略梯度变成对代理求导；这份代理还要能覆盖十万级动作库，训出的策略要能直接上 G1。论文的 3 小时与 129,514 条基准就是对这两个问题的正面回答。</p>
+<h2 id="_4">核心思想</h2>
+<p>方法借了两个现成框架：Dyna 的交替结构，真实交互与想象交互轮流用；SHAC 的短视界 actor-critic，穿过可微模型反传回报。前者管数据怎么用，后者管梯度怎么来。</p>
+<p>原来那个问题因此换了问法。从“每条动作要采多少仿真步才能估出策略梯度”，换成“能不能用一份所有动作共享的动力学模型，把策略梯度变成一次求导”。</p>
+<p>代价是模型误差会直接进入梯度，于是论文把误差压在两点上。模型只需在 H=32 步内准，更远的回报交给 critic 接管；模型保持确定性，因为随机性来源是已知的，域随机化参数进条件输入，传感器噪声在想象时重新注入。</p>
+<p>还有一层好处。动力学不依赖采集它的策略，replay buffer 里的旧数据一直有效，模型与策略能在同一个循环里同时变好，不必先训模型再训策略。</p>
+<h2 id="_5">方法</h2>
+<h3 id="deterministic-world-model-with-sim-context">机制一：带仿真上下文的确定性世界模型（Deterministic World Model with Sim Context）</h3>
+<p>治的失败是梯度来源。MuJoCo Warp 能算接触力，但不给对动作的导数，常规做法只剩把仿真当黑盒、用采样估梯度；另一条路是把仿真器改造成可微的，代价是接触模型要重写。论文走第三条：从仿真日志里拟合可微代理。</p>
+<p>模型拆成动力学与三个头：</p>
+<div class="arithmatex">\[ \hat s_{t+1}=f_\omega(\hat s_t,a_t,\xi),\quad \hat r_{t+1}=r_\omega(\hat s_t,a_t,g_t),\quad \hat{\bar o}_t=g_\omega(\hat s_t,\xi),\quad \hat d_t=d_\omega(\hat s_t,g_t) \]</div>
+<p><span class="arithmatex">\(\xi\)</span> 是每回合的仿真上下文，含摩擦系数、关节标定偏置与躯干质心偏移。模型因此不必学随机性：仿真里的随机只来自 <span class="arithmatex">\(\xi\)</span> 与传感器噪声 <span class="arithmatex">\(\eta_t\)</span>，观测被写成 <span class="arithmatex">\(o_t=\bar o_t+\eta_t\)</span>，预测目标是无噪声的 <span class="arithmatex">\(\bar o_t\)</span>，噪声在想象 rollout 里重新加回。</p>
+<p>拟合用 <span class="arithmatex">\(k=8\)</span> 的自回归窗口，从日志状态出发、沿日志动作前推，四路预测放进同一个损失：</p>
+<div class="arithmatex">\[ L_{\text{WM}}(\omega)=\mathbb{E}_{\mathcal B}\sum_{j=1}^{k}\left[\|\hat s_j-s_j\|^2+(\hat r_j-r_j)^2+\|\hat{\bar o}_j-\bar o_j\|^2+\text{BCE}(\hat d_j,d_j)\right] \]</div>
+<p>解析头不产生损失项。短窗口自回归的真正作用是让模型学会纠正自己的预测误差，所以想象推到 32 步甚至更长时不会立刻发散。数据采集时执行的是加噪动作 <span class="arithmatex">\(a_t+\epsilon_t\)</span>，噪声只用于拓宽模型拟合看到的动作范围，策略本身是确定性的。</p>
+<h3 id="bpttbptt-over-imagined-rollouts">机制二：短视界想象上的 BPTT（BPTT over Imagined Rollouts）</h3>
+<p>治的失败是样本效率。PPO 把动力学当黑盒，用似然比估计策略梯度，方差高，需要海量仿真步。BPTT（沿时间反向传播）直接把回报对每个动作求导，短视界内方差低得多。</p>
+<p>每次更新冻结 <span class="arithmatex">\(\omega\)</span>，从 replay buffer 采起点 <span class="arithmatex">\(s_0\)</span> 与它记录的 <span class="arithmatex">\(\xi\)</span>，加传感器噪声后让策略动作，想象 H=32 步：</p>
+<div class="arithmatex">\[ \hat J(\theta)=\mathbb{E}\left[\sum_{t=0}^{H-1}\gamma^t\hat c_t\hat r_{t+1}+\gamma^H\hat c_H V_\psi(\hat s_H,g_H,\xi)\right] \]</div>
+<p>仿真给的是硬终止，模型给终止概率 <span class="arithmatex">\(\hat d_t\in[0,1]\)</span>，存活权重 <span class="arithmatex">\(\hat c_{t+1}=\hat c_t(1-\hat d_{t+1})\)</span>，终止因此在想象里可微。超出 H 步的回报由 critic 估计，critic 用想象转移上的 GAE 目标拟合，<span class="arithmatex">\(\lambda=0.95\)</span>，目标每次 rollout 只算一次并固定，critic 没有指数滑动平均目标网络。</p>
+<p>critic 不是装饰。去掉它，策略只优化 H 步内的奖励和，训练仍能到相近的名义跟踪回报，但目标更短视，被推之后站不回来。加上它，H=16 就能顶替无 critic 时的 H=32。</p>
+<h3 id="shared-decoder-across-goal-interfaces">机制三：多接口共享解码器（Shared Decoder across Goal Interfaces）</h3>
+<p>治的失败是下游接口的接法。速度、末端位姿这类接口通常靠蒸馏得到：用跟踪奖励训练，指令从参考动作里读。蒸馏出的编码器在库外指令上误差大，论文的对照里它在 7 条快转指令上每次都摔。</p>
+<p>做法是给每个接口一套自己的部分可观测马尔可夫决策过程（POMDP）<span class="arithmatex">\(M_i\)</span>、奖励 <span class="arithmatex">\(r_i\)</span>、终止 <span class="arithmatex">\(d_i\)</span> 与 critic，编码器分开、解码器共享：</p>
+<div class="arithmatex">\[ z=\text{enc}_{\theta,i}(g),\qquad a=\text{dec}_\theta(z,o),\qquad \max_\theta \mathbb{E}_{i\sim p(I)}[\hat J_i(\theta)] \]</div>
+<p>各接口共用同一个 <span class="arithmatex">\(f_\omega\)</span>，不重训动力学。下游接口的回报梯度穿过共享解码器，但解码器权重上有 stop-gradient，解码器仍只由跟踪目标训练；RL 训练的速度编码器另有一个权重 0.1 的隐变量对齐损失，把自己的 <span class="arithmatex">\(z\)</span> 拉向同一步动作编码器的 <span class="arithmatex">\(z\)</span>。</p>
+<p>三个机制对应训练循环的三步，附录 A.1 给了伪代码：</p>
+<pre class="highlight"><code>每轮迭代：
+  采集：π_θ 加动作噪声在仿真里跑，转移写入 B，按回报采样重置点
+  拟合：从 B 采 k=8 窗口，沿日志动作自回归，ω ← ω − α_ω ∇L_WM
+  改进：采一个接口 i 与起点，想象 H=32 步，θ ← θ + α_θ ∇Ĵ_i，再拟合 critic</code></pre>
+<h2 id="_6">实验</h2>
+<p>仿真器是 MuJoCo Warp，所有成本在 Lambda 的 H100（80 GB SXM5）按需实例上测。数据是 G1 重定向的 BONES-SEED 公开子集：原始 142,220 条，名称过滤去掉 12,553 条，可行性过滤再去 153 条，留 129,514 条、264.56 小时。基准就是这 129,514 条训练动作，每条从第一帧播一次，摩擦固定 1.0，无域随机化与观测噪声。主基线是 SONIC 的发布 checkpoint（128 张 L40、168 小时、611 小时数据，v1.1 checkpoint 失败 239 条）。受控基线 PPO-Sim 共享同一套动作、观测、奖励、终止、域随机化与网络规模，每 GPU 跑 8192 个并行环境，是 SuperMimic 4096 的两倍。真机是 Unitree G1，四段动作不做逐动作调参。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>SONIC（128×L40）</th>
+<th>SuperMimic（1×H100）</th>
+<th>SuperMimic（2×H100）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>墙钟时长</td>
+<td>168 h</td>
+<td>3 h</td>
+<td>9.8 h</td>
+</tr>
+<tr>
+<td>GPU 时</td>
+<td>约 21,000</td>
+<td>3</td>
+<td>2 × 9.8</td>
+</tr>
+<tr>
+<td>训练动作时长</td>
+<td>611 h</td>
+<td>264.56 h</td>
+<td>264.56 h</td>
+</tr>
+<tr>
+<td>归一化回报</td>
+<td>0.90（图 3a 标注）</td>
+<td>3 h 内超过</td>
+<td>超过</td>
+</tr>
+<tr>
+<td>129,514 条失败数</td>
+<td>179</td>
+<td>25</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>控制变量下的对照更干净。在 LAFAN1 的 40 段、2.45 小时动作上，SuperMimic 单卡 1.2 小时到 0.82；PPO-Sim 在 18 小时预算内最终只到 0.60（1 卡）、0.70（4 卡）、0.72（8 卡），4 卡到 8 卡几乎没有增益。瓶颈因此不在并行环境数，而在每条样本的梯度质量。</p>
+<p>论文对 3 小时的说法刻意保守：从 3 小时起，每个 checkpoint 在回报与失败数上都领先 SONIC 与自身最好结果之间差距的一半以上。GPU 时比值按 21,000 除以 3 约 7200 倍，论文只写大于 1000 倍，因为 H100 与 L40 的峰值不可直接比，fp32 是 0.74 倍、张量核是 5.5 倍，数据量也差 2.3 倍。</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>设置</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>critic</td>
+<td>无，H=8 或 16</td>
+<td>到不了 0.82，训练失败</td>
+</tr>
+<tr>
+<td>critic</td>
+<td>无，H=32</td>
+<td>能到 0.82，但被推后无法恢复</td>
+</tr>
+<tr>
+<td>critic</td>
+<td>有，H=16</td>
+<td>与无 critic 的 H=32 相当</td>
+</tr>
+<tr>
+<td>critic</td>
+<td>有，H=32（默认）</td>
+<td>最快到 0.82</td>
+</tr>
+<tr>
+<td>critic</td>
+<td>有，H=64 → 128</td>
+<td>到 0.82 的时间近乎三倍，最终回报更低；H=128 是 H100 上限</td>
+</tr>
+<tr>
+<td>梯度来源</td>
+<td>PPO-WM 替代 BPTT</td>
+<td>达到 PPO-WM 最好回报只用约 1/64 的想象步</td>
+</tr>
+<tr>
+<td>rollout 速度</td>
+<td>世界模型对 MuJoCo Warp</td>
+<td>2k 到 16k 并行环境大于 10 倍，64k 时 62 倍</td>
+</tr>
+</tbody>
+</table>
+<p>最反直觉的结果来自数据规模扫描。数据集从 1 小时加到 264 小时，世界模型的 8 步预测误差稳在 0.007 到 0.011 之间，到目标回报所需的 GPU 时增长缓慢。同一个世界模型吃下 264 倍动作后没有变差，这是“共享动力学被摊销”最直接的证据。</p>
+<p>失败分布也偏离直觉。SONIC 是整组失效，翻转、侧滚、舞蹈整组全灭；SuperMimic 3 小时的 25 次失败集中在 5 个小动作组的 195 条里占 14 条，没有任何一组比 SONIC 多。交叉腿 10 条里 SONIC 摔 9 条，SuperMimic 一条没摔。到 9.8 小时后清零。</p>
+<p>参数敏感性有三处值得记住。H 从 64 提到 128，到 0.82 的时间近乎三倍，最终回报还降，H=128 已是单张 H100 能装下的最长视界。critic 的作用在匹配回报之后才显形：同一回报下，带 critic 的策略在 0.5 到 4 m/s 的推挤下 0.5 到 2.4 秒内稳住，无 critic 的版本 0.5 m/s 就持续踉跄、4 m/s 摔倒。数据过滤的阈值同样敏感，抬升支撑 0.20 米持续 0.6 秒、穿地 −0.12 米或 80% 时长、双脚悬空 0.02 米持续 0.5 秒，这些门槛都按 G1 的 50 Hz 重定向调过。</p>
+<h2 id="_7">工程实现细节</h2>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>仿真步</td>
+<td>50 Hz，每步 4 个 5 ms 子步</td>
+</tr>
+<tr>
+<td>世界模型</td>
+<td>MLP 2048×3</td>
+</tr>
+<tr>
+<td>动作编码器与解码器</td>
+<td>2048-1024-512-256，隐变量 32 维 tanh</td>
+</tr>
+<tr>
+<td>critic</td>
+<td>256-128，每个接口一个</td>
+</tr>
+<tr>
+<td>窗口与视界</td>
+<td><span class="arithmatex">\(k=8\)</span>，<span class="arithmatex">\(H=32\)</span></td>
+</tr>
+<tr>
+<td>学习率</td>
+<td><span class="arithmatex">\(2\times10^{-4}\)</span>，两卡时乘 <span class="arithmatex">\(\sqrt{2}\)</span></td>
+</tr>
+<tr>
+<td>batch</td>
+<td>模型更新 10 批 × 2048 个窗口；策略 4096 条想象 rollout</td>
+</tr>
+<tr>
+<td>折扣与 GAE</td>
+<td><span class="arithmatex">\(\gamma=0.99\)</span>，<span class="arithmatex">\(\lambda=0.95\)</span></td>
+</tr>
+<tr>
+<td>动作噪声</td>
+<td>每维标准差 0.1 的高斯噪声</td>
+</tr>
+<tr>
+<td>并行环境</td>
+<td>每 GPU 4096</td>
+</tr>
+<tr>
+<td>replay buffer</td>
+<td>每环境 1000 步</td>
+</tr>
+<tr>
+<td>更新数据比</td>
+<td>0.4</td>
+</tr>
+<tr>
+<td>训练长度</td>
+<td>320,000 轮，250,000 轮内 cosine 衰减到 0.03 倍</td>
+</tr>
+<tr>
+<td>梯度裁剪</td>
+<td>全局范数 1.0，策略再加逐元素 0.1</td>
+</tr>
+<tr>
+<td>critic</td>
+<td>每轮 5 个 epoch × 4 个 minibatch</td>
+</tr>
+<tr>
+<td>观测</td>
+<td>最近 10 帧，含关节位置速度、IMU 角速度、投影重力、上一动作</td>
+</tr>
+<tr>
+<td>参考条件</td>
+<td>未来 K=10 帧参考序列</td>
+</tr>
+<tr>
+<td>终止</td>
+<td>根高偏差大于 0.25 米或倾角误差大于 0.8（约 78 度）</td>
+</tr>
+<tr>
+<td>域随机化</td>
+<td>摩擦 0.3 到 1.2，标定偏置 ±0.01 rad，质心偏移 ±0.025、±0.05、±0.05 米</td>
+</tr>
+</tbody>
+</table>
+<p>重置点的选取不是均匀采样，动作时间轴按 1 秒分箱，每箱维护一个回报估计 <span class="arithmatex">\(G_b\)</span>，重置分布按 50% 均匀、40% 取 <span class="arithmatex">\(\text{softmax}(-25G_b/G_{\max})\)</span>、10% 按历史 softmax 权重复用，这 10% 让学过的难动作仍有机会复习。</p>
+<p>奖励沿用 BeyondMimic 的跟踪式，做了两处减法。自碰撞惩罚被拿掉，因为确定性策略没有靠挤压关节压掉动作噪声来刷速度奖励的动机；关节限位权重从 −10 降到 −2。域随机化里 BeyondMimic 的根速度扰动也被删掉，理由是推挤注入的状态跳变是确定性模型表达不了的。成本口径要留意：3 小时覆盖完整训练循环，checkpoint 评测不计入；多卡是数据并行，梯度做平均，学习率按 <span class="arithmatex">\(\sqrt{2}\)</span> 放大。</p>
+<h2 id="_8">我的判断</h2>
+<p>这套设计能成立，靠的是“共享动力学”被显式建模，网络结构本身不承担这个作用。动作库从 1 小时扩到 264 小时，模型误差不动，摊销才成立；换成每条动作一个模型，容量和误差都会随库涨，那 1000 倍的空间就不存在。可微本身也不是目的，有一份够准的代理模型就够了：不改造仿真器、只拟合日志，正好绕开非光滑接触这个改造成本最高的地方。</p>
+<p>没报的东西有几个。数据过滤流水线要对 142,220 条逐条跑前向运动学查脚与地面的距离，这段耗时没有数字；真机只有四段动作的定性演示，没有成功率、没有与 SONIC 的真机对照；论文说跑了几个随机种子、训练很稳，所以图里不画种子波动，方差因此没被量化。3 小时的比较还跨了 GPU 代际与数据量，严格说只能说“GPU 时少三个数量级”，说成“算力效率高 1000 倍”就把 L40 与 H100 的峰值差算进去了。</p>
+<p>和规模的关系是最需要追问的一处。264.56 小时是公开子集的上限，扫描终点就停在这里；再往上（611 小时的完整集、多台机器人、地形与物体交互）没有任何证据。MLP 2048×3 的容量墙也没测过，误差平稳可能来自共享结构，也可能来自这批动作本身不够多样。</p>
+<p>去根速度扰动是一个隐含假设。真机上被推、被绊、踩到不平地面，都会产生确定性模型表达不了的状态跳变；论文的推挤实验是在仿真里做的，0.5 到 4 m/s，恰好是模型见过的那类连续扰动。要做地形或物体交互，这个假设先得改，作者自己也把它列进了限制。</p>
+<p>照做的建议有三条。复现时先在同数据同奖励下跑 PPO-Sim 拿到下界，再谈倍数，否则跨 GPU、跨数据量的比值没有意义；把 H 与 k 当预算旋钮，先扫 H（16 到 32 这一段收益最明显，64 以上成本上升），再考虑加宽模型；如果目标只是跟踪而非下游接口，机制三可以省掉，共享解码器与隐变量对齐带来的复杂度换不到跟踪回报。</p>
+<p>这篇论文真正的贡献落在 3 小时之外：它把“测动作跟踪的规模定律”变成单卡可做的事。算力从瓶颈位置上挪开之后，剩下的问题才轮到数据质量与模型容量。</p>
+<h2 id="_9">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与这篇的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeepMimic（2018）</td>
+<td>单条动作的无模型模仿，论文把它当作这条线的起点</td>
+</tr>
+<tr>
+<td>PHC</td>
+<td>把模仿扩到大规模动作集，并强调摔倒后的恢复</td>
+</tr>
+<tr>
+<td>SONIC</td>
+<td>直接对照对象，集群规模 PPO，同一套 BeyondMimic 公式，数据 611 小时</td>
+</tr>
+<tr>
+<td>BeyondMimic</td>
+<td>奖励、动作设定点、终止条件的来源；本文去掉自碰撞惩罚并调低限位权重</td>
+</tr>
+<tr>
+<td>SuperTrack、ControlVAE、SuperDyno</td>
+<td>可微代理加解析梯度的前作，多用于角色动画，未到人形真机与十万级动作库</td>
+</tr>
+<tr>
+<td>SHAC</td>
+<td>短视界 actor-critic 穿过可微仿真的出处；本文把硬终止换成存活权重，去掉 EMA 目标网络</td>
+</tr>
+<tr>
+<td>RWM、RWM-U</td>
+<td>也在学到的神经仿真器里训策略，但用 PPO 优化想象 rollout，并在别的策略产生的轨迹上预训练</td>
+</tr>
+<tr>
+<td>LATENT</td>
+<td>学到的运动表征加下游 RL 并可上真机，可与论文表 1 中各阶段的训练策略对照</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/" class="btn btn-neutral float-left" title="同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/" class="btn btn-neutral float-right" title="把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

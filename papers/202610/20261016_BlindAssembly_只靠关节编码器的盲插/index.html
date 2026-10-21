@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4e0d\u770b\u4e5f\u4e0d\u6478\uff1a\u53ea\u9760\u5173\u8282\u7f16\u7801\u5668\uff0c\u628a\u9500\u63d2\u8fdb 0.5 \u6beb\u7c73\u7684\u5b54";
+        var mkdocs_page_input_path = "papers/202610/20261016_BlindAssembly_\u53ea\u9760\u5173\u8282\u7f16\u7801\u5668\u7684\u76f2\u63d2.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/" class="btn btn-neutral float-left" title="训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/" class="btn btn-neutral float-right" title="工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="05">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</h1>
+<h2 id="_1">引子</h2>
+<p>夹具板上开一个 20 mm 深的孔。夹爪夹着 3D 打印的销，销尖贴在板面上，离孔中位数 2 cm；抓取位置沿指垫偏了 7 mm，销在指间歪了 20°。单边间隙 1.1–1.5 mm，最紧的 C 只有 0.5 mm。机器人没有相机，没有力/力矩传感器，也没有触觉皮肤，能读到的只有七个关节的位置、速度，和自己上一步发出的动作。</p>
+<p>装配线上，这类任务通常拆成两段：先用视觉或标定找孔，再用伺服或柔顺控制把销送进去。视觉依赖光照、遮挡和零件外观；力传感器要额外布线、标定；轻接触在关节上留下的偏差很小，容易被摩擦和噪声盖住。间隙缩到半毫米，孔位误差、抓取误差和零件公差叠在一起，经常比间隙本身还大。</p>
+<p>论文把问题从「孔在哪」换成「现在接触到了哪一步」。策略只吃关节历史，自己判断销是悬空、贴着板面、卡在孔沿，还是已经进孔，再决定往哪走。作者在仿真里训练了销插入、齿轮啮合、螺母拧入三个任务，只把销插入策略零样本搬到真机。237 次试验成功 173 次，成功率 73%。</p>
+<h2 id="_2">论文信息</h2>
+<ul>
+<li>原标题：Blind Precise Assembly: Proprioceptive Sim-to-Real Peg-in-Hole for Diverse Parts</li>
+<li>作者：Antonia Bronars、Younghyo Park、Kushal Kedia、Pulkit Agrawal（前两位共同一作）</li>
+<li>机构：麻省理工学院</li>
+<li>链接：https://arxiv.org/abs/2610.23849</li>
+<li>时间：2026 年 10 月 16 日</li>
+<li>项目页：https://younghyopark.me/blind-proprioceptive-assembly/（视频与交互式仿真）</li>
+<li>代码：论文称 mjfit 生成器开源，仓库地址未在正文给出</li>
+</ul>
+<h2 id="_3">先厘清这篇在讲哪一层</h2>
+<p>装配里的「感知」被几个词共用，先对齐。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>指什么</th>
+<th>在这篇里对应什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本体感觉（proprioception）</td>
+<td>关节位置、速度，以及由此算出的末端位姿</td>
+<td>策略唯一的观测来源，取过去 0.6 s</td>
+</tr>
+<tr>
+<td>间隙（clearance）</td>
+<td>孔与销、齿与齿、螺纹之间的单边余量</td>
+<td>销 1.0–1.5 mm，齿轮背隙 0.4–0.6 mm，螺母 0.05–0.2 mm</td>
+</tr>
+<tr>
+<td>盲装配（blind assembly）</td>
+<td>不用视觉、力/力矩、触觉，只靠关节信号完成装配</td>
+<td>销、齿轮、螺母三个任务</td>
+</tr>
+<tr>
+<td>接触监督（contact supervision）</td>
+<td>训练时用仿真接触标签约束隐变量，部署时丢掉解码器</td>
+<td>只给编码器梯度，不给策略特权信息</td>
+</tr>
+<tr>
+<td>精确装配（precise assembly）</td>
+<td>亚毫米级对位、插入、啮合或拧入</td>
+<td>销插入、齿轮啮合、螺母拧入</td>
+</tr>
+<tr>
+<td>零样本 sim-to-real</td>
+<td>仿真训练后不做真机微调，直接部署</td>
+<td>销插入策略</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线大致三派。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>做法</th>
+<th>卡在哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>经典装配</td>
+<td>被动柔顺加螺旋、栅格、倾斜搜索，部分不用力反馈</td>
+<td>假设抓取已知、孔落在搜索图案内，每种零件单独调参，路径固定</td>
+</tr>
+<tr>
+<td>学习式插入</td>
+<td>用强化学习或模仿学习，输入腕部力/力矩、腕部视觉，或两者</td>
+<td>力传感器增加硬件与标定；视觉依赖孔和零件的外观，换形状、换尺寸就偏</td>
+</tr>
+<tr>
+<td>本体感觉策略</td>
+<td>足式和人形用关节历史走路、平衡；手内操作把关节与动作历史当触觉通道</td>
+<td>这些场景接触力大、容差在厘米级，没有验证过亚毫米间隙下的轻接触</td>
+</tr>
+</tbody>
+</table>
+<p>三派合起来留下两个问题。关节信号在 0.5 mm 级间隙里是否还包含足够信息，能把销引到孔口；如果够，它是否比视觉更抗零件几何变化。论文用三个任务和一组匹配的视觉策略回答这两问。</p>
+<h2 id="_4">核心思想：把关节历史当触觉，把搜索学出来</h2>
+<p>足式机器人早就把关节编码器当接触传感器用：脚踩到石头，腿上的关节角会偏离指令，控制器从这段偏差里读出地形。装配是同一件事的另一个极端，接触很轻，偏差很小，但信息仍在关节历史里。论文借的就是这个类比，把「看不见怎么插」换成「接触状态能不能从关节历史里读出来」。</p>
+<p>第二个借来的东西是搜索。工业装配里，孔位不确定时的标准做法是让销在板面上走螺旋，直到掉进孔里。螺旋是开环的，路径不随手的感受改变。论文让策略自己学搜索，把固定图案换成按接触阶段决定下一步。在同样的起点上，盲策略中位数走 37 mm 就坐进孔，乐观设定、已知销方向和最佳起始方向的螺旋基线要走 95 mm。</p>
+<p>第三个是仿真资产。MuJoCo 用凸包做碰撞，凹孔要么拆成凸块，要么用有符号距离场（SDF）。近似凸分解的容差往往比装配间隙还大，孔壁里会残留幽灵材料，销还没碰到真孔壁就被挡住。论文写了 mjfit，从平面轮廓直接生成精确凸体，把间隙留准。没有这一步，策略在仿真里学到的接触就是错的。</p>
+<h2 id="_5">方法</h2>
+<h3 id="proprioceptive-policy">机制一：只看关节的策略（Proprioceptive Policy）</h3>
+<p>它治的失败是感知硬件不够用。腕部相机会被夹爪和零件挡住，力/力矩传感器要额外安装，触觉皮肤覆盖不了所有接触面。策略的观测每步 33 个数：七个关节位置、七个关节速度、由正运动学算出的夹爪位姿与速度（12 个）、上一步动作（7 个）。最近 30 步（0.6 s）送进时序卷积，压成 32 维隐变量 <span class="arithmatex">\(z_t\)</span>，再接一个 256–256–128 的 MLP，输出七个关节位置增量，叠加到当前关节位置上。</p>
+<p>动作由关节阻抗控制器跟踪，策略频率 50 Hz，物理仿真 1 kHz。策略不知道孔位、零件几何、抓取位姿，也拿不到力矩估计或图像。夹爪位姿是从关节角算出来的，仍然属于本体感觉。动作缩放研究版销任务是 0.02 rad，部署版和齿轮、螺母任务是 0.04 rad。</p>
+<p>视觉基线用同样的任务、重置、随机化、奖励、动作和成功判定，腕部相机给 64×64 RGB，同样取 30 步历史，过一个紧凑 CNN。两者只差感知模态。</p>
+<h3 id="contact-supervision">机制二：接触监督（Contact Supervision）</h3>
+<p>它治的失败是稀疏奖励下的探索。成功才给奖励，策略在 0.5 mm 间隙里随机试，很难撞上进孔这个事件。论文在训练时加了一个接触解码器：仿真器在零件的配合面上采点，标成自由、接触但没对齐、已对齐三类；解码器从 <span class="arithmatex">\(z_t\)</span> 预测这三类标签，把类别加权的交叉熵加进 PPO 损失。梯度只回传到编码器，预测结果不进入策略，部署时解码器直接丢掉。</p>
+<p>销在底边上取 64 个点，齿轮在轴颈和齿顶各取 64 个，螺母在孔口取 64 个。类别权重是 0.25（自由）、3.0（接触）、2.0（对齐、啮合或被螺纹咬住）。这样做的效果可测量：没有接触损失时，销、齿轮、螺母分别要多花 2.7、3.8、5.1 倍的环境步数才到 90% 训练成功率。有监督的三个策略在 2.42 亿步时都超过 99%，无监督的销策略在 4.86 亿步时到 97.8%。</p>
+<p>训练时还有一个非对称评论家，能看到零件相对夹具的位姿和真实接触标签，螺母任务还多看螺纹几何。评论家只在训练时存在，演员始终只有本体感觉。</p>
+<h3 id="mjfit">机制三：精确凸体生成器（mjfit）</h3>
+<p>它治的失败是仿真把间隙填死。给一个孔的平面轮廓，mjfit 把孔周围的板拆成凸多边形再拉伸；销的轮廓是孔轮廓向内偏移一个间隙 <span class="arithmatex">\(c\)</span>，所以每条销边到对应孔边的距离正好是 <span class="arithmatex">\(c\)</span>。轮廓里的凸台变成销上的凹槽，曲线用外接多边形离散，孔壁只会多出角落里的余量，不会侵入真实孔内。对 <span class="arithmatex">\(n\)</span> 边形近似半径为 <span class="arithmatex">\(c\)</span> 的圆，角落误差是 <span class="arithmatex">\(c\left(1/\cos(\pi/n)-1\right)\)</span>。</p>
+<p>同一套构造也生成螺栓螺母和齿轮。采样器随机画轮廓、凸台和尺寸，一次训练可以放 12,288 个不同的装配体。论文拿 16 mm 的圆孔和方孔做基准，间隙低到 20 µm：mjfit 的壁面误差是 0.2–2.6 µm，CPU 上比实时快 93 倍（方孔），圆孔 7–32 边形快 29–82 倍，63–281 边形快 4.9–16 倍；512 个 MuJoCo Warp 世界的 GPU 吞吐是 970 倍、1070–1120 倍、442–875 倍。Mesh SDF 在 CPU 上只有 2.2–2.9 倍，而且默认设置下要么把间隙填死，要么残留 23–79 µm 误差；CoACD 默认设置 1.8 倍，同样填死。</p>
+<h3 id="training-recipe">机制四：训练配方（Training Recipe）</h3>
+<p>三个任务都用 PPO，12,288 个并行世界，每个世界一套随机装配。几何每个世界抽一次，位姿和接触参数每次重置重抽，观测不加噪声。奖励是稀疏的成功奖励，加上一次性的里程碑奖励：销的第一次被孔捕获、齿轮第一次套上轴并和每个锚齿轮啮合、螺母的每次新转角。回合长度分别是 5 s、10 s、15 s。</p>
+<p>PPO 用 32 步 rollout，5 个 epoch、20 个 minibatch（齿轮和螺母 24 个），学习率固定 <span class="arithmatex">\(3\times10^{-4}\)</span>，clip 0.2，<span class="arithmatex">\(\gamma=0.98\)</span>，<span class="arithmatex">\(\lambda=0.95\)</span>，熵系数 0.003，价值损失系数 1 并裁剪，梯度范数裁剪到 1，初始动作标准差 0.5。部署版销策略把 minibatch 加到 24，用目标 KL 0.01 的探索退火，并加了一段分阶段的安全惩罚：任务学会之后，关节速度和指令力矩超过硬件上限六分之一就开始罚。</p>
+<h2 id="_6">实验</h2>
+<h3 id="_7">设置</h3>
+<p>仿真主结果每个策略跑 8,192 个回合，销策略两个随机种子，齿轮和螺母各一个种子。真机是一台 Flexiv Rizon 4S 配 Robotiq 2F-85，控制频率 50 Hz，不做任何真机微调和真机数据采集。八个 3D 打印销，每个规划 30 次重置，共 237 次有效试验；每次上限 20 s，超时算失败，成功由操作员判定。仿真对照是同一策略在 2,048 个世界里跑同样的销几何和 20 s 上限。</p>
+<h3 id="_8">仿真主结果</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>盲策略</th>
+<th>视觉策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成功率（%）</td>
+<td>99.4</td>
+<td>97.2</td>
+</tr>
+<tr>
+<td>坐入时间（s，中位数）</td>
+<td>0.80</td>
+<td>0.44</td>
+</tr>
+<tr>
+<td>每分钟插入次数</td>
+<td>65</td>
+<td>82</td>
+</tr>
+<tr>
+<td>坐入前横向移动（mm，中位数）</td>
+<td>37</td>
+<td>20</td>
+</tr>
+<tr>
+<td>部分进入时长（s，中位数）</td>
+<td>0.38</td>
+<td>0.22</td>
+</tr>
+<tr>
+<td>部分进入/坐入时倾角（°）</td>
+<td>6.7 / 1.1</td>
+<td>5.2 / 1.1</td>
+</tr>
+</tbody>
+</table>
+<p>分布内两者都能插，视觉更快、路径更短。盲策略慢在搜索：它必须靠接触把孔找出来，路径不如视觉直接。但和固定螺旋的 95 mm 比，37 mm 说明它在利用接触信息，没有把螺旋背下来。</p>
+<h3 id="_9">真机零样本</h3>
+<table>
+<thead>
+<tr>
+<th>销</th>
+<th>变化</th>
+<th>成功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I1–I5</td>
+<td>分布内，间隙 1.11–1.49 mm</td>
+<td>73–80%</td>
+</tr>
+<tr>
+<td>C</td>
+<td>更紧，单边 0.5 mm</td>
+<td>66%</td>
+</tr>
+<tr>
+<td>L</td>
+<td>更大，孔 101 × 37 mm</td>
+<td>66%</td>
+</tr>
+<tr>
+<td>H</td>
+<td>手柄更高，70 mm</td>
+<td>72%</td>
+</tr>
+<tr>
+<td>全部</td>
+<td>—</td>
+<td>73%（173/237）</td>
+</tr>
+</tbody>
+</table>
+<p>真机没有力传感器、相机或孔位输入，策略完全靠编码器。0.5 mm 间隙的销掉到 66%，说明余量已经不多；更大的销和更高的手柄也在 66–72%，没有出现断崖。</p>
+<h3 id="_10">泛化到没见过的零件</h3>
+<p>训练分布是固定的 stadium 截面、固定齿轮参数、M36/M42 螺母；测试时每次只把一项属性推到训练范围外。</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>策略</th>
+<th>分布内</th>
+<th>更紧</th>
+<th>比例温和</th>
+<th>比例强</th>
+<th>尺寸温和</th>
+<th>尺寸极端</th>
+<th>随机形状</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>销</td>
+<td>盲</td>
+<td>99.4</td>
+<td>93.8</td>
+<td>97.1</td>
+<td>93.3</td>
+<td>97.1</td>
+<td>91.9</td>
+<td>36.2</td>
+</tr>
+<tr>
+<td>销</td>
+<td>视觉</td>
+<td>97.2</td>
+<td>54.1</td>
+<td>62.7</td>
+<td>40.1</td>
+<td>57.7</td>
+<td>16.4</td>
+<td>3.9</td>
+</tr>
+<tr>
+<td>齿轮</td>
+<td>盲</td>
+<td>&gt;99.9</td>
+<td>&gt;99.9</td>
+<td>&gt;99.9</td>
+<td>&gt;99.9</td>
+<td>&gt;99.9</td>
+<td>&gt;99.9</td>
+<td>&gt;99.9</td>
+</tr>
+<tr>
+<td>齿轮</td>
+<td>视觉</td>
+<td>98.4</td>
+<td>98.0</td>
+<td>98.6</td>
+<td>98.5</td>
+<td>96.5</td>
+<td>90.2</td>
+<td>87.9</td>
+</tr>
+<tr>
+<td>螺母</td>
+<td>盲</td>
+<td>99.7</td>
+<td>99.2</td>
+<td>99.2</td>
+<td>98.2</td>
+<td>98.8</td>
+<td>98.4</td>
+<td>99.7</td>
+</tr>
+<tr>
+<td>螺母</td>
+<td>视觉</td>
+<td>99.7</td>
+<td>98.7</td>
+<td>99.1</td>
+<td>98.8</td>
+<td>25.5</td>
+<td>1.6</td>
+<td>57.1</td>
+</tr>
+</tbody>
+</table>
+<p>销的对比最干净：间隙收紧到 0.5 mm，盲策略 93.8%，视觉 54.1%；随机凸截面，盲 36.2%，视觉 3.9%。螺母在尺寸极端变化时视觉只剩 1.6%，盲还有 98.4%。齿轮的外观变化小，视觉只掉到 87.9%，两种模态差距没有销和螺母那么大。</p>
+<h3 id="_11">消融与表征</h3>
+<p>接触监督的消融在前面已经给了：2.7、3.8、5.1 倍的步数差距，说明它主要省的是探索，不是最终精度。</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>无接触监督到 90% 的步数倍数</th>
+<th>有监督到 99% 的步数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>销插入</td>
+<td>2.7</td>
+<td>2.42 亿</td>
+</tr>
+<tr>
+<td>齿轮啮合</td>
+<td>3.8</td>
+<td>2.42 亿</td>
+</tr>
+<tr>
+<td>螺母拧入</td>
+<td>5.1</td>
+<td>2.42 亿</td>
+</tr>
+</tbody>
+</table>
+<p>表征分析用线性探针从 <span class="arithmatex">\(z_t\)</span> 读任务阶段，七个阶段包括悬空、远处搜索、近处搜索、部分进入、进入后移动、卡住等。平衡准确率 61–73%，只读当前观测是 41–64%，随机初始化编码器是 29–46%，随机猜是 14%。把另一阶段的 <span class="arithmatex">\(z_t\)</span> 换进来、保留当前观测，动作变化是同阶段内替换的 1.3–3.0 倍。真机上，仿真里拟合的探针能解出和仿真相同的阶段序列。</p>
+<p>真机的状态估计并不准：从关节角和规划抓取得出的销位姿，与坐入位姿中位数差 6.6 mm，只有 3% 的状态被估成完全进孔；探针在真机上把 62% 的进孔状态判对，仿真里是 100%。策略仍然能插进去，说明它依赖的是接触历史的相对模式，不是某个精确的孔位坐标。</p>
+<h2 id="_12">工程实现细节</h2>
+<p>观测是 33 维，螺母策略是 36 维：螺母要转半圈，夹爪姿态用旋转矩阵的两列表示，避免欧拉角在腕部大角度转动时出问题。历史长度 30 步，隐变量 32 维，MLP 三层 256/256/128。动作是七个关节位置增量，乘 0.02 或 0.04 rad 后加到实测关节角上，由阻抗控制器跟踪，<span class="arithmatex">\(k_p/k_d\)</span> 在销研究版是 80/20，部署版和另外两个任务是 40/20。仿真 1 kHz，策略 50 Hz。</p>
+<p>接触标签每步 64 个点，销看底边，齿轮看轴颈和齿顶，螺母看孔口。解码器两层 128 单元，类别权重 0.25/3.0/2.0。评论家输入规模分别是 240、434、317。训练用 12,288 个世界、32 步 rollout，部署版 24 个 minibatch，目标 KL 0.01。</p>
+<p>部署侧没有真机数据，没有微调，没有相机、力/力矩或孔位输入；真机上只读编码器算出的关节与夹爪状态。安全惩罚在任务学会后才启用，阈值是硬件速度和力矩上限的六分之一。论文没有给训练总时长、GPU 小时数或单次装配的推理延迟，只给了 50 Hz 的控制频率和 20 s 的试验上限。</p>
+<h2 id="_13">我的判断</h2>
+<p>这套设计站得住，原因在于它选对了信息通道。视觉提供的是零件外观和孔的位置，外观一变，策略学到的对齐特征就失效；关节历史提供的是接触的力学后果，零件形状变了，接触的物理关系还在。探针和替换实验说明隐变量里确实有阶段信息，策略也在用它，这比成功率数字更能支持反应式搜索这个说法。37 mm 对 95 mm 的路径对比也说明它没有把螺旋背下来。</p>
+<p>仿真资产是这份工作最容易被忽略的贡献。近似凸分解把孔壁填掉几十微米，在 1 mm 间隙下看不出来，在 0.5 mm 间隙下足以让策略学到还没碰到就停。mjfit 把间隙作为输入直接构造几何，误差压到微米级，这才让 12,288 个不同装配体的并行训练有意义。很多 sim-to-real 的失败可以追到这一层，而不是策略本身。</p>
+<p>论文没报的成本有几项。训练规模是 2.42 亿环境步乘 12,288 个世界，没有 GPU 小时或墙钟时间，复现的门槛只能靠猜；mjfit 为每个装配体生成几何的时间也没给。真机只有一台臂、一个夹爪、237 次试验、一个策略，成功由操作员判定，没有失败分类，也没有和力/力矩、触觉、视觉加本体感觉的融合方案对比。抓取滑动后销的位姿估计中位数偏 6.6 mm，说明长回合里的状态漂移没有被处理，论文也承认策略只能做局部修正，销掉到远处就救不回来。</p>
+<p>适用范围写得很清楚：每个回合都从销已经贴着夹具、距孔几厘米开始，接近段要由别的模块负责；三个任务各自一个策略，没有统一的多任务策略，也没有语言或目标条件。模型本身很小，32 维隐变量加三层 MLP，能力主要来自仿真规模和资产精度，模型参数量并不是来源。接触监督在更小间隙、更多任务上是否还省这么多步数，论文没有回答。</p>
+<p>落地时先把它放在最后一厘米：视觉或脚本把销送到孔附近并建立接触，再交给盲策略，接口就是接触发生的那一刻。第二步是先把碰撞资产做对，默认凸分解和默认 SDF 参数不要直接拿来训 0.5 mm 级间隙。第三，接触监督的成本低、收益明确，值得作为默认组件，但标签定义要和任务阶段对齐。第四，评估时把插进去和知道自己没插进去分开报，这篇的成功率是人判的，落地需要自动判定。最后，若目标间隙低于 0.5 mm，先做间隙扫描，66% 的真机成功率说明余量已经很薄。</p>
+<p>这套方法的价值在于把装配的感知问题从看清改成摸准，并且用实验说明关节历史足以支撑亚毫米搜索。它的边界同样清楚：局部、单技能、依赖精确仿真资产。</p>
+<h2 id="_14">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与这篇的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Whitney 1982；Chhatpar &amp; Branicky 2001</td>
+<td>经典柔顺控制与螺旋/栅格搜索；本文用学出来的反应式搜索替掉固定图案，37 mm 对 95 mm</td>
+</tr>
+<tr>
+<td>Inoue 2017；Beltran-Hernandez 2020</td>
+<td>用腕部力/力矩的学习式插入；本文把力传感器去掉</td>
+</tr>
+<tr>
+<td>Schoettler 2020；Lee 2019</td>
+<td>腕部视觉，或视觉加力/力矩；本文的匹配视觉基线属于这一类</td>
+</tr>
+<tr>
+<td>Fuchioka 2024</td>
+<td>软腕加力/力矩，容忍 10 mm 孔位误差和未见销形；本文不给孔位，也不给力</td>
+</tr>
+<tr>
+<td>Pan 等</td>
+<td>指尖触觉的盲插入；本文只用关节本体感觉，不用触觉</td>
+</tr>
+<tr>
+<td>Bhatt 等 2026（Blind Dexterity）</td>
+<td>把关节与动作历史当全身触觉通道，概念上与本文最接近</td>
+</tr>
+<tr>
+<td>Narang 等 2022（Factory）</td>
+<td>基于 SDF 的装配仿真；mjfit 改的是碰撞几何这一层</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/" class="btn btn-neutral float-left" title="训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/" class="btn btn-neutral float-right" title="工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

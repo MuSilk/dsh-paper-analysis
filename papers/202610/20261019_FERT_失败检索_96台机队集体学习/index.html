@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3% - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u628a\u4eba\u5de5\u7ea0\u6b63\u62ff\u6389\uff1a96 \u53f0\u673a\u5668\u4eba\u5171\u4eab\u5931\u8d25\u7ecf\u9a8c\uff0c\u624b\u673a\u5305\u88c5\u6210\u529f\u7387\u4ece 79.2% \u5230 98.3%";
+        var mkdocs_page_input_path = "papers/202610/20261019_FERT_\u5931\u8d25\u68c0\u7d22_96\u53f0\u673a\u961f\u96c6\u4f53\u5b66\u4e60.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/" class="btn btn-neutral float-left" title="把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/" class="btn btn-neutral float-right" title="动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="96-792-983">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</h1>
+<h2 id="_1">引子</h2>
+<p>手机包装的最后一步是把盒盖斜搭在盒口、推正、压下。盒盖挡住视线，对齐要求很高，前面九步里任何一次放置出偏，盖合都可能顶住。这个 episode 约 2-3 分钟，记录约 3,500 个时间步，占 1.58 GB。</p>
+<p>96 台双臂机器人的场地里，这类轨迹批量产生。训练从 10:37 跑到 18:30，中间一小时午饭，全场完成 9,834 个 episode，除午休外平均 65 台同时执行，每分钟 24 个。</p>
+<p>操作员只做两件事：给每个 episode 打成功或失败的标签，再复位场景。没有人在策略卡住时接管遥操作杆，也没有人示范纠正动作；主流流程相反，要求人盯住执行、在失败时抢控制权。</p>
+<p>真机不会一直在线。同一场训练记录 30 起故障，分布在 22 台机器人上，按 2 分钟内合并算 19 次，全场平均每 22 分钟被打断一次。机器人 20 在 11:24 掉了惯性传感器链路，原地重启 11 分钟后于 11:37 回到采集。</p>
+<p>问题就在交叉处：动作监督不再由人提供，机器人还在掉线，机队经验凭什么变成更可靠的策略。</p>
+<h2 id="_2">论文信息</h2>
+<ul>
+<li>原标题：Learning from Fleet Experience: A Collective Learning Paradigm for Robots</li>
+<li>作者：Chao Yu、Shu'ang Yu、Hao Lin、Hongzhi Zang、Yuxiang Yan、Chenxi Jiang 等共 42 人，前六位标注同等贡献；通讯作者 Maoqing Yao、Yu Wang</li>
+<li>机构：清华大学（Tsinghua University）、AgiBot、Infinigence AI</li>
+<li>链接：https://arxiv.org/abs/2610.25736</li>
+<li>日期：2026 年 10 月 19 日（v1）</li>
+<li>代码/项目页：HTML 只提供 "Project Page" 入口，链接为空，未标注代码仓库</li>
+</ul>
+<h2 id="_3">问题背景</h2>
+<p>论文把「策略从哪类经验里学」拆成三层，差别不在数据量，在谁提供动作。</p>
+<table>
+<thead>
+<tr>
+<th>经验来源</th>
+<th>谁提供动作</th>
+<th>需要人做什么</th>
+<th>规模上去后卡在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人类示范</td>
+<td>遥操作员逐帧示范</td>
+<td>完整示教一遍</td>
+<td>采集速度等于人的速度</td>
+</tr>
+<tr>
+<td>专家纠正</td>
+<td>遥操作员在失败时接管</td>
+<td>持续监控，在正确时机抢控制权</td>
+<td>监控容量随机器人数线性增长</td>
+</tr>
+<tr>
+<td>机队集体经验</td>
+<td>机器人自己，且只取成功轨迹</td>
+<td>二值结果标签与场景复位</td>
+<td>检索与调度，而非遥操作</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线分三派，各解决过一部分问题。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表方法</th>
+<th>做法</th>
+<th>卡住的地方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>交互式模仿学习</td>
+<td>DAgger、HG-DAgger、ThriftyDAgger、DART</td>
+<td>在策略实际访问到的状态上补专家动作</td>
+<td>每轮都要人接管，干预预算有限</td>
+</tr>
+<tr>
+<td>带人类纠正的强化学习</td>
+<td>HIL-SERL、ConRFT、RECAP</td>
+<td>示范加自主 rollout，用纠正动作学价值或优势</td>
+<td>纠正动作与价值估计都是额外成本</td>
+</tr>
+<tr>
+<td>机队学习系统</td>
+<td>SOP、LWD、Ghasemipour 等</td>
+<td>并行采集，异步更新并下发共享策略</td>
+<td>监督主渠道仍是人的干预信号</td>
+</tr>
+</tbody>
+</table>
+<p>三派都没回答：机队从几台扩到几十上百台，动作监督怎么才能不跟着线性增长。二值标签只说明这条轨迹失败了，不指出失败从哪一帧开始，也不指出正确动作长什么样。失败提供定位，成功轨迹提供动作，需要一层机制接起来。</p>
+<h2 id="_4">核心思想</h2>
+<p>论文借的是检索式模仿学习的框架。Behavior Retrieval 和 STRAP 已经证明，可以用任务线索从离线数据集中检索相关子轨迹并当作模仿目标。这篇论文把做法搬到机队在役经验上，把查询键换成失败片段。</p>
+<p>问题因此被改写：从「如何从一次失败中推断正确动作」，换成「机队里哪一段成功执行最像这次失败发生前的那一刻」；前者在没有专家时无解，后者可以靠轨迹相似度计算。失败只提供索引，成功提供动作，被检索到的片段获得更高的采样概率。交换成立的前提是机队里有足够多样的成功执行，能把不同的失败情境覆盖住。</p>
+<h2 id="_5">方法</h2>
+<p>论文把这一范式称为集体经验学习（Collective Experience Learning，CEL），并用失败引导经验检索微调（failure-guided experience retrieval fine-tuning，FERT）与容错异步训练系统（Fault-tolerant Asynchronous Training System，FATS）分别落地算法与系统。</p>
+<h3 id="experience-encoding">机制一：经验编码（Experience Encoding）</h3>
+<p>治的是缓存失效与跨机器人不可比。编码器若跟着策略变，昨天缓存的成功轨迹嵌入今天就落在另一个空间；不同机器人的关节零位与相机安装也有差别，直接拿原始状态算距离会把硬件差异读成行为差异。</p>
+<p>做法是冻结视觉编码器，取 Vision-Language-Action（VLA）模型视觉塔的冻结副本。每路相机输出 16×16 的视觉 token 网格，用 4×4 核、步长 4 的平均池化压到 4×4，再按固定相机顺序展平拼接：</p>
+<div class="arithmatex">\[h_t=\text{Concat}_{c=0}^{C-1}\left[\text{vec}\left(\text{Pool}\left(f_{\bar{\theta}}(I_t^{(c)})\right)\right)\right]\]</div>
+<p>视觉特征与归一化后的关节状态各自做 L2 归一化后拼接：</p>
+<div class="arithmatex">\[z_t=\left[\frac{h_t}{\max(\|h_t\|_2,\epsilon)};\frac{s_t}{\max(\|s_t\|_2,\epsilon)}\right]\]</div>
+<p>分开归一化让视觉与本体感受可比。成功轨迹嵌入入库时算好并缓存，失败轨迹只编码查询片段。</p>
+<h3 id="failure-guided-retrieval">机制二：故障引导检索（Failure-guided Retrieval）</h3>
+<p>治的是二值标签不定位失败起点。整条失败轨迹当查询会把「已经失败之后的动作」带进匹配，只取最后一帧又缺少时间上下文。</p>
+<p>做法是取终点前的一小段观测作为查询。设 <span class="arithmatex">\(e=T-\delta\)</span>、<span class="arithmatex">\(b=\max(0,e-L)\)</span>，查询为 <span class="arithmatex">\(Q_\tau=(o_b,\ldots,o_{e-1})\)</span>，偏移 <span class="arithmatex">\(\delta\)</span> 用来排除可能延迟显现的终止帧。实现取 <span class="arithmatex">\(L=90\)</span>、<span class="arithmatex">\(\delta=10\)</span>，在 30 Hz 下相当于最多 3 秒上下文，结束于记录终点前约三分之一秒。</p>
+<p>匹配用斜率约束子序列动态时间规整（slope-constrained subsequence dynamic time warping，S-DTW）。查询帧 <span class="arithmatex">\(i\)</span> 与候选帧 <span class="arithmatex">\(p_i\)</span> 一一对应，相邻匹配只允许前进 1 帧或 2 帧：</p>
+<div class="arithmatex">\[p_i-p_{i-1}\in\{1,2\},\quad i=1,\ldots,M-1\]</div>
+<p>这条约束允许查询在更长的成功序列里做有界的时间拉伸并保持顺序。递推式为</p>
+<div class="arithmatex">\[D_{i,j}=d_{i,j}+\min\{D_{i-1,j-1},D_{i-1,j-2}\},\quad i&gt;0\]</div>
+<p>第一行直接用帧间距离初始化，匹配可从任意位置开始，不惩罚前半段。每条成功轨迹保留一个代价最小的区间，代价按对齐帧数取平均，再取全局最低的 <span class="arithmatex">\(K=10\)</span> 条，向前后各扩 <span class="arithmatex">\(h_{\mathrm{pre}}=h_{\mathrm{post}}=30\)</span> 帧。扩展只改区间，不改排序。检索前两条序列做 3 倍降采样，理论加速 9 倍，实测约 6 倍。</p>
+<h3 id="prioritized-fine-tuning">机制三：优先级微调（Prioritized Fine-tuning）</h3>
+<p>治的是成功经验相关性不均。成功轨迹都能模仿，但与当前失败情境相关的只是少数片段，均匀采样会把更新预算摊到无关行为上。</p>
+<p>做法是把检索结果转成采样优先级。设 <span class="arithmatex">\(A_i\)</span> 为从数据索引 <span class="arithmatex">\(i\)</span> 开始的动作块，<span class="arithmatex">\(\text{idx}(A_i)\)</span> 为它覆盖的帧区间，优先级按</p>
+<div class="arithmatex">\[w_i^{(n)}=\rho w_i^{(n-1)}+\sum_{R\in R_n}\frac{|\text{idx}(A_i)\cap R|}{H}\]</div>
+<p>更新。重叠比例让完全落在区间内的块拿满额增量，跨边界的块拿部分增量；<span class="arithmatex">\(\rho\)</span> 控制历史优先级的保留程度，默认 <span class="arithmatex">\(0.88\)</span>，新样本的初始优先级 <span class="arithmatex">\(w_{\mathrm{init}}=0.5\)</span>。检索代价只决定选哪些区间，不进入增量大小。采样按 <span class="arithmatex">\(P(i)=w_i/\sum_j w_j\)</span> 进行，目标是对成功动作块的负对数似然；底层策略是流匹配模型，实现上改用条件流匹配损失作为似然拟合的替代，附录 F 给了换算。</p>
+<p>整个更新不需要 critic、价值目标或优势估计。这一点把它和 RECAP 一类方法区分开：后者要拟合价值函数，再用优势给动作打条件。</p>
+<h3 id="fault-tolerant-asynchronous-training-system">机制四：容错异步训练系统（Fault-tolerant Asynchronous Training System）</h3>
+<p>治的是机队可用性的三种失败：同步收集让快机器人等慢机器人，整系统重启让一次故障停掉全场，进程重启后残留消息被当成新进程的数据。</p>
+<p>数据面 SwarmLink 接通机器人执行与云端推理、训练。分布式通道按 key 把队列落在某个节点；轨迹字段在云端按 worker、episode、step 拼接，一条 episode 要等字段和结果标签到齐才释放给训练。推理上传过的观测不再重复上传，交互流量优先、批量数据分块传输。</p>
+<p>控制面 HotSwarm 把机队当作会变的成员集合，区分 station 与 worker。station 是绑定到某台机器人的固定位置，整场训练都在；worker 是占据 station 的进程。机器人位置、回复 key 记在 station 上，在途消息与连接记在 worker 上。恢复按角色分层：环境 worker 原地重启，代价最多一个 episode；推理 worker 重启后加载当前策略；训练 worker 从 checkpoint 恢复。</p>
+<p>身份贯穿两个面。每个 worker 有唯一身份，SwarmLink 把它附在数据上并在投递回复时校验；连接组带 epoch，新成员只在新 epoch 内重连，不会绑到前任发布的地址。故障 worker 留下的动作块即使晚到，也会因携带前任身份被丢弃，避免训练学到动作与观测不匹配的样本。</p>
+<h2 id="_6">实验</h2>
+<p>五个真机桌面任务：插花、叠衣、手机充电、凳子装配、手机包装，覆盖柔性物体、精密对齐、工具使用与多阶段执行。</p>
+<p>平台是 AgiBot G2 双臂机器人，观测含一路头部相机、两路腕部相机和 16 维本体状态，动作是双臂关节增量块，<span class="arithmatex">\(H=30\)</span>、<span class="arithmatex">\(d=16\)</span>，控制频率 30 Hz。基座模型是 <span class="arithmatex">\(\pi_0\)</span>，先监督微调（supervised fine-tuning，SFT），再做多机器人 human-gated dataset aggregation（HG-DAgger）得到共享初始化，FERT、RECAP、RLT 从同一 checkpoint 出发。评测在两台未参与采集的同型号机器人上，每台 60 次、每任务共 120 次，全程无干预；人工遥操作参照是 6 名操作员各 20 次。FERT 一列取每个任务最大训练机队的结果。</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>训练机队</th>
+<th>(M)HG-DAgger</th>
+<th>FERT</th>
+<th>人工遥操</th>
+<th>失败率相对降幅</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插花</td>
+<td>16</td>
+<td>98.33%</td>
+<td>99.17%</td>
+<td>90.83%</td>
+<td>50.0%</td>
+</tr>
+<tr>
+<td>叠衣</td>
+<td>16</td>
+<td>85.83%</td>
+<td>98.33%</td>
+<td>82.50%</td>
+<td>88.2%</td>
+</tr>
+<tr>
+<td>手机充电</td>
+<td>16</td>
+<td>60.00%</td>
+<td>97.50%</td>
+<td>71.67%</td>
+<td>93.8%</td>
+</tr>
+<tr>
+<td>凳子装配</td>
+<td>32</td>
+<td>81.67%</td>
+<td>93.33%</td>
+<td>83.33%</td>
+<td>63.6%</td>
+</tr>
+<tr>
+<td>手机包装</td>
+<td>96</td>
+<td>79.17%</td>
+<td>98.33%</td>
+<td>75.00%</td>
+<td>92.0%</td>
+</tr>
+</tbody>
+</table>
+<p>五任务平均从 SFT 的 36.3% 提到 (M)HG-DAgger 的 81.0%，FERT 再到 97.3%，相对失败率下降 86.0%。相对 RLT 平均高 12.3 个百分点，相对 RECAP 高 11.5 个百分点，相对人工遥操高 16.7 个百分点。差距在任务间不均匀：对 RLT 最大的一项在手机充电，从 75.8% 到 97.5%；对 RECAP 最大的一项在手机包装，从 75.0% 到 98.3%。</p>
+<p>消融在手机包装、16 台训练机器人上做，完整配置是 86.7%。</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>成功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>完整 FERT</td>
+<td>86.7%</td>
+</tr>
+<tr>
+<td>去掉故障引导检索（w/o FR）</td>
+<td>64.2%</td>
+</tr>
+<tr>
+<td>去掉检索区间扩展（<span class="arithmatex">\(h_{\mathrm{pre}}=h_{\mathrm{post}}=0\)</span>）</td>
+<td>57.5%</td>
+</tr>
+<tr>
+<td>优先级保留因子 <span class="arithmatex">\(\rho=0.8\)</span></td>
+<td>70.8%</td>
+</tr>
+<tr>
+<td>优先级保留因子 <span class="arithmatex">\(\rho=0.95\)</span></td>
+<td>82.5%</td>
+</tr>
+<tr>
+<td>策略同步间隔 100 步</td>
+<td>75.0%</td>
+</tr>
+<tr>
+<td>策略同步间隔 1,500 步</td>
+<td>80.0%</td>
+</tr>
+</tbody>
+</table>
+<p>去掉检索降 22.5 个百分点，去掉区间扩展降 29.2 个百分点，后者幅度更大。光把「哪一段」找对还不够，匹配段前后各 30 帧的动作上下文同样关键，检索给位置，扩展给可执行的动作片段。</p>
+<p>几处反常结果值得单列。小机队不是稳赚：用 8 台机器人训练时，FERT 在凳子装配和手机包装上都低于初始化策略，作者归因于成功经验不够多样，覆盖不住策略遇到的失败情境。机队扩大对 HG-DAgger 也不总是好事：单机训练在手机充电、凳子装配、手机包装上可以低于 SFT 初始化，多机之后前两者饱和、凳子装配回落，原因归于人的监控与干预容量。参数敏感性上，同步间隔 500 步最好，缩到 100 步或拉到 1,500 步都掉；<span class="arithmatex">\(\rho\)</span> 在 0.88 最好，0.8 与 0.95 都更差，构成「保留历史检索信息」与「响应最近失败」之间的折中。</p>
+<p>系统侧结果来自同一场 96 台机器人的训练。按每台实测的 episode 与暂停序列回放，同步轮次的收集量只有实际运行的 33%，一个轮次中位 9.3 分钟，超过机器人自身 4.1 分钟的典型周期；把与故障重叠的暂停换成中位暂停后升到 42%，全部替换后升到 78%。每次故障后整系统重启 2、5、10 分钟，回放分别保留 92%、86%、74% 的 episode，解析模型给出 91.6%、81.3%、68.5% 的采集时间比例。故障实际只占用 660 机器人小时中的 8.3 小时，即 1.3%；同样事件率下，1,024 台机队的整系统重启模型只剩 50.4%、28.9%、16.9%。</p>
+<p>通信侧，Env-to-Rollout 有 95.18% 的操作在 20 ms 内完成、99% 以上在 50 ms 内；Rollout-to-Env 约 97.6% 在 250 ms 内，其中 83.15% 落在 200-250 ms 区间；Env-to-Train 超过 99% 在 2 分钟内完成。时间尺度差异正是把推理与经验传输分开调度的理由。</p>
+<h2 id="_7">工程实现细节</h2>
+<p>场地支持 100 台机器人，最大训练机队 96 台；云端 6 台服务器各 8 张 NVIDIA A800，共 48 张 GPU；场地与云之间是专用 30 Gbps 链路。系统实现在 RLinf 上，用 Ray 管理进程，环境 worker 在场地，推理与训练 worker 在云上。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>取值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最大学习率 / 调度</td>
+<td><span class="arithmatex">\(2.5\times10^{-5}\)</span>，cosine，10,000 步，warmup 80 步</td>
+</tr>
+<tr>
+<td>全局 batch / 梯度裁剪</td>
+<td>1024 / 4.0</td>
+</tr>
+<tr>
+<td>每个训练 worker 的滚动缓冲</td>
+<td>350,000 帧</td>
+</tr>
+<tr>
+<td>每个 worker 的最少训练数据</td>
+<td>60,000 帧</td>
+</tr>
+<tr>
+<td>失败查询长度 <span class="arithmatex">\(L\)</span> / 终点偏移 <span class="arithmatex">\(\delta\)</span></td>
+<td>90 帧 / 10 帧</td>
+</tr>
+<tr>
+<td>检索段数 <span class="arithmatex">\(K\)</span> / 前后扩展</td>
+<td>10 / 30 帧</td>
+</tr>
+<tr>
+<td>优先级保留因子 <span class="arithmatex">\(\rho\)</span> / 初始优先级</td>
+<td>0.88 / 0.5</td>
+</tr>
+<tr>
+<td>降采样倍数 / 权重同步间隔</td>
+<td>3 / 500 步</td>
+</tr>
+<tr>
+<td>训练 worker 与机器人数量比</td>
+<td>0.25</td>
+</tr>
+</tbody>
+</table>
+<p>每次在线训练约 7 到 8 小时。一次模型输入的观测含三张 224×224 RGB 图，原始 uint8 约 0.45 MB；动作块下行约 1.88 kB/s 每机器人；一条手机包装 episode 约 3,500 步、1.58 GB，机器人约每 4 分钟完成一条。交互路径要求毫秒级往返，经验路径允许分钟级延迟，两条路径共用同一条上行链路，才需要在 SwarmLink 里做优先级与分块。</p>
+<p>初始化还有两处选择。HG-DAgger 只保留整块都由人给出的动作 chunk（<span class="arithmatex">\(H=30\)</span> 即 30 Hz 下 1 秒），并丢掉每段干预开头的若干候选起点；训练时用分位数加绝对下限做损失过滤。</p>
+<h2 id="_8">我的判断</h2>
+<p>这套设计站得住的地方，是把监督成本从「动作」降到「结果」。二值标签可以由非专家给出，甚至可以换成学出来的奖励模型，论文在 Figure 1 说明里留了口子；动作仍来自真实执行，保真度不受人的操作水平影响。第二处是「该学什么」从全局重加权变成局部定位：优先级给命中的片段加分，不给整条轨迹打分。</p>
+<p>它没有报的成本有三块。一是标注与复位的人工，每个 episode 一个标签再加场景复位，在 96 台规模下仍是持续的人力，论文没给工时。二是检索开销，每条失败要跟缓冲区里所有成功轨迹算一遍 S-DTW，论文没给单次检索的绝对耗时。三是节拍、能耗、磨损这些成功率以外的指标都没报。</p>
+<p>边界也要说清楚。整个流程只从成功轨迹学动作，失败动作不进监督，这避免了模仿错误动作，策略却没有直接学过「如何从这类错误里恢复」。五个任务都在同一平台、同一场地，跨本体迁移没有验证。收益还依赖机队规模，8 台时已低于初始化，说明存在经验多样性的门槛。RECAP 只做了一轮离线改进，RLT 只在单机上跑，两个基线偏保守，领先幅度应按同等实验配置来读。</p>
+<p>有几条可以照着做。把结果标签与复位流程当成一等公民来设计；把查询长度与区间扩展当成首要超参，消融里扩展的影响比检索开关还大；小机队先别期待收益；云侧故障没有进入论文的恢复模型，部署时要把推理与训练节点的故障算进预算。</p>
+<h2 id="_9">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与这篇的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DAgger / HG-DAgger</td>
+<td>交互式模仿学习的前身，纠正动作由人给；这篇把动作来源换成机队成功轨迹</td>
+</tr>
+<tr>
+<td>RECAP（<span class="arithmatex">\(\pi^{*}_{0.6}\)</span>）</td>
+<td>同样用机队数据与纠正动作，但要学价值函数做优势条件；这篇不做价值估计</td>
+</tr>
+<tr>
+<td>RLT</td>
+<td>单机在线残差强化学习，用稀疏奖励与人的纠正；这篇的对照基线之一</td>
+</tr>
+<tr>
+<td>SOP</td>
+<td>机队异步学习系统，采集执行经验与人的干预信号并下发策略；这篇把干预信号换成结果标签</td>
+</tr>
+<tr>
+<td>STRAP</td>
+<td>用目标示范检索离线数据中的子轨迹；这篇把查询换成失败片段</td>
+</tr>
+<tr>
+<td>RLinf</td>
+<td>这篇 FATS 的实现底座，提供 worker 与通信抽象</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/" class="btn btn-neutral float-left" title="把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/" class="btn btn-neutral float-right" title="动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

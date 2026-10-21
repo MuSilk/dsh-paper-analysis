@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u52a8\u624b\u524d\u5148\u62a5\u52a8\u8bcd\uff1a16 \u4e2a\u7269\u7406\u8bcd\u628a\u673a\u5668\u4eba\u9690\u5f0f\u63a8\u7406\u5207\u6210\u53ef\u590d\u7528\u9636\u6bb5";
+        var mkdocs_page_input_path = "papers/202610/20261019_PhysWord_\u52a8\u624b\u524d\u5148\u62a5\u52a8\u8bcd.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/" class="btn btn-neutral float-left" title="把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/" class="btn btn-neutral float-right" title="人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="16">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</h1>
+<h2 id="_1">引子</h2>
+<p>A4 纸平放在桌面上，边缘没有一处伸出桌沿。灵巧手把五指压上去，靠摩擦把纸推到桌边，等纸露出一截，再捏住、抬起、放进篮子。纸薄，捏得太靠边，接触面积不够，抬起来就从指间滑掉。</p>
+<p>同一工位要连做三轮：放完一张，新纸出现，策略得从「放」切回「接近」。论文记了一个对照现象，只做隐式监督的版本放完后仍停在篮子附近上下抖动，不主动去够新纸，直到新纸被摆到特定位置才重新启动；把动作词接回推理链的版本在检测到新纸时把预测从 place 切回 approach，再开始下一轮。</p>
+<p>两次失败指向同一件事。中间表示不能只是一段关于未来的连续向量，还得能被切成阶段、能被命名、能在阶段间切换。语言层的动作词提供命名，但 rotate 不说明转多快、接触面在哪、会不会打滑；纯隐变量有物理细节，却没有可复用的边界。论文把两者绑在同一个隐状态上。</p>
+<p>PhysWord 让模型在出动作前先自回归报出未来几个时刻的动作词，每个词配一个隐状态，它同时被词标签和对应未来观测编码出的隐目标监督。仿真里它在 UniVTAC 上拿到 90.3%，在 LIBERO-Long 上 99.6%，两台真机平台四个任务平均 71.7%。</p>
+<h2 id="_2">论文信息</h2>
+<ul>
+<li>原标题：Physical Words: A Vocabulary for Structuring Latent Reasoning in Robot Manipulation</li>
+<li>作者：Jiaming Liu、Xinghao Zhu、Yiming Zhang、Shanghang Zhang、Yinxi Wang、Yichu Yang、Zhuoyang Liu、Dantong Niu、Soha Pouya、Juekun Li、Yan Chang（前两位为共同一作）</li>
+<li>机构：NVIDIA、Peking University、UC Berkeley</li>
+<li>链接：https://arxiv.org/abs/2610.26854</li>
+<li>时间：2026 年 10 月 19 日，arXiv:2610.26854v1，cs.RO</li>
+<li>项目页：https://nvidia-isaac.github.io/video_to_data/physicalword/</li>
+<li>代码：论文未标注代码仓库</li>
+</ul>
+<h2 id="_3">问题背景</h2>
+<p>「推理」在这条线上被几个词共用，先对齐各自所指。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>指什么</th>
+<th>这篇里对应什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视觉语言动作模型（Vision-Language-Action, VLA）</td>
+<td>把预训练视觉语言模型接到机器人动作输出上</td>
+<td>PhysWord 属于其中先推理后行动的一支</td>
+</tr>
+<tr>
+<td>先推理后行动（reasoning-before-acting）</td>
+<td>出动作之前先生成一段中间表示</td>
+<td>先自回归生成物理词，再去噪动作</td>
+</tr>
+<tr>
+<td>物理词（Physical Word）</td>
+<td>原子动作词标签，加上承载未来视觉或触觉动态的隐状态</td>
+<td>pick_v、pick_t 这类词，每个未来时刻一对</td>
+</tr>
+<tr>
+<td>隐式推理（latent reasoning）</td>
+<td>用连续隐状态承载中间推理，不落成自然语言</td>
+<td>隐状态用余弦距离对齐未来观测的编码</td>
+</tr>
+<tr>
+<td>世界动作模型（World Action Model, WAM）</td>
+<td>联合建模未来视频与动作序列</td>
+<td>Cosmos 分支预测未来 H 帧</td>
+</tr>
+<tr>
+<td>动作块（action chunk）</td>
+<td>一次前向预测多步动作</td>
+<td>H=16，每 4 步插一词</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线大致三派。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>做法</th>
+<th>卡在哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语言式推理</td>
+<td>子任务预测、具身思维链（embodied chain-of-thought）、动作描述</td>
+<td>语义清楚，物理粗糙，一个动词不携带接触位置与力度</td>
+</tr>
+<tr>
+<td>未来视觉预测与 WAM</td>
+<td>预测未来帧，或联合建模视频与动作，把预测特征喂给动作头</td>
+<td>动态表征丰富，但没有围绕共享动作语义组织，换场景就换一套隐表示</td>
+</tr>
+<tr>
+<td>隐式推理</td>
+<td>用紧凑隐状态表示未来物理动态</td>
+<td>同一动作跨场景的隐状态会带上偶然视觉变化，缺可复用的原语边界</td>
+</tr>
+</tbody>
+</table>
+<p>三派都回答了中间表示该放什么，没有回答这些表示按什么组织。论文把缺口写成一句提问：原子动作语义能不能把物理隐表示组织成可复用的推理原语。</p>
+<h2 id="_4">核心思想</h2>
+<p>借来的第一件东西是语言模型的原生下一词预测接口。大模型做中间推理时本来就在生成 token，论文把这个接口挪到机器人上，让下一词变成下一段动作语义。第二件是动作分类学，早期操作研究已把动作拆成 pick、place、push 这类原子动词，论文直接沿用。</p>
+<p>类比是：词是索引，隐状态是索引指向的内容。索引让同类内容落在同一抽屉里，内容保留这一场景的物理细节。原来的问题「怎么让隐式推理有结构」，被换成「让隐状态预测它所属的动作词，同时被未来观测拉住」。</p>
+<p>替换给出三个可测后果：同类动作的隐状态靠拢，注意落在被操作物而非背景，阶段切换时预测的词跟着变。论文用表示分析、注意力可视化和长程任务分别对应。</p>
+<h2 id="_5">方法</h2>
+<h3 id="mixture-of-transformers-with-shared-attention">机制一：双分支共享注意力（Mixture-of-Transformers with Shared Attention）</h3>
+<p>治的失败是两种时间尺度打架：预测未来画面要长时序视频先验，出动作要语言与当前帧的细粒度对齐，塞进一个模型会互相挤。</p>
+<p>PhysWord 用混合 Transformer（Mixture-of-Transformers, MoT）拆成两支。时间感知分支从 Cosmos-Predict2.5-2B 初始化，吃 t−4 到 t 的五帧头部视角，每帧 256×256，任务是预测未来 H 帧；推理与动作分支从 Qwen3-VL-2B 初始化，吃其余视角和语言指令，保留自适应分辨率。两个视觉编码器冻结，其余都训练。</p>
+<p>两支各自保留 QKV 投影、FFN 和位置编码，投影后三者沿 token 维拼接做共享注意力，动作分支因此能读到视频分支想象出的场景演化。推理时 Cosmos 只做一步去噪，用全注意力取出预测特征并缓存 key 与 value。</p>
+<p>触觉走 T3 编码器，从 FTP-1 初始化，每路观测提成 512 维。夹爪把两路拼成 1024 维、再与 t−1 拼成 2048 维 token，灵巧手把五指 2560 维池化到 2048 维，对齐词嵌入后两种末端能进同一配方。动作 token 排在物理词之后，用流匹配（flow matching）训练，再由共享 MLP 映射到统一动作空间：夹爪 14 维，灵巧手 56 维。</p>
+<h3 id="physical-word-vocabulary">机制二：物理词表（Physical Word Vocabulary）</h3>
+<p>治的失败是隐表示没有共享语义。同一个 pick 用在瓶子和纸上，隐状态里混着背景、光照、物体外观这些偶然因素，跨场景不能复用。</p>
+<p>论文按既有动作分类学定了 16 个标签。Movement 一类是 Approach、Move；Manipulation 一类是 Pick、Place、Flip、Rotate、Toggle、Open、Close、Push、Pull、Insert、Press、Click、Strike、Handover。每个标签带两个变体，视觉记作 _v，触觉记作 _t，写作 pick_v 和 pick_t。</p>
+<p>两个变体从同一个 Qwen3-VL 词嵌入初始化，各自保留可训词表项。两个模态的目标落在不同隐空间，压到一个隐状态会互相冲突；共享初始化保住语义同源，独立词表项允许各自适配。纯视觉任务只生成 _v，加新词从对应预训练词嵌入初始化即可。</p>
+<h3 id="joint-labellatent-supervision">机制三：词标签与未来隐变量的联合监督（Joint Label–Latent Supervision）</h3>
+<p>治的失败是单一监督各缺一半。只对齐未来隐变量，表示没有语义边界；只预测动作词，表示里没有物理动态。</p>
+<p>每个物理词把标签 w 与上下文隐状态 z 绑在一起，z 是预测 w 那个位置的输出隐状态，g 是对应的未来感官隐目标。词预测头把 z 映成词表 logits 并交叉熵监督 w；同一个 z 又用余弦距离拉向 g：</p>
+<p><span class="arithmatex">\(L_{\mathrm{latent}} = 1 - \dfrac{z^{\top} g}{\lVert z\rVert_2 \lVert g\rVert_2 + \epsilon}\)</span></p>
+<p>四路损失相加：<span class="arithmatex">\(L = L_{\mathrm{video}} + L_{\mathrm{CE}} + L_{\mathrm{latent}} + L_{\mathrm{act}}\)</span>。</p>
+<p>隐目标分模态构造。视觉目标把未来头部视角图像送进 Qwen3-VL 视觉编码器，最后一层空间 token 池化成一个向量；触觉目标用 T3 编码器与同样的聚合，每个末端一个。未来观测只在训练时当目标。训练用分块 teacher forcing，推理按未来时刻自回归生成。</p>
+<h3 id="temporally-structured-physword-space">机制四：时间分块的物理词空间（Temporally Structured PhysWord Space）</h3>
+<p>治的失败是一个未来词会漏掉块内阶段转换。动作块内常常先接近再抓取，只报一个词等于把两段压成一段。</p>
+<p>论文每隔 s 步预测一个词，在时域 H 上得到 K=H/s 个未来时刻。取 s=4、H=16，即 K=4，预测点落在 t+4、t+8、t+12、t+16。记 <span class="arithmatex">\(z^{r,m}_{t,k}\)</span> 为预测 t+ks 时刻物理词所用隐状态，r 取左右末端，m 取视觉或触觉，整个空间排成</p>
+<div class="arithmatex">\[\mathbf{Z}_t = \big[\, B^{\mathrm{L}}_{t,1}\; B^{\mathrm{R}}_{t,1}\; \cdots\; B^{\mathrm{L}}_{t,K}\; B^{\mathrm{R}}_{t,K} \,\big],\qquad B^{r}_{t,k} = \big(z^{r,\mathrm{v}}_{t,k},\; z^{r,\mathrm{t}}_{t,k}\big)\]</div>
+<p>块按未来时刻排序，左末端在右末端之前，块内先视觉后触觉。块内全通，同一末端跨块因果，跨末端完全屏蔽，左右手看不到对方的词。第一个块用接在指令后的起始 token 引导：</p>
+<pre class="highlight"><code>[指令] [PW_start] | B_1^L | B_1^R | B_2^L | B_2^R | ... | B_K^L | B_K^R | 噪声动作 token × H</code></pre>
+<p>监督做了整块平移。k≥2 的块吃进 t+(k−1)s 时刻的词嵌入，输出隐状态承接 t+ks 时刻的标签与感官目标。一块的输出不只是预测，还是下一块的输入条件。</p>
+<h2 id="_6">实验</h2>
+<h3 id="_7">设置</h3>
+<p>仿真用两个基准。UniVTAC 是视触觉接触密集操作，8 个任务，覆盖举升、分类、插入；LIBERO-Long 是 10 个长程任务。两边都每任务 50 条示范，按官方成功判据跑 3 轮、每轮 100 次 rollout，报告跨轮标准差。UniVTAC 每任务单独训一个策略，LIBERO-Long 联合训一个。</p>
+<p>真机两台双臂平台。灵巧手那台是 Tianji Marvin 臂配两只 Sharpa Wave 手，每只 22 个主动自由度、五指都有触觉，任务是 Pick A4 Paper 和 Shuttlecock Insertion；夹爪那台是 i7 Pro 配 Xense 指尖触觉，任务是 Express Packing 与 Powered Screw Driving。每任务 100 条遥操作示范，PICO VR 操作，灵巧手加 Manus 手套采手指动作。每个方法跑 3 轮、每轮 30 次，桌上标 30 个位置轮流放物体。</p>
+<h3 id="_8">主结果</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>UniVTAC 均值</th>
+<th>LIBERO-Long</th>
+<th>真机均值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>π0.5</td>
+<td>49.6</td>
+<td>92.4</td>
+<td>45.8</td>
+</tr>
+<tr>
+<td>FTP-1</td>
+<td>62.9</td>
+<td>—</td>
+<td>55.0</td>
+</tr>
+<tr>
+<td>InternVLA-A1</td>
+<td>67.1</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>T-Rex</td>
+<td>81.3</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>TacDyn-WAM</td>
+<td>81.5</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>N0-VTLA</td>
+<td>83.1</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>LaST0</td>
+<td>—</td>
+<td>95.6</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Cosmos 3</td>
+<td>—</td>
+<td>97.4</td>
+<td>—</td>
+</tr>
+<tr>
+<td>UniWAM</td>
+<td>—</td>
+<td>98.4</td>
+<td>—</td>
+</tr>
+<tr>
+<td>PhysWord</td>
+<td>90.3</td>
+<td>99.6</td>
+<td>71.7</td>
+</tr>
+<tr>
+<td>PhysWord-feedback</td>
+<td>89</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>UniVTAC 上 90.3% 的均值比最强的触觉基线 N0-VTLA 高 7.2 个百分点，比最强的视觉 VLA 基线 InternVLA-A1 高 23.2 个百分点，逐任务标准差平均 1.5 个百分点。增益集中在 Put Bottle in Shelf（93）与 Lift Can（95），分别要持续协调与接触敏感。Insert HDMI 只有 34，是唯一明显掉队的任务，标准差也最大（±7）。LIBERO-Long 上 99.6%，标准差平均 0.3 个百分点，比 π0.5 高 7.2 个、比 LaST0 高 4.0 个、比 Cosmos 3 高 2.2 个百分点。</p>
+<p>真机四任务平均 71.7%，π0.5 是 45.8%，FTP-1 是 55.0%，标准差 2.5。分任务看，Pick A4 Paper 93.3 对 66.7（FTP-1），Express Packing 73.3 对 50.0，差距最大；Shuttlecock Insertion 上 60.0 对 56.7，只差 3.3 个百分点。没见过的背景、物体、位置上，PhysWord 均值 63.3%，比两个基线高 34.4 与 28.3 个百分点，相对同域均值的跌幅为 17%，两个基线都是 38%。把训练里只有单次抓放的 Pick A4 Paper 拉长成三轮，PhysWord 70.0%，两个基线都是 0.0%；Express Packing 扩成两件物体加重复封箱，PhysWord 66.7%，π0.5 是 26.7%，FTP-1 是 30.0%。</p>
+<h3 id="_9">消融</h3>
+<p>消融在 LIBERO-Long 与 UniVTAC 的瓶子入架、抬罐上做，固定 s=4。</p>
+<table>
+<thead>
+<tr>
+<th>变体</th>
+<th>瓶子入架</th>
+<th>抬罐</th>
+<th>LIBERO-Long</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>仅视觉隐监督（OO）</td>
+<td>77</td>
+<td>83</td>
+<td>97.0</td>
+</tr>
+<tr>
+<td>仅触觉隐监督（TT）</td>
+<td>73</td>
+<td>65</td>
+<td>—</td>
+</tr>
+<tr>
+<td>仅动作词（WW）</td>
+<td>77</td>
+<td>67</td>
+<td>97.4</td>
+</tr>
+<tr>
+<td>动作词 + 视觉隐监督（WO）</td>
+<td>87</td>
+<td>89</td>
+<td>99.6</td>
+</tr>
+<tr>
+<td>动作词 + 触觉隐监督（WT）</td>
+<td>88</td>
+<td>75</td>
+<td>—</td>
+</tr>
+<tr>
+<td>词序：触觉在前（WT→WO）</td>
+<td>90</td>
+<td>90</td>
+<td>—</td>
+</tr>
+<tr>
+<td>词序：视觉在前（WO→WT，完整模型）</td>
+<td>93</td>
+<td>95</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>三种单独监督都输给联合监督。词标签叠上视觉隐监督到 87/89，叠上触觉隐监督到 88/75，两个模态合起来、视觉词在前时到 93/95，这是完整模型。触觉在前的词序只有 90/90。</p>
+<p>结构消融补了细节。抽掉实测触觉但保留触觉词，93/95 掉到 88/87；抽掉触觉词但保留实测触觉，掉到 87/89；两者都抽掉变成纯视觉，掉到 82/81。视觉隐目标换腕部视角是 85/83，头部加腕部一起用是 84/89，都不如头部单用。词嵌入改成随机初始化，从 90/90 掉到 84/86、从 93/95 掉到 89/90。先过一层可学 MLP 再对齐，瓶子入架 82、抬罐 78，触觉侧 80/70，都不如直接监督。</p>
+<h3 id="_10">反常结果与参数敏感性</h3>
+<p>最反常的一条是时间感知分支的边际贡献很小。把 Cosmos 整支拿掉，所有视角直接进推理分支，物理词与两路监督都保留，UniVTAC 均值还有 86.4%，完整模型是 90.3%。一个 2B 视频分支在接触密集任务上换来的增益有限，与「世界模型是主力」的直觉不符。</p>
+<p>第二条是触觉能被自己的预测替代。推理时把实测触觉换成先前预测的触觉隐变量，仿真均值 89%，只掉 1.3 个百分点；真机 Pick A4 Paper 从 93.3 掉到 90.0，Shuttlecock Insertion 从 60.0 掉到 56.7，各掉 3.3 个百分点。预测与事后抽取的真值隐变量比对，平均余弦相似度 0.9873，均方误差 0.0630。</p>
+<p>第三条是间隔 s 的方向。论文试了 2、4、8、16 四档，H 固定 16，越密成功率越高，密集采样能抓到更细的阶段转换，选 4 是折中成功率与延迟。各档的具体成功率只画在图 3 右侧，正文没给数值。</p>
+<p>真机上 Shuttlecock Insertion 60.0 对 56.7 只差 3.3 个百分点，每任务只跑 90 次试。</p>
+<h2 id="_11">工程实现细节</h2>
+<p>预训练语料约 7,400 小时：人类手部 2,000+ 小时、DROID 350 小时、OpenNeoData 5,000+ 小时、Sharpa 100+ 小时，前两者无触觉。作者写明语料比 π0.5、N0-VTLA、T-Rex 用的更小，为排除数据量优势。清洗三道：视觉上剔全黑或近均匀帧、欠曝过曝、运动模糊、手与物体长时间离场的片段；动作上剔非法值与病态跳变，阈值按具身、动作空间、控制频率分组，用 1% 与 99% 分位做初值再人工调；去重按 PerAct 关键帧比腕部世界坐标，相差小于 2 cm 视为近重复，每组最多留两条。</p>
+<p>标注走 GPT：把轨迹切成原子动作阶段并从词表打标，双臂左右独立标。抽 500 条人工校验，GPT 对人工标签的准确率 95%，错误主要是把停顿时的无意义动作误标成 click。真机另抽 2,000 帧比对，帧级准确率 90.5%。</p>
+<p>训练：下游微调 100 个 epoch，AdamW 零权重衰减，全局 batch 48；基础学习率 1e-4，Cosmos 主干 2e-6，T3 编码器 5e-5，前 5% 步数线性预热后余弦降到零，BF16；预训练 2 个 epoch，每卡 batch 6。触觉目标的未来一侧加 stop-gradient，防止余弦损失把 T3 拉漂，T3 仍从当前触觉通路拿梯度。动作按训练集 1% 与 99% 分位归一化后裁到 [−1,1]，触觉 RGB 缩到 224×224。</p>
+<p>推理：BF16、5 步去噪、s=4，单张 H100 上 4.9 Hz。真机用实时分块（real-time chunking, RTC），每块 16 个动作执行 8 个，边执行边异步预测下一块；仿真只执行第一个动作再重规划，触觉反馈用时序集成（temporal ensembling）合并同一时刻的预测。延迟从 205.4 ms 压到 94.6 ms，即 10.6 Hz，2.2 倍加速。分项：全量 CUDA Graph 捕获省 42.2 ms，保掩码的 FlashAttention 省 17.7 ms，GPU 侧 RGB 预处理省 13.8 ms，Qwen 侧融合 RMSNorm 省 15.2 ms，打包投影加融合 RoPE 省 8.2 ms，Cosmos 侧融合 RMSNorm 省 2.9 ms，会话元数据缓存省 3.7 ms，GPU 侧触觉预处理省 3.9 ms，位置元数据缓存省 1.5 ms，VAE 与 RGB 流重叠省 1.7 ms。这些优化不动权重与掩码，观测特征每题重算。</p>
+<h2 id="_12">我的判断</h2>
+<p>设计站得住的地方在监督落点。词标签的梯度不经可学 MLP，直接打在生成该词的隐状态上，过 MLP 再对齐的两个变体（82/78、80/70）因此明显更差。词表只有 16 项，不承担表达能力，只承担索引功能，不会像开放式语言推理那样引入幻觉。</p>
+<p>没报的有三处。MoT 两个 2B 主干在 H100 上 10.6 Hz，端侧部署数据一个字没有，蒸馏或换小主干的代价未知。7,400 小时语料的采集成本、GPT 标注成本、16 个标签覆盖不到的动词比例都没给。词表扩容只写了可从预训练词嵌入初始化，没做冷启动实验。</p>
+<p>消融的空白也值得记。词表大小没扫，砍到一半或扩到两倍各自什么表现，是最该补的实验，它直接回答结构从哪来。词预测 90.5% 的参照是 GPT 标注，训练标签也来自 GPT，属于同源比对。</p>
+<p>照做的建议：先复现词标签加直接隐状态对齐，时间分块放第二步；s 与 H 绑定，改 H 要重扫 s；触觉可按反馈路线先跑通，仿真 89%、真机各掉 3.3 个点，对没有触觉硬件的平台是可接受的起点。</p>
+<h2 id="_13">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与这篇的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LaST0（arXiv:2601.05248）</td>
+<td>隐式时空思维链，本文 OO 与 TT 两个消融变体的对照来源</td>
+</tr>
+<tr>
+<td>Cosmos Policy 与 Cosmos 3</td>
+<td>世界动作模型，本文时间感知分支的初始化来源，也是 LIBERO 上的主要对手</td>
+</tr>
+<tr>
+<td>TacDyn-WAM</td>
+<td>触觉世界动作模型，UniVTAC 上 81.5% 的直接基线</td>
+</tr>
+<tr>
+<td>FTP-1</td>
+<td>触觉基础策略，提供 T3 编码器初始化与真机基线（55.0%）</td>
+</tr>
+<tr>
+<td>EgoScale 与 OpenNeoData</td>
+<td>预训练语料来源，前者给人类手部数据与重定向协议，后者给带触觉的机器人数据</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/" class="btn btn-neutral float-left" title="把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/" class="btn btn-neutral float-right" title="人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

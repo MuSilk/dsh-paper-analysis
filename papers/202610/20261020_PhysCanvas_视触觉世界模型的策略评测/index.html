@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>世界模型要会预测失败：视触觉画布上的策略评测与再训练 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4e16\u754c\u6a21\u578b\u8981\u4f1a\u9884\u6d4b\u5931\u8d25\uff1a\u89c6\u89e6\u89c9\u753b\u5e03\u4e0a\u7684\u7b56\u7565\u8bc4\u6d4b\u4e0e\u518d\u8bad\u7ec3";
+        var mkdocs_page_input_path = "papers/202610/20261020_PhysCanvas_\u89c6\u89e6\u89c9\u4e16\u754c\u6a21\u578b\u7684\u7b56\u7565\u8bc4\u6d4b.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">世界模型要会预测失败：视触觉画布上的策略评测与再训练</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/" class="btn btn-neutral float-left" title="Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/" class="btn btn-neutral float-right" title="同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">世界模型要会预测失败：视触觉画布上的策略评测与再训练</h1>
+<h2 id="_2">引子：一根透明试管和一次被判对的失败</h2>
+<p>实验台上是一台 ARX AC One 双臂机器人。左夹爪夹起透明试管递给右夹爪，右夹爪借桌面把试管在手里转向，再插进架子。试管细而透明，三个视角看不出抓得稳不稳，线索只在指尖四片 Xense 触觉传感器的形变里。这类任务也最费真机评测，要凑三个批次、每批 20 个场景，再请真人专家逐场判定。</p>
+<p>世界模型被寄望接过这笔开销：给定动作预测下一段观测，策略读着生成画面继续出动作，轨迹在想象里闭环跑完，成功率就当作评测结果。麻烦在于视觉上合理的画面会撒谎，物体已从指间滑落，模型仍画出稳定的接触纹理，并在状态区画出完成。失败被记成了成功。</p>
+<p>PhysCanvas 把多视角 RGB、触觉图像、标记位移场与任务状态放进同一张画布，由共享的视频 VAE 与生成骨干一起预测，再用三个冻结的奖励模型在图像空间做后训练，把场景保持、视触觉一致、任务结局压进生成过程。</p>
+<h2 id="_3">论文信息</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原标题</td>
+<td>Physical Canvas: A Vision Tactile World Model For Robot Policy Evaluation And Learning</td>
+</tr>
+<tr>
+<td>作者</td>
+<td>Zebin Xing、Yuhang Zheng、Yupeng Zheng、Yichen Zhang、Zichen Li、Shangqing Zhou、Yujie Zang、Yuchen Liu、Zhongpu Xia、Haoran Li、Qichao Zhang</td>
+</tr>
+<tr>
+<td>机构</td>
+<td>中国科学院自动化研究所、Anyverse Robotics、Open-Phoenix Team、新加坡国立大学、西安交通大学、北京理工大学</td>
+</tr>
+<tr>
+<td>arXiv</td>
+<td><a href="https://arxiv.org/abs/2610.28613">2610.28613</a></td>
+</tr>
+<tr>
+<td>日期</td>
+<td>2026-10-20</td>
+</tr>
+<tr>
+<td>项目页</td>
+<td>https://zebinx.github.io/PhysCanvas_HomePage/</td>
+</tr>
+<tr>
+<td>代码</td>
+<td>未标注</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">问题背景</h2>
+<p>先把术语与边界摆清楚。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>在这篇里指什么</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>动作条件世界模型</td>
+<td>以双臂关节序列为条件预测未来多模态观测，骨干 Wan 2.2</td>
+<td>不做规划，不出动作</td>
+</tr>
+<tr>
+<td>视触觉世界模型</td>
+<td>同时预测 RGB 与指尖触觉</td>
+<td>触觉既是目标也是策略输入</td>
+</tr>
+<tr>
+<td>统一画布</td>
+<td>各模态渲染成图像区域后拼成一张图，共用 VAE 与骨干</td>
+<td>状态区只作辅助目标</td>
+</tr>
+<tr>
+<td>一致性后训练</td>
+<td>三个冻结奖励模型在图像空间监督</td>
+<td>奖励模型训一次，后训练期不动</td>
+</tr>
+<tr>
+<td>策略评测与后训练</td>
+<td>闭环 rollout 估成功率；想象中采轨迹做 GRPO</td>
+<td>只更新策略，其余冻结</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线大致三派。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表做法</th>
+<th>卡在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>纯视觉动作条件视频模型</td>
+<td>EVAC、Open-Sora、WoVR 把动作编码进条件预测 RGB</td>
+<td>接触、形变、滑移只能从像素猜，抓空看着像抓着</td>
+</tr>
+<tr>
+<td>专用触觉编码器的视触觉模型</td>
+<td>OmniVTA 双流动力学，FeelWorld 接触门控，DexTouch-WM 双专家</td>
+<td>触觉数据有限，换传感器要重训</td>
+</tr>
+<tr>
+<td>奖励优化与世界模型评测</td>
+<td>Align-A-Video 用奖励优化生成，GigaWorld-1 推向策略评测</td>
+<td>只监督视觉质量与长程稳定，没管任务成败</td>
+</tr>
+</tbody>
+</table>
+<p>三派留下同一个问题：不新增预测网络，世界模型怎么知道预测的那一帧对应成功还是失败，并让 RGB、触觉与结果描述同一个动作的后果。token 级损失只关心局部像素，管不住语义自洽。</p>
+<h2 id="_5">核心思想：把触觉画进画布，把结局变成奖励</h2>
+<p>PhysCanvas 借了两样现成东西：预训练图像到视频扩散模型的视觉与时间先验，触觉图像若在统计上像自然图像，就不需要专用编码器；以及奖励模型那套做法，训一个判别器判断好与不好，冻结后拿分数优化生成器。问题因此被换窄：触觉与标记位移能否当作画布上的图像区域预测，任务成败能否用二分类判别器的标签监督，不必再接状态预测头。</p>
+<h2 id="_6">方法</h2>
+<h3 id="unified-multimodal-canvas">机制一：统一多模态画布（Unified Multimodal Canvas）</h3>
+<p>它治的是触觉侧的工程负担。现有视触觉模型要训专用触觉 VAE，受限于触觉数据规模，换传感器就得重来。论文先做前提检验：在 UniT 的 USB 3D-pose 数据集上，把 UniT VAE 与三个未经触觉微调的视觉 VAE 比重建。</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>PSNR↑</th>
+<th>SSIM↑</th>
+<th>LPIPS↓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SD ft-MSE（零样本）</td>
+<td>30.73</td>
+<td>0.9020</td>
+<td>0.0600</td>
+</tr>
+<tr>
+<td>SDXL fp16-fix（零样本）</td>
+<td>32.28</td>
+<td>0.9226</td>
+<td>0.0399</td>
+</tr>
+<tr>
+<td>UniT（触觉专用）</td>
+<td>31.72</td>
+<td>0.9613</td>
+<td>0.0210</td>
+</tr>
+<tr>
+<td>Wan VAE（零样本）</td>
+<td>35.51</td>
+<td>0.9539</td>
+<td>0.0139</td>
+</tr>
+</tbody>
+</table>
+<p>Wan VAE 的 PSNR 是 35.51，高于 UniT 的 31.72，LPIPS 是 0.0139，低于 UniT 的 0.0210，SSIM 上 UniT 更高（0.9613 对 0.9539）。光学触觉与自然图像共享局部相关与平移等变性，大规模预训练的表示可以迁移。</p>
+<p>画布把三路相机视图水平拼成 224×672 的视觉条，模态块垂直堆叠：</p>
+<div class="arithmatex">\[\mathbf{x}_{t}=\operatorname{Concat}_{v}\left[\mathbf{I}^{\mathrm{cam}}_{t},\ \mathbf{I}^{\mathrm{tac}}_{t},\ g_{\mathrm{disp}}(\mathbf{M}^{\mathrm{tac}}_{t}),\ g_{\mathrm{state}}(\mathbf{s}_{t})\right]\]</div>
+<p>标记位移来自每片传感器 35×20 网格上的 700 个标记。以回合首帧为参考做差得到 <span class="arithmatex">\(\Delta\mathbf{q}_{t,i}\)</span>，逐分量裁剪归一化后把 <span class="arithmatex">\(x,y,z\)</span> 分别塞进 R、G、B 通道，裁剪尺度取 <span class="arithmatex">\(s=0.06\)</span>：</p>
+<div class="arithmatex">\[\mathbf{c}_{t,i}=\tfrac{1}{2}\left[\operatorname{clip}(\Delta\mathbf{q}_{t,i}/s,-1,1)+1\right]\]</div>
+<p>论文说明 <span class="arithmatex">\(s\)</span> 是编码尺度而非物理上界，定量统计从未编码的 <span class="arithmatex">\(\Delta\mathbf{q}\)</span> 直接算。任务状态用颜色区分任务、纹理区分成败，只作辅助目标，策略不读。</p>
+<p>动作条件沿用 iMaC：关节位置与夹爪状态套进 URDF，前向运动学恢复网格，用标定内外参投影到基座与两个腕部视角，渲染出与 RGB 同裁切的动作图像。动作图与画布过同一个视频 VAE，token 网格对齐后逐位置相加：</p>
+<div class="arithmatex">\[\widetilde{\mathbf{z}}_{\tau,i}=\mathbf{z}_{\tau,i}+M_{i}\mathbf{z}^{a}_{i},\qquad M_{i}=\begin{cases}0,&amp;i\in\mathcal{S}_{\mathrm{state}},\\ 1,&amp;\text{otherwise}\end{cases}\]</div>
+<p>在任务状态 token 上屏蔽动作注入，是逼状态预测通过共享自注意力从其他模态取信息。训练用 flow matching，回合首帧 RGB 锚点固定，多模态参考 <span class="arithmatex">\(\mathbf{r}\)</span> 来自上一段生成的末帧：</p>
+<div class="arithmatex">\[\mathcal{L}_{\mathrm{FM}}=\mathbb{E}_{\mathbf{z},\epsilon,\tau}\left[\left\|v_{\theta}(\widetilde{\mathbf{z}}_{\tau},\tau;\mathbf{r},\mathbf{z}^{\mathrm{anc}})-\mathbf{u}_{\tau}\right\|_{2}^{2}\right]\]</div>
+<p>每段预测 8 帧，一条样本串起 4 个 chunk，损失在 4 段上平均。</p>
+<h3 id="consistency-aware-post-training">机制二：一致性感知后训练（Consistency-Aware Post-Training）</h3>
+<p>它治的是像素保真与语义正确之间的落差。token 级监督能让画面局部像，管不住场景漂移、视触觉描述的不是同一个接触状态、结局与真实相反。论文为三者各训一个轻量奖励模型，ResNet-18 编码器接判据专属解码器，输出 logit 再取 sigmoid：</p>
+<div class="arithmatex">\[R_{q}(\mathbf{u}_{q})=D_{q}\left(\phi_{q}(\mathbf{u}_{q})\right),\qquad \rho_{q}(\mathbf{u}_{q})=\sigma\left(R_{q}(\mathbf{u}_{q})\right)\]</div>
+<p>三者监督数据不同。场景奖励模型看首帧真值与生成帧，负例是漂移帧。状态奖励模型只看未来 RGB，数据全来自真实轨迹，完成前标 0、完成后标 1，失败轨迹整条为 0。模态奖励模型看 RGB、触觉图像与标记位移，负例固定 RGB 换成另一次接触状态，再加视触觉不匹配的生成观测。</p>
+<p>后训练在图像空间做：在采样时刻 <span class="arithmatex">\(\tau\)</span> 用预测速度反推干净画布估计并解码，再对状态项做带温度的二元交叉熵：</p>
+<div class="arithmatex">\[\mathcal{L}_{\mathrm{state}}=\mathbb{E}\left[\operatorname{BCEWithLogits}\left(\widehat{\ell}_{\mathrm{state}}/T_{\mathrm{state}},\ y_{\mathrm{state}}\right)\right]\]</div>
+<p>目标标签 <span class="arithmatex">\(y_{\mathrm{state}}\)</span> 由同一个状态奖励模型在真值 RGB 上打分再阈值化。模型被要求复现观测到的结局，失败轨迹就学着预测失败，避免把所有预测推向成功。场景与模态两项直接最大化分数，沿用 Align-A-Video 的直接奖励最大化：</p>
+<div class="arithmatex">\[\mathcal{L}_{q}=-\mathbb{E}\left[\rho_{q}\left(h_{q}(\mathbf{x}_{0},\widehat{\mathbf{x}})\right)\right],\qquad q\in\{\mathrm{scene},\mathrm{modality}\}\]</div>
+<p>梯度穿过冻结奖励模型与 VAE 解码器回到世界模型，同时保留第一阶段的 flow matching 损失，防止保真度被奖励优化带偏。</p>
+<h3 id="closed-loop-evaluation-and-policy-post-training">机制三：画布里的闭环评测与策略后训练（Closed-Loop Evaluation and Policy Post-Training）</h3>
+<p>它治的是离线指标好但闭环不能用。评测时轨迹从真实初始观测开始，策略出动作，世界模型按 8 个动作一段渲染动作图、预测 8 帧观测，末帧更新参考 <span class="arithmatex">\(\mathbf{r}\)</span>，直到目标时域。除初始状态外，策略看到的都是生成观测：</p>
+<pre class="highlight"><code class="language-text">Y ← [], q ← q0, r ← o0
+repeat
+    o ← Adapt(r, q);  A ← PolicyStep(π, o, ξ)
+    for each S ∈ Split8(A) do
+        C ← Render(q, S);  Ô ← WM(o0_cam, r, C, ξ)
+        Y ← Y ‖ Ô;  q ← Last(S);  r ← Last(Ô)
+until |Y| = T</code></pre>
+<p>后训练沿用同一套闭环，目标换成策略。从一次真实 reset 采 8 条候选，冻结的状态奖励模型给末帧打分，奖励取阈值化的 0/1：</p>
+<div class="arithmatex">\[R_{i}=\mathbf{1}\left[p^{\mathrm{end}}_{i}\geq 0.7\right]\in\{0,1\}\]</div>
+<p>组内标准化得优势，再做比值裁剪 <span class="arithmatex">\([0.8,1.28]\)</span> 与系数 <span class="arithmatex">\(c=3.0\)</span> 的 dual clipping，负优势轨迹的单点损失封顶在 <span class="arithmatex">\(c|A_{i}|\)</span>。没有 critic，也没有 KL、熵或价值损失；全成功或全失败的组不含相对偏好，直接丢弃。只更新策略，世界模型与奖励模型冻结。</p>
+<h2 id="_7">实验</h2>
+<h3 id="_8">设置</h3>
+<p>平台是 ARX AC One 双臂机器人，每臂六个关节加夹爪，三个相机，指尖四片 Xense 光学触觉传感器，各模态以 10 Hz 同步。任务四个：试管、瓶盖、积木、魔方。世界模型用 3,805 条真机策略 rollout 训练，试管与积木各 1,000 条、瓶子 926 条、魔方 879 条，每任务留 80 条测试；rollout 由随机化执行的策略产生，天然包含漏抓、提前松手等失败。</p>
+<p>策略是 ACT、任务特定 flow matching 策略（FM）与加触觉的 <span class="arithmatex">\(\pi_{0.5}\)</span>，都吃三路 RGB、双臂状态与四片触觉垫。基线是 EVAC、Open-Sora、WoVR。指标覆盖 RGB 重建与分布、VBench 一致性、像素跟踪，以及触觉重建、Contact MAE、Event F1 与标记位移误差。</p>
+<h3 id="_9">主结果</h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>PSNR↑</th>
+<th>SSIM↑</th>
+<th>LPIPS↓</th>
+<th>FID↓</th>
+<th>FVD↓</th>
+<th>EEF (px)↓</th>
+<th>Object (px)↓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EVAC</td>
+<td>16.439</td>
+<td>0.528</td>
+<td>0.258</td>
+<td>26.512</td>
+<td>165.705</td>
+<td>1.964</td>
+<td>2.150</td>
+</tr>
+<tr>
+<td>Open-Sora</td>
+<td>17.916</td>
+<td>0.599</td>
+<td>0.228</td>
+<td>34.762</td>
+<td>183.860</td>
+<td>1.425</td>
+<td>1.426</td>
+</tr>
+<tr>
+<td>WoVR</td>
+<td>17.278</td>
+<td>0.5972</td>
+<td>0.203</td>
+<td>26.086</td>
+<td>138.243</td>
+<td>2.792</td>
+<td>1.164</td>
+</tr>
+<tr>
+<td>PhysCanvas</td>
+<td>21.172</td>
+<td>0.735</td>
+<td>0.121</td>
+<td>21.459</td>
+<td>116.274</td>
+<td>0.685</td>
+<td>1.150</td>
+</tr>
+</tbody>
+</table>
+<p>五项重建与分布指标全部最好：FVD 从次优的 138.243 降到 116.274，LPIPS 从 0.203 降到 0.121。VBench 的 Subject 与 Smooth 仅小幅领先（80.349 对 80.247，98.301 对 98.157），背景一致性 90.565 不及 WoVR 的 91.082。差距在动作敏感处：末端跟踪误差 0.685 像素，比次优的 1.425 低 51.9%。</p>
+<h3 id="_10">消融</h3>
+<p>消融拆成五级：<span class="arithmatex">\(\mathcal{M}_{0}\)</span> 用 AdaLN 注入全局运动嵌入，<span class="arithmatex">\(\mathcal{M}_{1}\)</span> 换成视角对齐的动作图逐位置融合，<span class="arithmatex">\(\mathcal{M}_{2}\)</span> 加场景一致性，<span class="arithmatex">\(\mathcal{M}_{3}\)</span> 加状态监督，<span class="arithmatex">\(\mathcal{M}_{4}\)</span> 加多模态一致性。</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>PSNR↑</th>
+<th>SSIM↑</th>
+<th>LPIPS↓</th>
+<th>FID↓</th>
+<th>FVD↓</th>
+<th>EEF (px)↓</th>
+<th>Contact MAE↓</th>
+<th>Event F1↑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M0</td>
+<td>16.070</td>
+<td>0.558</td>
+<td>0.271</td>
+<td>22.331</td>
+<td>197.779</td>
+<td>1.201</td>
+<td>0.03012</td>
+<td>0.4970</td>
+</tr>
+<tr>
+<td>M1</td>
+<td>19.869</td>
+<td>0.660</td>
+<td>0.113</td>
+<td>33.145</td>
+<td>154.901</td>
+<td>0.810</td>
+<td>0.02609</td>
+<td>0.3498</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>20.975</td>
+<td>0.693</td>
+<td>0.097</td>
+<td>30.719</td>
+<td>138.761</td>
+<td>0.719</td>
+<td>0.02458</td>
+<td>0.5335</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>20.699</td>
+<td>0.720</td>
+<td>0.132</td>
+<td>22.619</td>
+<td>121.484</td>
+<td>0.783</td>
+<td>0.02491</td>
+<td>0.4550</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>21.172</td>
+<td>0.735</td>
+<td>0.121</td>
+<td>21.459</td>
+<td>116.274</td>
+<td>0.685</td>
+<td>0.02278</td>
+<td>0.4455</td>
+</tr>
+</tbody>
+</table>
+<p><span class="arithmatex">\(\mathcal{M}_{0}\rightarrow\mathcal{M}_{1}\)</span> 跨度最大：PSNR 与 SSIM 升 23.6% 与 18.3%，LPIPS、FVD、EEF 误差降 58.3%、21.7%、32.6%。<span class="arithmatex">\(\mathcal{M}_{1}\rightarrow\mathcal{M}_{2}\)</span> 对应 LPIPS 降 14.2%、FVD 降 10.4%。<span class="arithmatex">\(\mathcal{M}_{3}\)</span> 把 FID 再降 26.4%、FVD 再降 12.5%，SSIM 从 0.693 升到 0.720。<span class="arithmatex">\(\mathcal{M}_{3}\rightarrow\mathcal{M}_{4}\)</span> 把 Contact MAE 从 0.02491 降到 0.02278，标记位移的 Active MAE 从 4.666 降到 4.083、Idle FP-MAE 从 0.646 降到 0.577、Amp. MAE 从 7.854 降到 6.654。</p>
+<h3 id="_11">策略评测与后训练</h3>
+<p>评测侧看相关性。把 ACT、FM、<span class="arithmatex">\(\pi_{0.5}\)</span> 分别在 <span class="arithmatex">\(\mathcal{M}_{2}\)</span> 与 <span class="arithmatex">\(\mathcal{M}_{3}\)</span> 里 rollout，每任务每策略三个批次、每批 20 个场景，与真机成功率对比。换到 <span class="arithmatex">\(\mathcal{M}_{3}\)</span> 后，逐任务 Pearson 相关系数的算术平均从 0.602 升到 0.885，平均 <span class="arithmatex">\(R^{2}\)</span> 从 0.413 升到 0.791；试管与积木提升最大，魔方最小，因为 <span class="arithmatex">\(\mathcal{M}_{2}\)</span> 在魔方上已接近上限。</p>
+<table>
+<thead>
+<tr>
+<th>策略与训练</th>
+<th>试管</th>
+<th>瓶子</th>
+<th>积木</th>
+<th>魔方</th>
+<th>四任务均值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FM SFT</td>
+<td>0.0 ± 0.0</td>
+<td>20.0 ± 4.0</td>
+<td>25.0 ± 10.8</td>
+<td>0.0 ± 0.0</td>
+<td>11.2</td>
+</tr>
+<tr>
+<td>FM RL in WM</td>
+<td>0.0 ± 0.0</td>
+<td>33.3 ± 2.3</td>
+<td>33.3 ± 8.5</td>
+<td>0.0 ± 0.0</td>
+<td>16.6</td>
+</tr>
+<tr>
+<td>FM RL in WM+RM</td>
+<td>0.0 ± 0.0</td>
+<td>35.0 ± 4.0</td>
+<td>41.6 ± 6.2</td>
+<td>0.0 ± 0.0</td>
+<td>19.1</td>
+</tr>
+<tr>
+<td>π0.5 SFT</td>
+<td>50.0 ± 7.0</td>
+<td>88.3 ± 4.7</td>
+<td>46.6 ± 2.3</td>
+<td>51.6 ± 6.2</td>
+<td>59.1</td>
+</tr>
+<tr>
+<td>π0.5 RL in WM</td>
+<td>60.0 ± 4.0</td>
+<td>90.0 ± 0.0</td>
+<td>56.6 ± 4.7</td>
+<td>63.3 ± 4.7</td>
+<td>67.5</td>
+</tr>
+<tr>
+<td>π0.5 RL in WM+RM</td>
+<td>60.0 ± 8.1</td>
+<td>86.6 ± 2.3</td>
+<td>63.3 ± 4.7</td>
+<td>73.3 ± 4.7</td>
+<td>70.8</td>
+</tr>
+</tbody>
+</table>
+<p>每格是三次运行的均值加减总体标准差。以 <span class="arithmatex">\(\mathcal{M}_{1}\)</span> 为模拟器时，FM 的四任务均值从 11.2% 升到 16.6%，<span class="arithmatex">\(\pi_{0.5}\)</span> 从 59.1% 升到 67.5%；换成一致性后训练过的 <span class="arithmatex">\(\mathcal{M}_{4}\)</span> 后分别到 19.1% 与 70.8%。<span class="arithmatex">\(\pi_{0.5}\)</span> 相对 SFT 净增 11.7 个百分点。</p>
+<h3 id="_12">反常结果与参数敏感性</h3>
+<p><span class="arithmatex">\(\mathcal{M}_{1}\)</span> 的 FID 反而比 <span class="arithmatex">\(\mathcal{M}_{0}\)</span> 差，从 22.331 升到 33.145，物体跟踪误差从 1.017 升到 1.651；空间对齐的动作图让重建变好，分布距离与部分几何跟踪却退步。<span class="arithmatex">\(\mathcal{M}_{2}\rightarrow\mathcal{M}_{3}\)</span> 里 PSNR 从 20.975 微降到 20.699，LPIPS 从 0.097 升到 0.132，但 FID、FVD、SSIM 都改善，评测相关系数出现全篇最大跳变。<span class="arithmatex">\(\mathcal{M}_{3}\rightarrow\mathcal{M}_{4}\)</span> 里 Event F1 从 0.4550 掉到 0.4455，Contact MAE 与三项标记位移误差却在降；整个消融里 Event F1 的最高值 0.4970 出现在最基础的 <span class="arithmatex">\(\mathcal{M}_{0}\)</span> 上。</p>
+<p>策略侧更直接。瓶子任务上 <span class="arithmatex">\(\pi_{0.5}\)</span> 用 <span class="arithmatex">\(\mathcal{M}_{4}\)</span> 后从 90.0% 掉到 86.6%，比用 <span class="arithmatex">\(\mathcal{M}_{1}\)</span> 还低；试管任务上 FM 始终 0.0%，世界模型没能把策略从零拉起来。论文的解读是，重建指标混合变化与评测精度提升并存，说明收益来自任务语义建模而非像素重建。</p>
+<p>参数敏感性没有专门扫描。文中给的固定值是 GRPO 奖励阈值 0.7、比值裁剪 <span class="arithmatex">\([0.8,1.28]\)</span>、dual clip 3.0、组大小 8、学习率 <span class="arithmatex">\(5\times10^{-6}\)</span>，噪声偏移 <span class="arithmatex">\(\sigma=5u/(1+4u)\)</span> 按 <span class="arithmatex">\(10^{-3}\)</span> 量化，标记位移尺度 <span class="arithmatex">\(s=0.06\)</span>。损失温度 <span class="arithmatex">\(T_{\mathrm{state}}\)</span> 与三项权重没有数值，也没有换值实验。</p>
+<p>注意力可视化给出旁证。瓶子样例上，第 0 层的 RGB、触觉图像、标记位移三种查询分别把 0.39、0.45、0.29 的注意力分给自己以外的模态；第 14 层模态内注意力为 (0.86, 0.66, 0.84)，第 29 层为 (0.76, 0.72, 0.84)。跨模态交互集中在浅层，深层各自收敛回本模态。强制张开夹爪时，模型预测出积木下落、触觉响应消失。</p>
+<h2 id="_13">工程实现细节</h2>
+<p>世界模型从 Wan2.2-TI2V-5B 初始化，50 亿参数的潜空间视频 flow matching Transformer，VAE 冻结、只微调 Transformer。训练用 64 张 PPU-ZW810E，300 个 epoch 约三天。优化器 8-bit CAME，常量学习率 <span class="arithmatex">\(2^{-14.5}=4.316\times10^{-5}\)</span>，权重衰减 <span class="arithmatex">\(10^{-2}\)</span>；单卡 batch size 2，等效 batch 128 条 clip；BF16、DeepSpeed ZeRO-2、Wan 主干块开激活检查点，无梯度裁剪。噪声先采 <span class="arithmatex">\(u\sim\mathcal{U}(0,1)\)</span> 再偏移 <span class="arithmatex">\(\sigma=5u/(1+4u)\)</span>；推理每段从 <span class="arithmatex">\(\sigma=1\)</span> 出发，5 步生成 8 帧，末帧更新参考 <span class="arithmatex">\(\mathbf{r}\)</span>，训练只用 4 段，推理可滚到回合结束。</p>
+<p>画布口径：三路视图各裁到 224×224，水平拼成 224×672。触觉图是 Xense 内相机相对传感器参考的差值图，400×700×3、8 位无符号。标记位移取 35×20 网格的 700 个标记，可视化抽稀到 18×10，统计保留全部 700 个；四片垫的 P95 位移范数为 0.0043、0.0161、0.0234、0.0266。</p>
+<p>三个奖励模型都是 ImageNet 初始化的 ResNet-18 加标量头，训 100 个 epoch，AdamW。状态模型三视图共享编码器，1536 维特征过 256 维隐层出 1 个 logit；场景模型在真值帧与生成帧间共享编码器，两层 Transformer 解码器比较 7×7 token；模态模型给三种模态各配编码器，四层解码器让视觉 token 查询触觉 token。状态与场景学习率 <span class="arithmatex">\(10^{-4}\)</span>，视触觉一致性 <span class="arithmatex">\(2\times10^{-4}\)</span>。</p>
+<p>策略闭环的节奏：FM 与 ACT 一次出 32 步、<span class="arithmatex">\(\pi_{0.5}\)</span> 出 16 步，每步 14 个关节目标，世界模型按 8 个动作一段消费，故切成 4 段与 2 段。<span class="arithmatex">\(\pi_{0.5}\)</span> 在 32 维内部空间生成、只下发前 14 维；部署用 10 步 Flow-ODE，GRPO rollout 时随机一步换成高斯 Flow-SDE 转移。GRPO 每个更新累积 512 条轨迹、来自 64 个初始条件组，micro batch 8，actor 更新 1 个 epoch，跑在两个节点共 16 张卡上。</p>
+<h2 id="_14">我的判断</h2>
+<p>设计站得住的地方在两处取舍。第一处是把触觉降格成图像区域：代价是放弃触觉的三维结构先验，收益是继承视频模型的视觉与时间先验，并删掉触觉编码器与注入接口；表 1 的零样本对比是证据基础，说明至少在光学触觉上视觉 VAE 够用。第二处是用冻结的结果判别器作语义正则，不经由状态预测头：前者能用真人标注的帧级转移来训，后者要求生成骨干自己学会判断成败，在 3,805 条 rollout 的量级上很难。</p>
+<p>容易忽略的是状态监督的阈值化标签：目标限于复现观测到的结局，失败轨迹的帧被标 0 并留在训练里。对要评策略的世界模型，这条比任何重建指标都重要，相关性上限由它决定。</p>
+<p>没报的东西不少：三个奖励模型的准确率都没有，没有帧级判对率、AUC 或混淆矩阵，而评测管线的可信度被状态模型的判对率卡住。标注只写专家共同判定，没写标多少帧。闭环 rollout 的墙钟时间、相关系数置信区间都没给。后训练步数、损失权重与 <span class="arithmatex">\(T_{\mathrm{state}}\)</span> 全部缺失；5B 骨干是否必需也没有实验，更小的骨干能否保住触觉零样本迁移未验证。</p>
+<p>另有两个风险。直接奖励最大化在冻结奖励模型上是典型的可攻击面，论文没报告后训练后奖励分数与真实一致性的对照，无法排除讨好打分器。平台只有一台 ARX AC One、四个任务，跨平台与跨传感器迁移未验证，而触觉走视觉 VAE 的结论与传感器成像方式强相关。</p>
+<p>要做的话按这个顺序。先在自有平台重跑表 1 的零样本 VAE 对比，确认触觉图能被视觉 VAE 编码，再决定是否删掉触觉编码器。再单独测状态奖励模型的帧级判对率，评测的相关系数不会超过它，不达标就不要启动后训练。做 GRPO 时把失败按类型分层统计，漏抓、提前松手、对位失败混进均值会掩盖偏差，试管任务上 FM 恒为 0.0% 就是例子。超参从 0.7、<span class="arithmatex">\([0.8,1.28]\)</span>、3.0 起步，全成功或全失败的组必须剔除。</p>
+<h2 id="_15">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与这篇的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iMaC（Wu et al., 2026）</td>
+<td>动作图像条件的来源，用内外参与 URDF 把构型投影成动作图</td>
+</tr>
+<tr>
+<td>OmniVTA（Zheng et al., 2026）</td>
+<td>双流动力学加接触感知动作生成，需专用触觉通路</td>
+</tr>
+<tr>
+<td>FeelWorld（Ma et al., 2026）</td>
+<td>用接触门控注意力预测接触与滑移，同属视触觉世界模型一脉</td>
+</tr>
+<tr>
+<td>DexTouch-WM（Qin et al., 2026）</td>
+<td>耦合视频专家与触觉专家，架构比统一画布更重</td>
+</tr>
+<tr>
+<td>TACO（Liu et al., 2026）</td>
+<td>用生成的视触觉校正做策略后训练，缺评测侧的一致性监督</td>
+</tr>
+<tr>
+<td>Align-A-Video（Wang et al., 2025）</td>
+<td>直接奖励最大化的目标形式，被借来做场景与模态两项监督</td>
+</tr>
+<tr>
+<td>GigaWorld-1（GigaWorld Team et al., 2026）</td>
+<td>面向策略评测的世界模型路线，偏长程一致性</td>
+</tr>
+<tr>
+<td>RLinf（Yu et al., 2026）</td>
+<td>图像奖励模型的网络设计参考，ResNet-18 加标量头来自这里</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/" class="btn btn-neutral float-left" title="Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/" class="btn btn-neutral float-right" title="同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

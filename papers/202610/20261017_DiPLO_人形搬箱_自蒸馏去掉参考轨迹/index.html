@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://MuSilk.github.io/dsh-paper-analysis/papers/202610/20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划 - AI Paper Analysis</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u8bad\u7ec3\u79bb\u4e0d\u5f00\u53c2\u8003\u8f68\u8ff9\uff0c\u90e8\u7f72\u5fc5\u987b\u5148\u6254\u6389\u5b83\uff1a\u4eba\u5f62\u673a\u5668\u4eba\u642c\u7bb1\u7684\u81ea\u84b8\u998f\u6269\u6563\u89c4\u5212";
+        var mkdocs_page_input_path = "papers/202610/20261017_DiPLO_\u4eba\u5f62\u642c\u7bb1_\u81ea\u84b8\u998f\u53bb\u6389\u53c2\u8003\u8f68\u8ff9.md";
+        var mkdocs_page_url = "/dsh-paper-analysis/papers/202610/20261017_DiPLO_%E4%BA%BA%E5%BD%A2%E6%90%AC%E7%AE%B1_%E8%87%AA%E8%92%B8%E9%A6%8F%E5%8E%BB%E6%8E%89%E5%8F%82%E8%80%83%E8%BD%A8%E8%BF%B9/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> AI Paper Analysis
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">按主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >视觉语言动作模型 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >机器人操作与抓取 (3)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >人形与移动操作 (4)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >仿真与 Sim2Real (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >数据与数据引擎 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >评估与基准 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >世界模型与三维感知 (1)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >具身推理与规划 (2)</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 10 月</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_ForwardCamUMI_%E5%A4%B4%E6%88%B4%E5%8D%95%E7%9B%AE_%E6%97%A0%E7%94%B5%E8%B7%AF%E6%89%8B%E5%A5%97/">头戴相机替掉腕部追踪：一只不通电的手套同时给出观测与标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_JARVIS_%E8%AF%BB%E5%BE%97%E6%87%82%E6%89%8B%E5%86%8C%E6%8B%BC%E4%B8%8D%E6%88%90%E7%BB%93%E6%9E%84/">读得懂手册，拼不成结构：JARVIS 的 50 道物理装配考题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_MARA_%E5%8F%8CAprilTag%E9%94%9A%E5%AE%9A_Spot%E7%A0%8C%E5%A2%99/">Spot 爬楼梯去砌墙：把砌筑精度押在两张 AprilTag 上</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_PhysCanvas_%E8%A7%86%E8%A7%A6%E8%A7%89%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AD%96%E7%95%A5%E8%AF%84%E6%B5%8B/">世界模型要会预测失败：视触觉画布上的策略评测与再训练</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_RoboCasa-Shift_%E6%8C%89%E5%AD%90%E7%9B%AE%E6%A0%87%E6%8B%86%E9%B2%81%E6%A3%92%E6%80%A7/">同样掉 0.188，一个从第一步就崩：长程家务 VLA 的鲁棒性要按子目标数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261020_SuperMimic_%E5%8F%AF%E5%BE%AE%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B_%E4%B8%80%E5%BC%A0%E5%8D%A1%E9%A1%B6128%E5%BC%A0/">128 张卡训 7 天，1 张卡 3 小时：可微世界模型把人形动作库摊成一份策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_DirectTactileImage_%E8%A7%A6%E8%A7%89%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%BF%9E%E8%A7%86%E8%A7%89%E6%8E%A5%E5%8F%A3/">把触觉塞进视觉接口：Astra 在插孔与抽拔上压过专用触觉策略</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_FERT_%E5%A4%B1%E8%B4%A5%E6%A3%80%E7%B4%A2_96%E5%8F%B0%E6%9C%BA%E9%98%9F%E9%9B%86%E4%BD%93%E5%AD%A6%E4%B9%A0/">把人工纠正拿掉：96 台机器人共享失败经验，手机包装成功率从 79.2% 到 98.3%</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_PhysWord_%E5%8A%A8%E6%89%8B%E5%89%8D%E5%85%88%E6%8A%A5%E5%8A%A8%E8%AF%8D/">动手前先报动词：16 个物理词把机器人隐式推理切成可复用阶段</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/">人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/">不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261016_HexaShell_%E8%87%AA%E5%B7%B1%E5%86%99%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BAagent_%E8%B5%A2%E5%87%A0%E4%BD%95%E8%BE%93%E6%8E%A5%E8%A7%A6/">工具自己写：VLM agent 接管双臂机器人，赢在读场景，输在接触那一下</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../20261012_PACE_%E8%A7%A6%E8%A7%89%E4%B8%89%E9%80%9A%E8%B7%AF_%E6%8F%92%E5%85%A5%E7%AD%96%E7%95%A5/">插头卡住的那一下：PACE 把触觉拆成状态、事件和后果三条通路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2026 年 6 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202606/20260626_SimFoundry_%E4%B8%80%E6%9D%A1%E8%A7%86%E9%A2%91%E8%87%AA%E5%8A%A8%E6%90%AD%E5%87%BA%E4%BB%BF%E7%9C%9F%E5%9C%BA%E6%99%AF/">一段手机视频换一个仿真训练场：SimFoundry 把搭场景外包给一组大模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2025 年 5 月</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../202505/20250517_OneTwoVLA_%E4%B8%A4%E4%B8%AAtoken%E4%BB%A3%E6%9B%BF%E5%8F%8C%E7%B3%BB%E7%BB%9F/">机器人炒菜时该不该先想一下：OneTwoVLA 用一个模型替掉双系统</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">AI Paper Analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2026 年 10 月</li>
+      <li class="breadcrumb-item active">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+    <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Breadcrumb Navigation">
+        <a href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/" class="btn btn-neutral float-left" title="人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里"><span class="icon icon-circle-arrow-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/" class="btn btn-neutral float-right" title="不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔">Next <span class="icon icon-circle-arrow-right" aria-hidden="true"></span></a>
+    </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">训练离不开参考轨迹，部署必须先扔掉它：人形机器人搬箱的自蒸馏扩散规划</h1>
+<h2 id="_2">引子</h2>
+<p>一台 29 自由度的 Unitree G1 站在场地中央，脚边有一个纸箱，要把它搬到指定的位置与朝向，容限是 15 厘米与 30 度。评测时目标位姿落在机器人周围 0.5 到 5 米的极坐标网格上，每个位置还有四个朝向，示范集里最远的目标在 1.9 米外。教会这套动作的全部监督，是 29 段从人体动捕重定向过来的轨迹，合计 2.7 分钟。</p>
+<p>预训练出的扩散规划器成绩不错：闭环存活率 96.5%，任务成功率 51.9%。存活率的口径很硬，躯干或手腕脚踝的绝对高度误差超过 0.25 米判摔倒，物体高度误差超过 1 米判掉落。规划器一次吐出 64 帧、1.28 秒的运动块，跟踪器只执行前 56 帧就重新规划。</p>
+<p>问题出在部署：训练时规划器一直看着一条 IK（逆运动学，inverse kinematics）重定向参考，部署时用户只给物体目标位姿。把这个输入换成空标记，同一个规划器存活率从 96.5% 掉到 57.7%，任务成功率 45.4%。预训练时有 50% 的样本被掩掉参考，掩码不等于会用。</p>
+<p>冲突在于参考轨迹既是预训练的有效性来源，也是部署时的多余输入，而且补不回来：不用先验训练的模型预训练只有 46.9% 存活、32.2% 成功，直接微调也只到 74.1% 与 67.0%。</p>
+<h2 id="_3">论文信息</h2>
+<ul>
+<li>原标题：DiPLO: Self-distilled Diffusion Planning for Loco-manipulation</li>
+<li>作者：Shafeef Omar、Sebastian Sanokowski、Elham Daneshmand、Dian Yu、Daniel Cremers、Cordelia Schmid、Majid Khadiv</li>
+<li>机构：慕尼黑工业大学（Technical University of Munich）、麦吉尔大学（McGill University）、法国国家信息与自动化研究所（INRIA）、慕尼黑工业大学高等研究院（Institute for Advanced Study）</li>
+<li>链接：<a href="https://arxiv.org/abs/2610.24847">arXiv:2610.24847</a></li>
+<li>日期：2026-10-17（arXiv 第一版）</li>
+<li>代码与项目页：论文未给代码仓库，只给演示视频 https://youtu.be/rDrdnYQUYoM</li>
+</ul>
+<h2 id="_4">问题背景</h2>
+<p>这篇论文站在人形移动操作（loco-manipulation）的分层控制这一层。</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>论文里的叫法</th>
+<th>输入</th>
+<th>输出</th>
+<th>频率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高层运动规划</td>
+<td>扩散规划器 <span class="arithmatex">\(G_\phi\)</span></td>
+<td>状态历史、目标 <span class="arithmatex">\(g_t\)</span>，可选 IK 参考</td>
+<td>64 帧机器人加物体运动块</td>
+<td>最高约 12.5 Hz</td>
+</tr>
+<tr>
+<td>低层跟踪</td>
+<td>通用跟踪策略 <span class="arithmatex">\(\pi_\theta\)</span></td>
+<td>本体与物体观测、参考运动特征</td>
+<td>29 维关节位置残差</td>
+<td>50 Hz</td>
+</tr>
+<tr>
+<td>任务条件</td>
+<td>IK 重定向参考 <span class="arithmatex">\(s^{IK}\)</span></td>
+<td>人体动捕经重定向</td>
+<td>每帧机器人加物体状态</td>
+<td>仅训练期</td>
+</tr>
+</tbody>
+</table>
+<p>已有路线可以分成三派。</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表工作</th>
+<th>做法</th>
+<th>卡住的地方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>动作级扩散</td>
+<td>Diffusion Policy、PDP</td>
+<td>直接扩散关节目标，无独立跟踪器</td>
+<td>动作开环，腿式机器人难稳住</td>
+</tr>
+<tr>
+<td>状态-动作扩散</td>
+<td>BeyondMimic</td>
+<td>联合扩散状态与动作，推理时引导或插值</td>
+<td>引导要一条参考轨迹，仍依赖任务条件</td>
+</tr>
+<tr>
+<td>分层扩散规划加跟踪</td>
+<td>REFINE-DP、文献[15]</td>
+<td>扩散生成运动块，低层控制器执行</td>
+<td>规划器依赖强运动学条件，或只改跟踪器</td>
+</tr>
+</tbody>
+</table>
+<p>三派都没回答的问题是：2.7 分钟数据下预训练离不开强运动学参考，部署时却只有物体目标位姿，能否拿掉参考而不牺牲存活率，并让计划对齐冻结跟踪器的可执行范围。REFINE-DP 最接近，但它的规划器分别驱动上下身控制器。</p>
+<h2 id="_5">核心思想</h2>
+<p>方法借语言模型后训练里的自蒸馏（Self-Distillation Policy Optimization，SDPO）：同一模型一份带反馈当老师、一份不带当学生，让学生分布匹配老师。DiPLO 把 token 换成去噪步，前缀换成带上下文的噪声运动块，下一 token 分布换成反向核，反馈换成 IK 参考。</p>
+<p>问题因此换了一种问法：原来问没有参考时怎么规划，现在问能不能在学生自己闭环走出来的状态上，让去噪预测匹配有参考的自己的预测。那些状态来自真实执行，含规划错与跟踪错的偏移，监督就延伸到训练数据覆盖不到的地方。第二阶段把去噪写成扩散增广马尔可夫决策过程（Diffusion-Augmented MDP，DA-MDP），每个去噪步是一个决策，执行奖励摊回整条去噪链，用最大熵 PPO 优化。两段各治一个失效：没有参考时不会规划，会规划但物体到不了目标。</p>
+<h2 id="_6">方法</h2>
+<h3 id="-so3-robotobject-motion-representation-with-so3-diffusion">机制一：机器人-物体统一表示与 SO(3) 扩散（Robot–Object Motion Representation with SO(3) Diffusion）</h3>
+<p>治的失败是把根朝向与物体朝向当 6 维欧氏特征加高斯噪声，中间样本不在流形上，跟踪器拿到会失稳；消融表里换成欧氏扩散，存活率从 96.5% 掉到 85.9%。</p>
+<p>状态把机器人运动与物体运动放进同一向量：</p>
+<div class="arithmatex">\[s_t=\big(\Delta p^{xy}_t,\ \Delta\psi_t,\ h_t,\ R_t,\ q_t;\ p^o_t,\ R^o_t\big)\]</div>
+<p>平面位移与物体朝向表达在当前机器人朝向坐标系，高度保持绝对，与全局位置和朝向无关；每帧 48 维，旋转在输入处编码成连续 6D。欧氏特征走余弦噪声表的方差保持（VP）离散扩散，预测目标是 <span class="arithmatex">\(\mathbf{v}\)</span>。旋转特征走 <span class="arithmatex">\(\mathcal{IG}_{\mathrm{SO}(3)}\)</span> 各向同性噪声的 VP 类比：先把干净旋转向锚点 <span class="arithmatex">\(A\)</span> 收缩，再乘一个以单位元为中心的噪声旋转。</p>
+<div class="arithmatex">\[M^k=A\,\mathrm{Exp}\big(\sqrt{\bar\alpha_k}\,\mathrm{Log}(A^\top R^0)\big),\qquad R^k=M^kE^k,\qquad \sigma_k^2=\sigma_{\max}^2(1-\bar\alpha_k)\]</div>
+<p>根朝向锚点是单位元、<span class="arithmatex">\(\sigma_{\max}=0.4\)</span> 弧度，物体朝向锚点是当前量测、<span class="arithmatex">\(\sigma_{\max}=0.2\)</span> 弧度。训练与推理都用 10 个去噪步，部署取反向均值不再逐级加噪。</p>
+<h3 id="sbto-augmentation-and-symmetry">机制二：用采样轨迹优化做数据增强（SBTO Augmentation and Symmetry）</h3>
+<p>治的失败是重定向只保证运动学对得上，不保证动力学可行与接触一致，29 段也撑不起扩散模型。</p>
+<p>做法是拿 DynaRetarget 的采样轨迹优化（Sampling-Based Trajectory Optimization，SBTO）当增强器：对每条演示扰动初始条件、换优化种子重解，得到同一动作的多个动力学可行变体；再叠加机器人连物体沿矢状面镜像、箱子按四分之一转的旋转对称。每个训练对是一条 IK 参考与一条可行目标。主结果表说明分工：单用对称增强预训练存活率 90.7%，单用 SBTO 变体 92.3%，合用 96.5%。</p>
+<h3 id="self-distillation-diffusion-policy-optimizationsddpo">机制三：自蒸馏去掉任务条件（Self-Distillation Diffusion Policy Optimization，SD:DPO）</h3>
+<p>治的失败是掩码预训练不够：参考被掩掉后，规划与跟踪误差把系统推到训练分布之外，那里的数据不能告诉模型下一步怎么走，存活率从 96.5% 掉到 57.7%。</p>
+<p>学生只吃 <span class="arithmatex">\((s_{t-h:t},g_t)\)</span> 与空标记 <span class="arithmatex">\(\varnothing\)</span>，老师多吃 <span class="arithmatex">\(s^{IK}_\tau\)</span>，两者都从预训练权重初始化，老师按学生权重的指数滑动平均更新。每个规划步两个提案各以 1/2 概率被选中执行前 <span class="arithmatex">\(m\)</span> 帧，学生的提案不论是否被执行都进缓冲区，失败 rollout 里已收下的也保留。训练时取一条提案、均匀采去噪级 <span class="arithmatex">\(k\)</span>、用前向核加噪，学生与老师看同一噪声块与同一上下文，只差参考那一个 token：</p>
+<div class="arithmatex">\[\mathcal{L}_{\mathrm{distill}}(\phi)=\mathbb{E}_{\mathcal{B},k,q}\Big[\mathrm{MSE}\big(\hat{\mathbf{v}}^{k,\varnothing}_\phi,\ \mathrm{sg}(\hat{\mathbf{v}}^{k,IK}_{\bar\phi})\big)+\mathrm{MSE}\big(\hat{\epsilon}^{R,k,\varnothing}_\phi,\ \mathrm{sg}(\hat{\epsilon}^{R,k,IK}_{\bar\phi})\big)\Big]\]</div>
+<p>梯度只穿学生，老师目标、缓冲提案与噪声输入都停梯度，学习不反传到仿真。损失里另有数据预训练损失和锚定损失，后者让学生带参考时的预测不偏离冻结的预训练副本。蒸馏项各级权重取 1，附录 J 的理由是精确权重在 <span class="arithmatex">\(k=1\)</span> 处发散，正权重不改变最优点。</p>
+<h3 id="diffusion-augmented-proximal-policy-optimizationdappo">机制四：冻住跟踪器做最大熵扩散强化学习（Diffusion-Augmented Proximal Policy Optimization，DA:PPO）</h3>
+<p>治的失败是能跟踪不等于物体到目标：SD:DPO 之后存活率到 100%，任务成功率只有 55.1%。</p>
+<p>DA-MDP 把 <span class="arithmatex">\(\tilde s_k=(z,\tilde a^k,k)\)</span> 当状态、下一层噪声块当动作，反向核密度可算，整块运动的边缘密度不可算。只有 <span class="arithmatex">\(k=1\)</span> 拿到执行奖励，<span class="arithmatex">\(\tilde r_k=\mathbf{1}_{\{k=1\}}r\)</span>，折扣只在环境推进时生效。软 Bellman 里普通策略的对数似然换成扩散正则项 <span class="arithmatex">\(\ell_\phi=\log[p_\phi(\tilde a^{k-1}\mid\tilde s_k)/q^k_\phi(\tilde a^k\mid\tilde a^{k-1},z)]\)</span>，<span class="arithmatex">\(-\mathcal{T}\ell_\phi\)</span> 鼓励反向过程熵：</p>
+<div class="arithmatex">\[A_i(\phi)=\mathrm{sg}\Big[A_i^{\mathrm{old}}-\mathcal{T}\big(\ell_i(\phi)-\ell_i^{\mathrm{old}}\big)\Big],\qquad \mathcal{L}(\phi)=\mathbb{E}_i\Big[-\min\big(\rho_iA_i,\ \mathrm{clip}(\rho_i,1-\epsilon,1+\epsilon)A_i\big)-\mathcal{T}\,\mathrm{sg}(\chi_i\rho_i)\log q_i(\phi)\Big]\]</div>
+<p>跟踪器全程冻结，梯度不进仿真；温度 <span class="arithmatex">\(10^{-4}\)</span>、折扣 1.0、GAE 0.95、裁剪 0.2。对照的 DPPO 风格基线把温度设 0，其余相同。温度这么小，熵正则主要是防止策略塌到单一去噪路径。</p>
+<h2 id="_7">实验</h2>
+<h3 id="_8">设置</h3>
+<p>预训练语料是 29 段 pick-carry-place 重定向数据，经 SBTO 与对称增强；去噪器是 4 层 4 头的 DiT（Diffusion Transformer），宽 256，可训练参数 5.1M；跟踪器在 mjlab 里用 PPO 训，2048 个并行环境。基线是 PDP 风格的动作扩散与 BeyondMimic 风格的状态-动作扩散，都在同一语料上做行为克隆，状态-动作数据由跟踪器 rollout 采集，共 15.4M 帧。指标为存活率、任务成功率（最终物体位姿在 15 厘米与 30 度内）、MPKPE（逐关键点位置误差，厘米）与物体位姿误差，每条运动跑 100 次，报标准误。真机是 29 自由度 Unitree G1。</p>
+<h3 id="_9">主结果</h3>
+<table>
+<thead>
+<tr>
+<th>预训练语料</th>
+<th>参考来源</th>
+<th>存活率 (%)</th>
+<th>任务成功率 (%)</th>
+<th>MPKPE (cm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SBTO 增强加对称</td>
+<td>预训练规划器</td>
+<td>96.5 ± 1.5</td>
+<td>51.9 ± 4.5</td>
+<td>8.5 ± 0.6</td>
+</tr>
+<tr>
+<td>SBTO 增强加对称</td>
+<td>DPPO 风格（<span class="arithmatex">\(\mathcal{T}=0\)</span>）</td>
+<td>99.1 ± 0.1</td>
+<td>94.0 ± 3.5</td>
+<td>4.9 ± 0.3</td>
+</tr>
+<tr>
+<td>SBTO 增强加对称</td>
+<td>DA:PPO</td>
+<td>100.0 ± 0.0</td>
+<td>96.4 ± 3.4</td>
+<td>4.3 ± 0.2</td>
+</tr>
+<tr>
+<td>SBTO 增强</td>
+<td>DA:PPO</td>
+<td>100.0 ± 0.0</td>
+<td>92.5 ± 4.7</td>
+<td>4.1 ± 0.1</td>
+</tr>
+<tr>
+<td>单用对称</td>
+<td>DA:PPO</td>
+<td>100.0 ± 0.0</td>
+<td>89.4 ± 5.0</td>
+<td>6.1 ± 0.3</td>
+</tr>
+<tr>
+<td>无增强</td>
+<td>DA:PPO</td>
+<td>93.3 ± 4.4</td>
+<td>72.3 ± 7.5</td>
+<td>8.8 ± 1.3</td>
+</tr>
+<tr>
+<td>无规划器</td>
+<td>IK 重定向轨迹</td>
+<td>93.5 ± 4.5</td>
+<td>53.0 ± 8.3</td>
+<td>8.2 ± 0.7</td>
+</tr>
+<tr>
+<td>无规划器</td>
+<td>SBTO 解</td>
+<td>100.0 ± 0.0</td>
+<td>61.6 ± 8.0</td>
+<td>6.6 ± 0.4</td>
+</tr>
+</tbody>
+</table>
+<p>最后两行不含学出来的规划器，同一个跟踪器直接跟踪 IK 轨迹或其 SBTO 解；SBTO 解把存活率从 93.5% 提到 100%，成功率只从 53.0% 提到 61.6%。增强语料加 DA:PPO 把成功率从 51.9% 推到 96.4%。</p>
+<h3 id="_10">消融</h3>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>存活率 (%)</th>
+<th>任务成功率 (%)</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>旋转走 SO(3) 扩散</td>
+<td>96.5 ± 1.5</td>
+<td>51.9 ± 4.5</td>
+<td>朝向误差 14.0 度</td>
+</tr>
+<tr>
+<td>旋转当欧氏 6D 扩散</td>
+<td>85.9 ± 5.0</td>
+<td>46.4 ± 5.7</td>
+<td>朝向误差 19.6 度</td>
+</tr>
+<tr>
+<td>动作级扩散（PDP 风格）</td>
+<td>87.5 ± 3.7</td>
+<td>45.3 ± 4.8</td>
+<td>50 Hz 重规划</td>
+</tr>
+<tr>
+<td>状态-动作扩散（引导式）</td>
+<td>58.2 ± 7.1</td>
+<td>8.2 ± 3.6</td>
+<td>关键帧插值</td>
+</tr>
+<tr>
+<td>奖励 <span class="arithmatex">\(r_{\mathrm{kin}}\)</span></td>
+<td>100.0 ± 0.0</td>
+<td>96.4 ± 3.4</td>
+<td>MPKPE 4.3 cm</td>
+</tr>
+<tr>
+<td>奖励 <span class="arithmatex">\(r_{\mathrm{goal}}\)</span></td>
+<td>100.0 ± 0.0</td>
+<td>92.9 ± 4.7</td>
+<td>MPKPE 8.0 cm</td>
+</tr>
+<tr>
+<td>微调规划器（DA:PPO）</td>
+<td>100.0 ± 0.0</td>
+<td>96.5 ± 1.5</td>
+<td>跟踪器冻结</td>
+</tr>
+<tr>
+<td>微调跟踪器（<span class="arithmatex">\(r_{\mathrm{gen}}\)</span>）</td>
+<td>99.0 ± 1.0</td>
+<td>87.9 ± 4.9</td>
+<td>规划器冻结</td>
+</tr>
+<tr>
+<td>微调跟踪器（<span class="arithmatex">\(r_{\mathrm{gen}}+r_{\mathrm{goal}}\)</span>）</td>
+<td>99.5 ± 0.3</td>
+<td>89.3 ± 5.2</td>
+<td>加目标项</td>
+</tr>
+<tr>
+<td>学生预训练（无参考）</td>
+<td>57.7 ± 9.2</td>
+<td>45.4 ± 9.0</td>
+<td>SD:DPO 起点</td>
+</tr>
+<tr>
+<td>学生加 SD:DPO</td>
+<td>100.0 ± 0.0</td>
+<td>55.1 ± 6.0</td>
+<td>只修存活</td>
+</tr>
+<tr>
+<td>学生加 DA:PPO</td>
+<td>92.1 ± 4.8</td>
+<td>92.1 ± 4.8</td>
+<td>跳过自蒸馏</td>
+</tr>
+<tr>
+<td>学生加 SD:DPO 加 DA:PPO</td>
+<td>99.5 ± 0.5</td>
+<td>98.8 ± 1.2</td>
+<td>两段都用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">反常结果与参数敏感性</h3>
+<p>踢与推拉的存活率失去区分度。Kick 上带参考的老师是 99.9% 存活、34.4% 成功，学生预训练是 100.0% 存活、1.2% 成功，加 SD:DPO 到 31.9%，再加 DA:PPO 到 68.1%；Push/Pull 的 100.0%、98.7% 存活对应 23.3%、12.8% 成功，两段后到 52.7%。附录 E 的解释是这两个任务物体始终在地上，掉落终止几乎不触发。</p>
+<p>奖励与任务的对齐程度和效果相反。<span class="arithmatex">\(r_{\mathrm{goal}}\)</span> 直接奖励物体到达目标位姿，比稠密跟踪 IK 的 <span class="arithmatex">\(r_{\mathrm{kin}}\)</span> 更贴任务定义，成功率却是 92.9% 对 96.4%，MPKPE 从 4.3 厘米涨到 8.0 厘米。作者的解释是 <span class="arithmatex">\(r_{\mathrm{kin}}\)</span> 同时在压跟踪误差。</p>
+<p>两段互补的证据更直接：SD:DPO 单独把存活率修到 100.0% 而成功率只到 55.1%，DA:PPO 单独是 92.1% 与 92.1%，两段叠加才到 99.5% 与 98.8%，无先验模型微调后只到 67.0%，缺的是预训练期的任务先验。</p>
+<p>任务先验的强弱很敏感。完整 IK 参考最好；换成未重定向的人体姿态（OMOMO 数据集）掉约 9% 存活率；每 5 帧的稀疏末端与物体参考没有明显下降；只用物体运动参考约 70%；什么都不给约 45%。起作用的是重定向后的形态可行性，不是参考的时间密度。</p>
+<p>预测时域从 20 帧到 100 帧，存活率都高于 97%，成功率最大波动 5.4 个百分点，约一个标准误；MPKPE 与物体位置误差在 <span class="arithmatex">\(n=64\)</span> 与 <span class="arithmatex">\(n=100\)</span> 最低。每秒运动所需的生成器调用从 <span class="arithmatex">\(n=20\)</span> 的 4.2 次降到 <span class="arithmatex">\(n=100\)</span> 的 0.54 次。附录声明这组绝对值不能与主实验比，因为每条运动只跑 16 次 rollout。</p>
+<p>新目标泛化用同一套极坐标网格测：示范集最远 1.9 米，最终模型在 0.5 到 5 米、每点四个朝向上约 100% 存活、88% 成功；抬起超过 12 厘米的比例，预训练学生 83%、加 SD:DPO 78%、最终 90%。真机上同一目标重复 10 次是 10/10，MPKPE 6.5 ± 0.7 厘米、最终物体位置误差 1.8 ± 0.8 厘米、朝向误差 3.4 ± 1.1 度；5 个不同目标 5/5，6.8 ± 1.1 厘米、5.7 ± 5.0 厘米、12.8 ± 12.5 度，朝向方差接近均值。</p>
+<h2 id="_12">工程实现细节</h2>
+<p>生成器在 GPU 上单独跑一个进程，跟踪器在 CPU 上走 ONNX Runtime。生成器 10 步去噪出 64 帧（1.28 秒），含通信与采样最高约 12.5 Hz；跟踪器 50 Hz，PD（比例微分）控制器 200 Hz。一块运动只执行前 56 帧，留 8 帧（160 毫秒）做前瞻，新块没到前继续执行当前块。本体观测来自关节编码器与 IMU，基座与物体位姿来自动捕。</p>
+<p>规划器每帧 48 维，历史 2 帧加当前 1 帧、64 帧参考、1 个目标 token，序列长 68 加 64。目标 <span class="arithmatex">\(g_t\)</span> 共 10 维：单位方向 3 维、相对旋转的 6D 表示 6 维、位移长度 1 维且截断在 1 米，都是从当前物体位姿出发的残差。</p>
+<p>预训练用 AdamW，学习率 <span class="arithmatex">\(10^{-4}\)</span>、权重衰减 0.05、余弦退火到 1%，批大小 1024 个窗口，150k 梯度步，梯度裁剪 0.5，EMA 0.9995，dropout 0.1。损失权重是关节 20、根位移 10、根高与物体位置和朝向各 5、根残差朝向 3、朝向变化 2。</p>
+<p>DA:PPO 同为 AdamW，温度 <span class="arithmatex">\(10^{-4}\)</span>，折扣 1.0，GAE 0.95，裁剪 0.2，每迭代 2 个 epoch，minibatch 1024 个去噪转移，每环境每迭代 16 个块，500 次迭代，2048 个并行环境，生成器学习率 <span class="arithmatex">\(10^{-6}\)</span>，评论家 <span class="arithmatex">\(10^{-4}\)</span>（3 层 256 宽残差 MLP，Mish），奖励归一化用滑动标准差并裁剪到正负 10。</p>
+<p><span class="arithmatex">\(r_{\mathrm{kin}}\)</span> 六项：锚点位置与朝向各 0.25，身体位置与朝向各 0.5，物体位置与朝向各 0.25，块内终止扣 5.0；<span class="arithmatex">\(r_{\mathrm{goal}}\)</span> 的目标位姿项权重 5.0（位置尺度 7.8 厘米、朝向尺度 0.244 弧度）加存活项 1.0。终止四条：躯干或腕踝高度误差超 0.25 米，物体高度误差超 1 米，z 向重力分量差超 0.8，基座角速度任一分量超 8.73 弧度每秒；10 秒上限内没失败算超时。重置随机化到物体位置正负 0.05、0.05、0.0125 米与关节正负 0.1 弧度，推力阶段物体线速度正负 0.35 米每秒、角速度正负 0.9 弧度每秒，间隔 2 到 5 秒。</p>
+<h2 id="_13">我的判断</h2>
+<p>设计的支点是把参考轨迹从部署输入降成训练期老师，跟人形机器人的约束对得上：欠驱动系统把平衡交给高频反馈，高层只输出运动意图。两段后训练的分工在消融表里展示得很干净，SD:DPO 修存活（57.7 到 100.0），DA:PPO 修成功（55.1 到 98.8），单用任何一个都差一截。SO(3) 扩散把存活率从 85.9% 抬到 96.5%，SBTO 加对称增强把无增强语料的成功率从 72.3% 抬到 96.4%，都是单价很低的改动。</p>
+<p>成本论文基本没报。SBTO 每条运动要重解多少次、SD:DPO 与 DA:PPO 各要多少 GPU 小时、150k 步预训练在什么卡上跑，都没有，只给了迭代数与环境数。真机只有 15 次尝试，没有失败模式统计，也没换物体与地形。物体是单一纸箱，四分之一转对称增强也依赖它的形状。</p>
+<p>指标口径偏松，这里需要打折扣。成功容限 15 厘米与 30 度，掉落判据是物体高度误差超 1 米，摔倒判据是 0.25 米，对这类任务相当宽。踢和推拉的存活率饱和到 98.7% 以上，这个指标在非抓取任务上几乎不携带信息，读表应该只看成功率。真机不同目标的朝向误差 12.8 ± 12.5 度，方差接近均值，说明相当一部分执行没对上朝向。</p>
+<p>规划器只有 5.1M 参数、4 层 DiT，论文没做规模消融。容量更大时 50% 掩码预训练是否足以覆盖无参考的情形，SD:DPO 是否仍然必要，现有实验判断不了。任务专用性也没讨论：三类任务各自预训练各自的语料，跨技能联合训练被列进未来工作。</p>
+<p>照着做的话，先确认手上有 IK 重定向能力。没有就按无先验路线走，接受 67.0% 的成功率上限，硬上 SD:DPO 也补不回预训练期缺的任务先验。有数据的话先固定 SBTO 加对称语料与 SO(3) 扩散，再谈两段后训练。部署按 12.5 Hz 生成、50 Hz 跟踪排预算，改去噪步数或预测时域要连带重测执行帧数 <span class="arithmatex">\(m\)</span>，因为 <span class="arithmatex">\(m=n-8\)</span> 来自跟踪器只看 8 帧前瞻。</p>
+<h2 id="_14">延伸阅读</h2>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>与本文的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DynaRetarget（SBTO）</td>
+<td>把 IK 参考修成动力学可行轨迹，本文当增强器反复调用</td>
+</tr>
+<tr>
+<td>OmniRetarget</td>
+<td>29 段重定向数据的来源</td>
+</tr>
+<tr>
+<td>SDPO</td>
+<td>SD:DPO 的直接前身，用带反馈的自己做老师</td>
+</tr>
+<tr>
+<td>DA-MDP 与 DA:PPO</td>
+<td>第二阶段 RL 的算法基础，去噪步写成最大熵 MDP</td>
+</tr>
+<tr>
+<td>REFINE-DP</td>
+<td>最接近的分层方案，规划器分别驱动上下身控制器</td>
+</tr>
+<tr>
+<td>BeyondMimic</td>
+<td>状态-动作扩散基线，本文复现其引导式采样</td>
+</tr>
+<tr>
+<td>PDP</td>
+<td>动作级扩散基线，只扩散动作分布</td>
+</tr>
+<tr>
+<td>OmniH2O</td>
+<td>特权观测蒸馏的先例，本文把特权换成任务先验</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/" class="btn btn-neutral float-left" title="人形机器人钻低杆过窄缝：碰撞标签造在没扫过的空间里"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/" class="btn btn-neutral float-right" title="不看也不摸：只靠关节编码器，把销插进 0.5 毫米的孔">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../20261019_SWAP_%E6%89%AB%E6%8E%A0%E4%BD%93%E6%A0%87%E6%B3%A8_%E6%B5%8B%E8%AF%95%E6%97%B6%E9%87%87%E6%A0%B7%E5%BC%95%E5%AF%BC/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../20261016_BlindAssembly_%E5%8F%AA%E9%9D%A0%E5%85%B3%E8%8A%82%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E7%9B%B2%E6%8F%92/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../javascripts/mathjax.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
